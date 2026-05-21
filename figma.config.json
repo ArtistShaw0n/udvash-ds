@@ -1,0 +1,11 @@
+{
+  "codeConnect": {
+    "parser": "react",
+    "include": ["src/components/**/*.{tsx,figma.tsx}"],
+    "exclude": ["node_modules/**", ".next/**", "storybook-static/**"],
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "label": "Udvash-Unmesh DS"
+  }
+}
