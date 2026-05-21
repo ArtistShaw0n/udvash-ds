@@ -14,11 +14,28 @@ import { Modal } from "@/components/Modal";
 import { Toast } from "@/components/Toast";
 import { FooterMenu, type FooterTab } from "@/components/FooterMenu";
 import { Header, useDarkMode } from "@/components/Header";
+import { Dropdown } from "@/components/Dropdown";
+import { OTPInput } from "@/components/OTPInput";
+import { PhoneInput } from "@/components/PhoneInput";
+import { Tabs } from "@/components/Tabs";
+import { SearchBar } from "@/components/SearchBar";
+import { Checkbox } from "@/components/Checkbox";
+import { RadioGroup } from "@/components/RadioGroup";
+import { Switch } from "@/components/Switch";
+import { Divider } from "@/components/Divider";
+import { Skeleton } from "@/components/Skeleton";
 
 export default function Home() {
   const { isDark, toggle } = useDarkMode();
   const [modalOpen, setModalOpen] = useState(false);
   const [tab, setTab] = useState<FooterTab>("home");
+  const [dropdownVal, setDropdownVal] = useState<"sm" | "md" | "lg">("md");
+  const [otp, setOtp] = useState("");
+  const [phone, setPhone] = useState("");
+  const [search, setSearch] = useState("");
+  const [agree, setAgree] = useState(false);
+  const [plan, setPlan] = useState<"basic" | "pro" | "max">("basic");
+  const [notif, setNotif] = useState(true);
 
   return (
     <div className="min-h-screen bg-surface text-ink">
@@ -143,6 +160,101 @@ export default function Home() {
           </div>
         </Section>
 
+        <Section title="More Form Elements">
+          <div className="space-y-6">
+            <Field label="Dropdown">
+              <Dropdown
+                options={[
+                  { value: "sm", label: "Small" },
+                  { value: "md", label: "Medium" },
+                  { value: "lg", label: "Large" },
+                ]}
+                value={dropdownVal}
+                onChange={setDropdownVal}
+              />
+            </Field>
+            <Field label="OTP Input">
+              <OTPInput length={6} value={otp} onChange={setOtp} />
+            </Field>
+            <Field label="Phone Input">
+              <PhoneInput countryCode="+880" value={phone} onChange={setPhone} />
+            </Field>
+            <Field label="Search Bar">
+              <SearchBar
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onClear={() => setSearch("")}
+                placeholder="Search courses, chapters…"
+              />
+            </Field>
+          </div>
+        </Section>
+
+        <Section title="Selections">
+          <div className="flex flex-wrap gap-12">
+            <div className="space-y-3">
+              <p className="text-sm text-muted">Checkbox</p>
+              <Checkbox checked={agree} onChange={setAgree} label="I agree to the terms" />
+            </div>
+            <div className="space-y-3">
+              <p className="text-sm text-muted">Switch</p>
+              <Switch checked={notif} onChange={setNotif} label="Email notifications" />
+            </div>
+            <div className="space-y-3">
+              <p className="text-sm text-muted">Radio Group</p>
+              <RadioGroup
+                name="plan"
+                value={plan}
+                onChange={setPlan}
+                options={[
+                  { value: "basic", label: "Basic" },
+                  { value: "pro", label: "Pro" },
+                  { value: "max", label: "Max" },
+                ]}
+              />
+            </div>
+          </div>
+        </Section>
+
+        <Section title="Tabs">
+          <div className="space-y-6">
+            <Tabs
+              variant="segment"
+              tabs={[
+                { id: "live", label: "Live", content: <p className="text-md text-muted">Currently live classes appear here.</p> },
+                { id: "upcoming", label: "Upcoming", content: <p className="text-md text-muted">Upcoming sessions appear here.</p> },
+                { id: "past", label: "Past", content: <p className="text-md text-muted">Past recordings appear here.</p> },
+              ]}
+            />
+            <Tabs
+              variant="underline"
+              tabs={[
+                { id: "notes", label: "Notes" },
+                { id: "quiz", label: "Quiz" },
+                { id: "doubt", label: "Doubts" },
+              ]}
+            />
+          </div>
+        </Section>
+
+        <Section title="Divider & Skeleton">
+          <div className="space-y-6">
+            <Divider label="OR" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-1/2" />
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-1/3" />
+            </div>
+            <div className="flex items-center gap-3">
+              <Skeleton shape="rounded-full" className="size-12" />
+              <div className="space-y-2 flex-1">
+                <Skeleton className="h-3 w-1/4" />
+                <Skeleton className="h-3 w-2/3" />
+              </div>
+            </div>
+          </div>
+        </Section>
+
         <Section title="Sample screens">
           <div className="flex flex-wrap gap-4">
             <Link href="/login" className="block w-[280px] rounded-md border border-line p-4 hover:bg-brand-subtle transition-colors">
@@ -156,7 +268,7 @@ export default function Home() {
           </div>
         </Section>
 
-        <p className="text-sm text-muted">Built from <code className="bg-surface-subtle px-1.5 py-0.5 rounded-xs">audit/specs/</code>. 12 components shipped · 130+ remaining per Figma source.</p>
+        <p className="text-sm text-muted">Built from <code className="bg-surface-subtle px-1.5 py-0.5 rounded-xs">audit/specs/</code>. 22 components shipped · 120+ remaining per Figma source.</p>
       </main>
 
       <div className="fixed bottom-0 inset-x-0 max-w-[1200px] mx-auto">
