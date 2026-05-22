@@ -48,7 +48,7 @@ export function Sheet({
       >
         {(title || showClose) && (
           <div className="flex items-center justify-between px-4 py-3 border-b border-line-subtle">
-            {title && <h2 className="text-lg font-semibold text-ink">{title}</h2>}
+            {title && <h2 className="text-lg md:text-xl font-semibold text-ink">{title}</h2>}
             {showClose && (
               <button
                 type="button"

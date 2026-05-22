@@ -29,7 +29,7 @@ export function ProgramListCard({
   return (
     <article
       className={cn(
-        "w-[336px] rounded-md bg-surface shadow-sm border border-line overflow-hidden flex flex-col",
+        "w-[336px] md:w-[432px] lg:w-[528px] rounded-md bg-surface shadow-sm border border-line overflow-hidden flex flex-col",
         className
       )}
     >
@@ -47,7 +47,7 @@ export function ProgramListCard({
         )}
       </div>
       <div className="p-4 space-y-2 flex-1 flex flex-col">
-        <h3 className={cn("text-lg font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
+        <h3 className={cn("text-lg md:text-xl font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
         {subtitle && <p className={cn("text-sm text-muted", bangla && "font-bangla")}>{subtitle}</p>}
         {description && <p className="text-md text-muted flex-1">{description}</p>}
         <Button variant={enrolled ? "secondary" : "primary"} size="md" className="w-full mt-2" onClick={onEnroll}>

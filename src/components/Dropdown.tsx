@@ -37,7 +37,7 @@ export function Dropdown<T extends string>({
   return (
     <div
       ref={wrapRef}
-      className={cn("relative w-full max-w-[336px]", className)}
+      className={cn("relative w-full max-w-[336px] md:w-[432px] lg:w-[528px]", className)}
     >
       <button
         type="button"

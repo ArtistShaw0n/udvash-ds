@@ -18,7 +18,7 @@ export function Header({
 }: HeaderProps) {
   return (
     <header className={cn(
-      "flex items-center justify-between h-[50px] w-full px-3 bg-surface shadow-sm"
+      "flex items-center justify-between h-[50px] md:h-[60px] lg:h-[64px] w-full px-3 bg-surface shadow-sm"
     )}>
       {/* Logo + brand text */}
       <div className="flex items-center gap-2">

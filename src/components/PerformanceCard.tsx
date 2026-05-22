@@ -24,12 +24,12 @@ export function PerformanceCard({
   return (
     <section
       className={cn(
-        "w-[336px] bg-surface rounded-md shadow-sm border border-line p-4 space-y-3",
+        "w-[336px] md:w-[432px] lg:w-[528px] bg-surface rounded-md shadow-sm border border-line p-4 space-y-3",
         className
       )}
     >
       <header className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-ink">{title}</h3>
+        <h3 className="text-lg md:text-xl font-semibold text-ink">{title}</h3>
         {filter}
       </header>
       {rows && rows.length > 0 && (

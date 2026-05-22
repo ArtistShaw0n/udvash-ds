@@ -28,11 +28,11 @@ export function MasterClassCard({
   return (
     <article
       className={cn(
-        "w-[336px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
+        "w-[336px] md:w-[432px] lg:w-[528px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
         className
       )}
     >
-      <h3 className={cn("text-lg font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
+      <h3 className={cn("text-lg md:text-xl font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
       {(date || duration) && (
         <div className="flex items-center gap-4 text-md text-muted">
           {date && (

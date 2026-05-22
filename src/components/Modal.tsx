@@ -50,7 +50,7 @@ export function Modal({
         {/* Drag handle on mobile */}
         <div className="md:hidden w-10 h-1 rounded-full bg-line-strong mx-auto" aria-hidden />
 
-        {title && <h2 id="modal-title" className="text-lg font-semibold text-ink">{title}</h2>}
+        {title && <h2 id="modal-title" className="text-lg md:text-xl font-semibold text-ink">{title}</h2>}
         {description && <p className="text-md text-muted">{description}</p>}
         {children}
 

@@ -25,7 +25,7 @@ export function PhoneInput({
   return (
     <div
       className={cn(
-        "flex items-stretch w-full max-w-[336px] h-10 rounded-sm border bg-surface overflow-hidden",
+        "flex items-stretch w-full max-w-[336px] md:w-[432px] lg:w-[528px] h-10 rounded-sm border bg-surface overflow-hidden",
         invalid ? "border-error" : "border-line",
         disabled && "bg-disabled border-line-disabled",
         className

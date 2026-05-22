@@ -34,12 +34,12 @@ export function LiveExamCard({
   return (
     <article
       className={cn(
-        "w-[336px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
+        "w-[336px] md:w-[432px] lg:w-[528px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
         className
       )}
     >
       <header className="flex items-start justify-between gap-2">
-        <h3 className={cn("text-lg font-semibold text-ink flex-1", bangla && "font-bangla")}>
+        <h3 className={cn("text-lg md:text-xl font-semibold text-ink flex-1", bangla && "font-bangla")}>
           {title}
         </h3>
         {isLive && !ended && <Badge variant="info">Live</Badge>}

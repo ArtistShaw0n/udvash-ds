@@ -12,8 +12,8 @@ type DrawerProps = {
 };
 
 const sideClasses = {
-  left:   "left-0 top-0 h-full w-[280px] md:w-[336px] animate-[slide-right_200ms_ease-out]",
-  right:  "right-0 top-0 h-full w-[280px] md:w-[336px] animate-[slide-left_200ms_ease-out]",
+  left:   "left-0 top-0 h-full w-[280px] md:w-[336px] md:w-[432px] lg:w-[528px] animate-[slide-right_200ms_ease-out]",
+  right:  "right-0 top-0 h-full w-[280px] md:w-[336px] md:w-[432px] lg:w-[528px] animate-[slide-left_200ms_ease-out]",
   top:    "top-0 inset-x-0 h-1/3 animate-[slide-down_200ms_ease-out]",
   bottom: "bottom-0 inset-x-0 max-h-3/4 rounded-t-md animate-[slide-up_200ms_ease-out]",
 };

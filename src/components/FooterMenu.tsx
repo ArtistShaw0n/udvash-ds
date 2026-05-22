@@ -20,7 +20,7 @@ const tabs: { id: FooterTab; label: string; icon: ReactNode }[] = [
 export function FooterMenu({ active, onTabChange }: FooterMenuProps) {
   return (
     <nav
-      className="flex w-full h-[66px] bg-surface shadow-[var(--shadow-sm-inverse)] rounded-t-md border-t border-line-subtle"
+      className="flex w-full h-[66px] md:h-[72px] lg:h-[80px] bg-surface shadow-[var(--shadow-sm-inverse)] rounded-t-md border-t border-line-subtle"
       aria-label="Bottom navigation"
     >
       {tabs.map((tab) => {

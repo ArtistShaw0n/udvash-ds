@@ -19,7 +19,7 @@ export function ServiceBlockedCard({
   return (
     <article
       className={cn(
-        "w-[336px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3 text-center",
+        "w-[336px] md:w-[432px] lg:w-[528px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3 text-center",
         className
       )}
     >
@@ -28,7 +28,7 @@ export function ServiceBlockedCard({
           <span className="text-7xl" aria-hidden>🚫</span>
         </div>
       )}
-      <h3 className="text-lg font-semibold text-ink">{title}</h3>
+      <h3 className="text-lg md:text-xl font-semibold text-ink">{title}</h3>
       <p className="text-md text-muted">{description}</p>
       <span
         role="status"

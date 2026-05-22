@@ -10,7 +10,7 @@ type BaseProps = {
   className?: string;
 };
 
-const headerBase = "flex items-center justify-between w-full h-[50px] px-3";
+const headerBase = "flex items-center justify-between w-full h-[50px] md:h-[60px] lg:h-[64px] px-3";
 
 /** Pattern/InFrame-Header-Light — main app header, light mode: logo + bell+badge + avatar */
 export function InFrameHeaderLight({

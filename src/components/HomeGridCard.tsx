@@ -25,7 +25,7 @@ export function HomeGridCard({
       type="button"
       onClick={onClick}
       className={cn(
-        "relative flex items-center gap-2 w-[176px] h-[60px] px-2 py-2 rounded-sm bg-surface border border-line-subtle shadow-xs text-left transition-colors hover:bg-surface-subtle",
+        "relative flex items-center gap-2 w-[176px] md:w-[224px] lg:w-[272px] h-[60px] px-2 py-2 rounded-sm bg-surface border border-line-subtle shadow-xs text-left transition-colors hover:bg-surface-subtle",
         className
       )}
     >

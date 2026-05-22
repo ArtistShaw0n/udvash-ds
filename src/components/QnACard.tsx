@@ -31,7 +31,7 @@ export function QnACard({
   return (
     <article
       className={cn(
-        "w-[336px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
+        "w-[336px] md:w-[432px] lg:w-[528px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
         className
       )}
     >

@@ -30,12 +30,12 @@ export function ProfileCard({
   return (
     <article
       className={cn(
-        "w-[267px] bg-surface rounded-md border border-line p-4 flex flex-col items-center text-center space-y-3",
+        "w-[267px] md:w-[320px] lg:w-[380px] bg-surface rounded-md border border-line p-4 flex flex-col items-center text-center space-y-3",
         className
       )}
     >
       <Avatar src={avatarSrc} initials={avatarInitials ?? name[0]} size="lg" />
-      <h3 className={cn("text-lg font-semibold text-ink", bangla && "font-bangla")}>{name}</h3>
+      <h3 className={cn("text-lg md:text-xl font-semibold text-ink", bangla && "font-bangla")}>{name}</h3>
       {rows && rows.length > 0 && (
         <ul className="w-full space-y-2 text-left">
           {rows.map((row) => (

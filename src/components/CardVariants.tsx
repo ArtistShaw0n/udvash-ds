@@ -22,8 +22,8 @@ type TagCardProps = {
 /** Card/Tag-Short — 336×187 short card with header + tag row */
 export function CardTagShort({ title, tags, onTagClick, bangla, className }: TagCardProps) {
   return (
-    <article className={cn("w-[336px] min-h-[187px] rounded-md bg-surface border border-line p-4 space-y-3", className)}>
-      <h3 className={cn("text-lg font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
+    <article className={cn("w-[336px] md:w-[432px] lg:w-[528px] min-h-[187px] rounded-md bg-surface border border-line p-4 space-y-3", className)}>
+      <h3 className={cn("text-lg md:text-xl font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
       <div className="flex flex-wrap gap-2">
         {tags.map((t) => (
           <Tag
@@ -43,8 +43,8 @@ export function CardTagShort({ title, tags, onTagClick, bangla, className }: Tag
 /** Card/Tag-Single — 336×333 single-tag-section card with description */
 export function CardTagSingle({ title, tags, description, onTagClick, bangla, className }: TagCardProps) {
   return (
-    <article className={cn("w-[336px] min-h-[333px] rounded-md bg-surface border border-line p-4 space-y-3", className)}>
-      <h3 className={cn("text-lg font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
+    <article className={cn("w-[336px] md:w-[432px] lg:w-[528px] min-h-[333px] rounded-md bg-surface border border-line p-4 space-y-3", className)}>
+      <h3 className={cn("text-lg md:text-xl font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
       {description && <p className={cn("text-md text-muted", bangla && "font-bangla")}>{description}</p>}
       <div className="flex flex-wrap gap-2 pt-2">
         {tags.map((t) => (
@@ -69,8 +69,8 @@ type TagDoubleProps = {
 /** Card/Tag-Double — 336×540 two-section tag card */
 export function CardTagDouble({ title, sectionA, sectionB, onTagClick, bangla, className }: TagDoubleProps) {
   return (
-    <article className={cn("w-[336px] min-h-[540px] rounded-md bg-surface border border-line p-4 space-y-4", className)}>
-      <h3 className={cn("text-lg font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
+    <article className={cn("w-[336px] md:w-[432px] lg:w-[528px] min-h-[540px] rounded-md bg-surface border border-line p-4 space-y-4", className)}>
+      <h3 className={cn("text-lg md:text-xl font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
       {[{ key: "a" as const, ...sectionA }, { key: "b" as const, ...sectionB }].map((s) => (
         <div key={s.key} className="space-y-2">
           <p className={cn("text-sm font-medium text-muted", bangla && "font-bangla")}>{s.heading}</p>
@@ -120,7 +120,7 @@ export function CardViewProfile({
   return (
     <article
       className={cn(
-        "w-[336px] min-h-[605px] rounded-md bg-surface border border-line p-5 flex flex-col items-center text-center space-y-4",
+        "w-[336px] md:w-[432px] lg:w-[528px] min-h-[605px] rounded-md bg-surface border border-line p-5 flex flex-col items-center text-center space-y-4",
         className
       )}
     >
@@ -159,7 +159,7 @@ export function CardProfileSubcardRow1({ label, value, icon, className }: Profil
   return (
     <div
       className={cn(
-        "flex items-center gap-2 w-[336px] h-[34px] px-3 rounded-sm bg-surface-subtle text-sm",
+        "flex items-center gap-2 w-[336px] md:w-[432px] lg:w-[528px] h-[34px] px-3 rounded-sm bg-surface-subtle text-sm",
         className
       )}
     >
@@ -175,7 +175,7 @@ export function CardProfileSubcardRow2({ label, value, icon, className }: Profil
   return (
     <div
       className={cn(
-        "flex items-center gap-2 w-[336px] h-[28px] px-2.5 rounded-xs text-xs",
+        "flex items-center gap-2 w-[336px] md:w-[432px] lg:w-[528px] h-[28px] px-2.5 rounded-xs text-xs",
         className
       )}
     >
@@ -214,7 +214,7 @@ export function CardCommunitySearchAvatar({
       type="button"
       onClick={onClick}
       className={cn(
-        "flex items-center gap-2 w-[336px] h-[42px] px-2 rounded-sm bg-surface hover:bg-surface-subtle text-left transition-colors",
+        "flex items-center gap-2 w-[336px] md:w-[432px] lg:w-[528px] h-[42px] px-2 rounded-sm bg-surface hover:bg-surface-subtle text-left transition-colors",
         className
       )}
     >
@@ -257,7 +257,7 @@ export function CardCourseContentVariant19({
       type="button"
       onClick={onClick}
       className={cn(
-        "flex items-stretch gap-3 w-[336px] h-[91px] px-3 py-3 rounded-sm border border-line-subtle bg-surface shadow-xs text-left",
+        "flex items-stretch gap-3 w-[336px] md:w-[432px] lg:w-[528px] h-[91px] px-3 py-3 rounded-sm border border-line-subtle bg-surface shadow-xs text-left",
         className
       )}
     >
@@ -293,7 +293,7 @@ export function CardCourseContentVariant20({
       type="button"
       onClick={onClick}
       className={cn(
-        "flex items-stretch gap-3 w-[336px] h-[91px] px-3 py-3 rounded-sm border border-line-subtle bg-surface-subtle text-left",
+        "flex items-stretch gap-3 w-[336px] md:w-[432px] lg:w-[528px] h-[91px] px-3 py-3 rounded-sm border border-line-subtle bg-surface-subtle text-left",
         className
       )}
     >

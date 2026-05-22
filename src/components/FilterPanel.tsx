@@ -34,12 +34,12 @@ export function FilterPanel({
       role="dialog"
       aria-label={title}
       className={cn(
-        "w-[360px] rounded-lg bg-surface shadow-md border border-line-subtle p-3 space-y-3",
+        "w-[360px] md:w-[432px] lg:w-[528px] rounded-lg bg-surface shadow-md border border-line-subtle p-3 space-y-3",
         className
       )}
     >
       <header className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-ink">{title}</h3>
+        <h3 className="text-lg md:text-xl font-semibold text-ink">{title}</h3>
         <button
           type="button"
           onClick={onClose}

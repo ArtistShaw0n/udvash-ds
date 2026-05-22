@@ -30,12 +30,12 @@ export function SubjectWiseSummary({
   return (
     <section
       className={cn(
-        "w-[336px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
+        "w-[336px] md:w-[432px] lg:w-[528px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
         className
       )}
     >
       <header className="flex items-center justify-between">
-        <h3 className={cn("text-lg font-semibold text-ink", bangla && "font-bangla")}>{subject}</h3>
+        <h3 className={cn("text-lg md:text-xl font-semibold text-ink", bangla && "font-bangla")}>{subject}</h3>
         <ScoreGauge score={score} outOf={outOf} />
       </header>
       <PositionLabel position={position} />

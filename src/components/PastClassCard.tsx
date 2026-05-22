@@ -36,7 +36,7 @@ export function PastClassCard({
   return (
     <article
       className={cn(
-        "w-[336px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
+        "w-[336px] md:w-[432px] lg:w-[528px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
         className
       )}
     >
@@ -45,7 +45,7 @@ export function PastClassCard({
       </div>
       <header className="flex items-start justify-between gap-2">
         <div>
-          <h3 className={cn("text-lg font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
+          <h3 className={cn("text-lg md:text-xl font-semibold text-ink", bangla && "font-bangla")}>{title}</h3>
           {chapter && <p className={cn("text-sm text-muted mt-0.5", bangla && "font-bangla")}>{chapter}</p>}
         </div>
         <div className="flex flex-col items-end gap-1">

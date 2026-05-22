@@ -16,7 +16,7 @@ export function Input({
   return (
     <div
       className={cn(
-        "flex items-center w-full max-w-[336px] h-10 px-3 rounded-sm border bg-surface transition-colors",
+        "flex items-center w-full max-w-[336px] md:w-[432px] lg:w-[528px] h-10 px-3 rounded-sm border bg-surface transition-colors",
         invalid ? "border-error" : "border-line",
         disabled ? "bg-disabled border-line-disabled" : "focus-within:border-line-brand focus-within:ring-2 focus-within:ring-line-brand/20",
         className

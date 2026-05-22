@@ -31,7 +31,7 @@ export function CommunityRow({
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
       className={cn(
-        "flex items-center gap-3 w-[336px] min-h-[62px] px-3 py-1.5 border-b border-line-subtle transition-colors",
+        "flex items-center gap-3 w-[336px] md:w-[432px] lg:w-[528px] min-h-[62px] px-3 py-1.5 border-b border-line-subtle transition-colors",
         onClick && "cursor-pointer hover:bg-surface-subtle",
         className
       )}
