@@ -31,7 +31,7 @@ export function SolveSheetCard({
   return (
     <article
       className={cn(
-        "w-[328px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
+        "w-[336px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
         size === "sm" ? "min-h-[259px]" : "min-h-[281px]",
         className
       )}

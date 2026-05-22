@@ -34,7 +34,7 @@ export function LiveExamCard({
   return (
     <article
       className={cn(
-        "w-[328px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
+        "w-[336px] rounded-md bg-surface shadow-sm border border-line p-4 space-y-3",
         className
       )}
     >

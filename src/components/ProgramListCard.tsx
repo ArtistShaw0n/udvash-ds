@@ -29,7 +29,7 @@ export function ProgramListCard({
   return (
     <article
       className={cn(
-        "w-[328px] rounded-md bg-surface shadow-sm border border-line overflow-hidden flex flex-col",
+        "w-[336px] rounded-md bg-surface shadow-sm border border-line overflow-hidden flex flex-col",
         className
       )}
     >

@@ -34,7 +34,7 @@ export function FilterPanel({
       role="dialog"
       aria-label={title}
       className={cn(
-        "w-[328px] rounded-lg bg-surface shadow-md border border-line-subtle p-3 space-y-3",
+        "w-[360px] rounded-lg bg-surface shadow-md border border-line-subtle p-3 space-y-3",
         className
       )}
     >

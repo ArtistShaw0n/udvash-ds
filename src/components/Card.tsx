@@ -21,7 +21,7 @@ export function Card({
   return (
     <div
       className={cn(
-        "flex items-center w-[336px] md:w-[432px] lg:w-[528px] rounded-lg bg-surface shadow-md px-3 py-2",
+        "flex items-center w-[336px] rounded-lg bg-surface shadow-md px-3 py-2",
         className
       )}
       {...rest}

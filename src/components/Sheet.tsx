@@ -41,7 +41,7 @@ export function Sheet({
     >
       <div
         className={cn(
-          "w-full md:w-[328px] bg-surface rounded-t-xl md:rounded-xl shadow-lg flex flex-col overflow-hidden",
+          "w-full md:w-[360px] bg-surface rounded-t-xl md:rounded-xl shadow-lg flex flex-col overflow-hidden",
           size === "short" ? "max-h-[471px]" : "max-h-[622px]"
         )}
         onClick={(e) => e.stopPropagation()}

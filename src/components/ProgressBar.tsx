@@ -10,7 +10,7 @@ type ProgressBarProps = {
 export function ProgressBar({ value, max = 100, className, label }: ProgressBarProps) {
   const pct = Math.max(0, Math.min(100, (value / max) * 100));
   return (
-    <div className={cn("w-full max-w-[264px] md:max-w-[360px] lg:max-w-[480px]", className)}>
+    <div className={cn("w-full max-w-[336px]", className)}>
       {label && (
         <div className="flex justify-between text-sm text-muted mb-1.5">
           <span>{label}</span>

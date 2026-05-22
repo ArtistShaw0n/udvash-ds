@@ -24,7 +24,7 @@ export function PerformanceCard({
   return (
     <section
       className={cn(
-        "w-[328px] bg-surface rounded-md shadow-sm border border-line p-4 space-y-3",
+        "w-[336px] bg-surface rounded-md shadow-sm border border-line p-4 space-y-3",
         className
       )}
     >

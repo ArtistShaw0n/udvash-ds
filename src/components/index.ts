@@ -75,3 +75,31 @@ export { Tooltip } from "./Tooltip";
 export { TotalRow } from "./TotalRow";
 export { Text, type TextStyle } from "./Typography";
 export { VideoControls } from "./VideoControls";
+
+// Variant batches (faithful to Figma DS 1:1)
+export {
+  BadgeLive, BadgeLiveCyan, BadgeHighest, BadgeLowest,
+  BadgeBranchRed, BadgeBranchSmall, BadgePastClass, BadgeDate,
+  BadgeSize, BadgeSizeS, BadgeSizeM, BadgeSizeL,
+} from "./BadgeVariants";
+export {
+  ButtonNextMedium, ButtonNextMini, ButtonPlayOffline, ButtonWidePrimary,
+} from "./ButtonVariants";
+export {
+  TagCountryCode, TagLanguageContainer, TagTabChipNarrow, TagTabChipWide,
+} from "./TagVariants";
+export {
+  VideoTab, VideoTabDoubt, VideoTabNotes, VideoTabQuiz, VideoTabVideo, VideoTabBar,
+} from "./VideoTab";
+export {
+  InFrameHeaderLight, InFrameHeaderDark, InFrameHeaderAuth,
+  InFrameHeaderReg, InFrameHeaderAlt,
+} from "./InFrameHeader";
+export {
+  CardTagShort, CardTagSingle, CardTagDouble,
+  CardViewProfile,
+  CardProfileSubcardRow1, CardProfileSubcardRow2,
+  CardCommunitySearchAvatar,
+  CardCourseContentVariant19, CardCourseContentVariant20,
+} from "./CardVariants";
+export { DownloadStatus } from "./DownloadStatus";

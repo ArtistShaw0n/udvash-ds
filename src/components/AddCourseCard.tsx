@@ -25,7 +25,7 @@ export function AddCourseCard({
   return (
     <label
       className={cn(
-        "flex items-center gap-3 w-[360px] min-h-[54px] px-3 py-2 rounded-sm bg-surface border border-line-subtle cursor-pointer transition-colors",
+        "flex items-center gap-3 w-[336px] min-h-[54px] px-3 py-2 rounded-sm bg-surface border border-line-subtle cursor-pointer transition-colors",
         checked && "bg-brand-subtle border-line-brand",
         className
       )}

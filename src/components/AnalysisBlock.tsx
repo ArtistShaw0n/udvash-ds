@@ -26,7 +26,7 @@ export function AnalysisBlock({
   return (
     <section
       className={cn(
-        "w-[360px] rounded-md bg-surface border border-line p-4 space-y-3",
+        "w-[336px] rounded-md bg-surface border border-line p-4 space-y-3",
         className
       )}
     >

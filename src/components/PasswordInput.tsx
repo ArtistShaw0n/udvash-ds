@@ -18,7 +18,7 @@ export function PasswordInput({
   return (
     <div
       className={cn(
-        "flex items-center w-[280px] md:w-[360px] lg:w-[480px] h-10 px-3 rounded-sm border bg-surface transition-colors",
+        "flex items-center w-full max-w-[336px] h-10 px-3 rounded-sm border bg-surface transition-colors",
         invalid ? "border-error" : "border-line",
         disabled ? "bg-disabled border-line-disabled" : "focus-within:border-line-brand focus-within:ring-2 focus-within:ring-line-brand/20",
         className
