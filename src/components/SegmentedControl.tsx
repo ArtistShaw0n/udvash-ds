@@ -1,8 +1,9 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Segment = { label: string; value: string };
+type Segment = { label: string; value: string; icon?: ReactNode };
 
 type SegmentedControlProps = {
   segments: Segment[];
@@ -35,13 +36,14 @@ export function SegmentedControl({
             key={s.value}
             type="button"
             role="tab"
-            aria-selected={active}
+            aria-selected={active ? "true" : "false"}
             onClick={() => onChange(s.value)}
             className={cn(
-              "px-4 rounded-md font-medium transition-colors",
+              "inline-flex items-center gap-1.5 px-4 rounded-md font-medium transition-colors",
               active ? "bg-brand text-onbrand" : "text-muted hover:text-ink"
             )}
           >
+            {s.icon && <span className="shrink-0">{s.icon}</span>}
             {s.label}
           </button>
         );
