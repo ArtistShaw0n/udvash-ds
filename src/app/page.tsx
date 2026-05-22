@@ -405,7 +405,7 @@ function Hero({ isDark, toggle }: { isDark: boolean; toggle: () => void }) {
         <div>
           <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-2">Udvash–Unmesh Design System</h1>
           <p className="text-muted text-md md:text-lg max-w-2xl">
-            Production design system from Figma V2. 99 tokens · 77 components · Light/Dark · responsive · Inter + Hind Siliguri.
+            Production design system from Figma V2. 99 tokens · 108+ components · Light/Dark · mobile-first responsive (sm 376 / md 768 / lg 1440) · Inter + Hind Siliguri.
           </p>
         </div>
         <button
