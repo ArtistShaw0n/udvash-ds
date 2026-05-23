@@ -29,6 +29,21 @@ import {
   Sheet,
   Tabs,
   Accordion,
+  Drawer,
+  Logo,
+  Stack,
+  Grid,
+  StatusDot,
+  IconChip,
+  BackLink,
+  ProgressBar,
+  Popover,
+  Dropdown,
+  SegmentedControl,
+  Breadcrumb,
+  Pagination,
+  EmptyState,
+  Icon,
   type FooterTab,
 } from "@/components";
 
@@ -48,8 +63,11 @@ const accordionItems = [
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [footerActive, setFooterActive] = useState("home");
   const [tabActive, setTabActive] = useState("live");
+  const [segValue, setSegValue] = useState("live");
+  const [page, setPage] = useState(3);
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-16">
@@ -64,10 +82,136 @@ export default function Home() {
           Design System — V2
         </Text>
         <Text color="muted" className="mt-3">
-          25 components live — 12 atoms + 7 molecules + 6 organisms. Toggle the
+          39 components live — 19 atoms + 13 molecules + 7 organisms. Toggle the
           theme via the moon/sun button (top-right) to verify light/dark tokens.
         </Text>
       </header>
+
+      <Section title="Brand — Logo">
+        <Stack direction="row" gap={6} align="center">
+          <Logo size="sm" />
+          <Logo size="md" />
+          <Logo size="lg" />
+          <Logo size="xl" showBeta />
+        </Stack>
+        <div className="mt-3">
+          <Logo variant="mark" size="lg" />
+        </div>
+      </Section>
+
+      <Section title="Atoms — Layout (Stack / Container / Grid)">
+        <Text size="xs" color="muted" className="mb-2">Stack row, gap=3, justify=between</Text>
+        <Stack direction="row" justify="between" className="mb-6 rounded-md bg-surface-subtle p-3">
+          <Badge variant="brand">A</Badge>
+          <Badge variant="brand">B</Badge>
+          <Badge variant="brand">C</Badge>
+        </Stack>
+        <Text size="xs" color="muted" className="mb-2">Grid cols=4, responsive</Text>
+        <Grid cols={4} responsive gap={3}>
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+            <Card key={n} padding="sm" variant="outlined">
+              <Text size="sm" align="center">Cell {n}</Text>
+            </Card>
+          ))}
+        </Grid>
+      </Section>
+
+      <Section title="Atoms — StatusDot / IconChip / BackLink / ProgressBar">
+        <Stack direction="row" gap={4} align="center" wrap>
+          <StatusDot variant="live" pulse />
+          <StatusDot variant="success" />
+          <StatusDot variant="warning" />
+          <StatusDot variant="error" />
+          <Divider orientation="vertical" className="h-6" />
+          <IconChip name="Play" tone="brand" />
+          <IconChip name="CircleCheck" tone="success" />
+          <IconChip name="CircleX" tone="error" />
+          <IconChip name="TriangleAlert" tone="warning" />
+          <IconChip name="Settings" tone="neutral" />
+          <Divider orientation="vertical" className="h-6" />
+          <BackLink />
+        </Stack>
+        <div className="mt-6 max-w-md space-y-3">
+          <ProgressBar value={30} label="Math chapter progress" showLabel />
+          <ProgressBar value={70} variant="success" label="Physics" showLabel />
+          <ProgressBar value={45} variant="warning" label="Chemistry" showLabel />
+          <ProgressBar value={20} variant="error" label="Biology" showLabel />
+        </div>
+      </Section>
+
+      <Section title="Molecules — Popover / Dropdown / SegmentedControl">
+        <Stack direction="row" gap={3} wrap align="start">
+          <Popover trigger={<Button variant="secondary">Open Popover</Button>}>
+            <Stack gap={1} className="p-2 min-w-[200px]">
+              <Text weight="medium" size="sm">Popover menu</Text>
+              <Text size="xs" color="muted">Click outside or Esc to close</Text>
+            </Stack>
+          </Popover>
+          <div className="w-48">
+            <Dropdown
+              options={[
+                { value: "math", label: "Mathematics" },
+                { value: "physics", label: "Physics" },
+                { value: "chemistry", label: "Chemistry" },
+                { value: "biology", label: "Biology", disabled: true },
+              ]}
+              placeholder="Choose subject"
+            />
+          </div>
+          <SegmentedControl
+            options={[
+              { value: "live", label: "Live" },
+              { value: "past", label: "Past" },
+              { value: "upcoming", label: "Upcoming" },
+            ]}
+            value={segValue}
+            onChange={setSegValue}
+          />
+        </Stack>
+      </Section>
+
+      <Section title="Molecules — Breadcrumb / Pagination">
+        <Breadcrumb
+          items={[
+            { label: "Home", href: "#" },
+            { label: "Course Content", href: "#" },
+            { label: "Physics" },
+          ]}
+          className="mb-6"
+        />
+        <Pagination page={page} pageCount={10} onChange={setPage} />
+      </Section>
+
+      <Section title="Molecules — EmptyState">
+        <Grid cols={2} responsive gap={3}>
+          <Card variant="outlined" padding="none">
+            <EmptyState
+              icon="Inbox"
+              title="No items yet"
+              description="When you have content, it'll appear here."
+            />
+          </Card>
+          <Card variant="outlined" padding="none">
+            <EmptyState
+              icon="WifiOff"
+              title="No Internet Connection"
+              description="Check your network or view offline videos."
+              action={<Button iconLeft={<Icon name="Download" size="sm" />}>View Offline</Button>}
+            />
+          </Card>
+        </Grid>
+      </Section>
+
+      <Section title="Organisms — Drawer">
+        <Button onClick={() => setDrawerOpen(true)}>Open Right Drawer</Button>
+        <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} title="Settings">
+          <Stack gap={3}>
+            <Text size="sm" color="muted">A side panel that slides in from the right.</Text>
+            <Switch label="Dark mode" />
+            <Switch label="Notifications" defaultChecked />
+          </Stack>
+        </Drawer>
+      </Section>
 
       <Section title="Responsive — resize the browser">
         <Text size="sm" color="muted" className="mb-4">
