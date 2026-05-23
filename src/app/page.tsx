@@ -94,9 +94,6 @@ export default function Home() {
           <Logo size="lg" />
           <Logo size="xl" showBeta />
         </Stack>
-        <div className="mt-3">
-          <Logo variant="mark" size="lg" />
-        </div>
       </Section>
 
       <Section title="Atoms — Layout (Stack / Container / Grid)">

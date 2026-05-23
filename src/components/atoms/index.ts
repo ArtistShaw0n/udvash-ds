@@ -35,7 +35,7 @@ export { Radio } from "./Radio";
 export type { RadioProps, RadioSize } from "./Radio";
 
 export { Logo } from "./Logo";
-export type { LogoProps, LogoSize, LogoVariant } from "./Logo";
+export type { LogoProps, LogoSize } from "./Logo";
 
 export { Stack } from "./Stack";
 export type {

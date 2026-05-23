@@ -23,5 +23,4 @@ export const Sizes: Story = {
   ),
 };
 
-export const Mark: Story = { args: { variant: "mark" } };
 export const WithBeta: Story = { args: { showBeta: true, size: "lg" } };
