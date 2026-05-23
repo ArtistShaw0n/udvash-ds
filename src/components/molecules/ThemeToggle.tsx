@@ -15,6 +15,12 @@ function getInitialTheme(): Theme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
+function applyTheme(theme: Theme) {
+  const html = document.documentElement;
+  html.classList.toggle("dark", theme === "dark");
+  html.classList.toggle("light", theme === "light");
+}
+
 export type ThemeToggleProps = {
   className?: string;
 };
@@ -26,14 +32,14 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
   useEffect(() => {
     const initial = getInitialTheme();
     setTheme(initial);
-    document.documentElement.classList.toggle("dark", initial === "dark");
+    applyTheme(initial);
     setMounted(true);
   }, []);
 
   function toggle() {
     const next: Theme = theme === "dark" ? "light" : "dark";
     setTheme(next);
-    document.documentElement.classList.toggle("dark", next === "dark");
+    applyTheme(next);
     localStorage.setItem(STORAGE_KEY, next);
   }
 

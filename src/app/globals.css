@@ -100,9 +100,9 @@
   --sem-success-subtle:var(--color-green-50);
 }
 
-/* Dark mode via prefers-color-scheme */
+/* Dark mode via prefers-color-scheme — scoped so explicit html.light wins */
 @media (prefers-color-scheme: dark) {
-  :root {
+  html:not(.light) {
     --sem-surface:        var(--color-gray-900);
     --sem-surface-subtle: var(--color-gray-850);
     --sem-disabled-bg:    var(--color-gray-800);
