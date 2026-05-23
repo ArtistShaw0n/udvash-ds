@@ -17,7 +17,7 @@ export type TextColor =
   | "info"
   | "inherit";
 
-export type TextProps = {
+export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, "color"> & {
   as?: TextElement;
   size?: TextSize;
   weight?: TextWeight;
@@ -25,8 +25,6 @@ export type TextProps = {
   align?: "left" | "center" | "right";
   bangla?: boolean;
   truncate?: boolean;
-  className?: string;
-  children: React.ReactNode;
 };
 
 const sizeClass: Record<TextSize, string> = {
@@ -76,6 +74,7 @@ export function Text({
   truncate = false,
   className,
   children,
+  ...rest
 }: TextProps) {
   return (
     <Tag
@@ -88,6 +87,7 @@ export function Text({
         truncate && "truncate",
         className,
       )}
+      {...rest}
     >
       {children}
     </Tag>
