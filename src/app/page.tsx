@@ -13,6 +13,12 @@ import {
   Tag,
   Badge,
   Avatar,
+  Checkbox,
+  Switch,
+  Radio,
+  ProgressBar,
+  Spinner,
+  Skeleton,
 } from "@/components";
 
 /* ============================================================================
@@ -258,7 +264,7 @@ export default function Page() {
 
       <header className="mb-12">
         <p className="text-xs font-medium uppercase tracking-widest text-muted">
-          Udvash–Unmesh · Phase 1 + 2a + 2b
+          Udvash–Unmesh · Phase 1 + 2a + 2b + 2c
         </p>
         <h1 className="mt-2 text-display font-semibold leading-loose">
           Design System
@@ -272,6 +278,58 @@ export default function Page() {
           Click any swatch to copy its hex.
         </p>
       </header>
+
+      {/* PHASE 2c — Form atoms */}
+      <Section title="Phase 2c · Form atoms (Checkbox / Switch / Radio / ProgressBar / Spinner / Skeleton)">
+        <SubSection title="Checkbox — Figma node 1:5011">
+          <Stack direction="row" gap={4} align="center">
+            <Checkbox label="Unchecked" />
+            <Checkbox label="Checked" defaultChecked />
+            <Checkbox label="Indeterminate" indeterminate />
+            <Checkbox label="Disabled" disabled defaultChecked />
+          </Stack>
+        </SubSection>
+        <SubSection title="Switch">
+          <Stack direction="row" gap={4} align="center">
+            <Switch label="Off" />
+            <Switch label="On" defaultChecked />
+            <Switch label="Disabled" disabled defaultChecked />
+            <Switch size="sm" defaultChecked label="sm" />
+            <Switch size="lg" defaultChecked label="lg" />
+          </Stack>
+        </SubSection>
+        <SubSection title="Radio">
+          <Stack direction="row" gap={4} align="center">
+            <Radio name="demo" value="a" defaultChecked label="Option A" />
+            <Radio name="demo" value="b" label="Option B" />
+            <Radio name="demo" value="c" label="Option C" />
+            <Radio name="demo" value="d" label="Disabled" disabled />
+          </Stack>
+        </SubSection>
+        <SubSection title="ProgressBar — Figma node 1:32648">
+          <div className="max-w-md space-y-3">
+            <ProgressBar value={70} variant="brand" label="Brand" showValue />
+            <ProgressBar value={88} variant="success" label="Success" showValue />
+            <ProgressBar value={45} variant="warning" label="Warning" showValue />
+            <ProgressBar value={20} variant="danger" label="Danger" showValue />
+          </div>
+        </SubSection>
+        <SubSection title="Spinner — Figma node 1:10369">
+          <Stack direction="row" gap={4} align="end" className="text-brand">
+            <Spinner size="sm" />
+            <Spinner size="md" />
+            <Spinner size="lg" />
+            <Spinner size="xl" />
+          </Stack>
+        </SubSection>
+        <SubSection title="Skeleton">
+          <div className="max-w-md space-y-3">
+            <Skeleton variant="circle" width={48} height={48} />
+            <Skeleton lines={3} />
+            <Skeleton variant="rect" height={80} />
+          </div>
+        </SubSection>
+      </Section>
 
       {/* PHASE 2b — Layout + Tag + Badge + Avatar */}
       <Section title="Phase 2b · Layout / Tag / Badge / Avatar">
