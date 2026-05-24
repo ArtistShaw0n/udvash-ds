@@ -48,6 +48,10 @@ import {
   Chip,
   Stat,
   Stepper,
+  LiveClassCard,
+  LiveExamCard,
+  PastClassCard,
+  MasterClassCard,
   type FooterTab,
 } from "@/components";
 
@@ -86,10 +90,53 @@ export default function Home() {
           Design System — V2
         </Text>
         <Text color="muted" className="mt-3">
-          43 components live — 23 atoms + 13 molecules + 7 organisms. Toggle the
-          theme via the moon/sun button (top-right) to verify light/dark tokens.
+          47 components live — 23 atoms + 13 molecules + 7 organisms + 4 master cards.
+          Toggle the theme via the moon/sun button (top-right) to verify light/dark tokens.
         </Text>
       </header>
+
+      <Section title="Master Cards — Phase 2 (LiveClass / LiveExam / PastClass / MasterClass)">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <LiveClassCard
+            subject="Physics"
+            chapter="Chapter 7 — Newton's Laws"
+            title="Force, Mass & Acceleration — full revision"
+            teacher={{ name: "Sazid Ahmed" }}
+            scheduledAt="Today, 6:00 PM"
+            durationMin={90}
+            status="live"
+          />
+          <LiveExamCard
+            subject="Chemistry"
+            title="HSC Mock Exam — Organic Chemistry"
+            startsAt="Today, 8:00 PM"
+            durationMin={60}
+            totalMarks={50}
+            questions={25}
+            status="upcoming"
+            onCancel={() => {}}
+          />
+          <PastClassCard
+            subject="Math"
+            chapter="Chapter 4 — Quadratic Equations"
+            title="Discriminant + nature of roots — full worked examples"
+            teacher={{ name: "Miraz Hossain" }}
+            date="May 21, 2026"
+            durationMin={78}
+          />
+          <MasterClassCard
+            title="Crack HSC Physics — Mechanics in one shot"
+            description="3-hour live workshop covering 80% of HSC Mechanics questions."
+            tutor={{
+              name: "Dr. Sazid Ahmed",
+              credential: "BUET alum · 12+ years HSC coaching",
+            }}
+            scheduledAt="Sat, May 30 · 7 PM"
+            durationMin={180}
+            seatsLeft={4}
+          />
+        </div>
+      </Section>
 
       <Section title="Atoms — Skeleton / Chip / Stat / Stepper (Phase 1)">
         <div className="space-y-6">
