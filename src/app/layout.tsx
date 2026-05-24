@@ -1,23 +1,26 @@
 import type { Metadata } from "next";
-import { Inter, Hind_Siliguri } from "next/font/google";
+import { Inter, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 
+// Fonts as observed in Figma V2 extraction:
+//   Inter — 318 hits (every Latin string)
+//   Noto Sans Bengali — 8 hits (Bangla script, paired with Inter via stack)
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
 
-const hindSiliguri = Hind_Siliguri({
-  variable: "--font-hind-siliguri",
+const notoBengali = Noto_Sans_Bengali({
+  variable: "--font-noto-bengali",
   subsets: ["bengali", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Udvash–Unmesh Design System",
-  description: "Production design system — Next.js 16 + Tailwind v4",
+  description: "Phase 1 — design tokens extracted from Figma V2 (Next.js 16 + Tailwind v4)",
 };
 
 export default function RootLayout({
@@ -28,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${hindSiliguri.variable} h-full antialiased`}
+      className={`${inter.variable} ${notoBengali.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -38,7 +41,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full bg-surface text-ink">{children}</body>
+      <body className="min-h-full bg-canvas text-primary">{children}</body>
     </html>
   );
 }

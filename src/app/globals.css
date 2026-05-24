@@ -1,230 +1,349 @@
 @import "tailwindcss";
 
-/* ==========================================================================
-   DESIGN TOKENS — primitives (raw hex, source-of-truth from Figma V2 audit)
-   ========================================================================== */
+/* ============================================================================
+   DESIGN TOKENS — Udvash-Unmesh app (Phase 1)
+   ----------------------------------------------------------------------------
+   Source of truth: tokens/tokens.json (extracted from Figma file
+   Udvash-Unmesh-App, V2 page, frequency-aggregated across 15 representative
+   artboards). Every value below maps 1:1 to a token in that JSON.
+
+   Layering:
+     1. :root              → raw primitive values (color, spacing, radius, …)
+     2. :root              → semantic-LIGHT aliases (default mode)
+     3. @media prefers-color-scheme: dark → semantic-DARK overrides
+     4. html.dark / html.light → manual mode override
+     5. @theme             → expose semantic tokens to Tailwind v4 utilities
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   1. PRIMITIVES
+   ---------------------------------------------------------------------------- */
 :root {
-  /* Brand purples */
-  --color-purple-50:  #F5EDFF;
-  --color-purple-75:  #EAD8FF;
-  --color-purple-100: #E9DFEE;
-  --color-purple-400: #9061C8;
-  --color-purple-600: #55347B;
-  --color-purple-650: #6E3F91;
-  --color-purple-700: #684B8A;
+  /* — brand purple ramp — */
+  --color-brand-50:  #F5EDFF;
+  --color-brand-300: #8A5BA4;
+  --color-brand-400: #684B8A;
+  --color-brand-500: #55347B; /* dominant brand (20 hits) */
+  --color-brand-600: #6E3F91;
 
-  /* Brand logo multicolor (Udvash-Unmesh logo flames) */
-  --color-brand-logo-black:       #161615;
-  --color-brand-logo-red:         #D9000D;
-  --color-brand-logo-red-dark:    #E02D15;
-  --color-brand-logo-yellow:      #FFCC28;
-  --color-brand-logo-yellow-dark: #BDB400;
-  --color-brand-logo-magenta:     #8B4083;
+  /* — grey ramp — */
+  --color-grey-0:          #FFFFFF;
+  --color-grey-50:         #F6F6F6;
+  --color-grey-100:        #E5E7EB;
+  --color-grey-200:        #DCDCDC;
+  --color-grey-300:        #C7C7C7;
+  --color-grey-400:        #C6C6C6;
+  --color-grey-500:        #B9B9B9;
+  --color-grey-600:        #70757A;
+  --color-grey-700:        #616161; /* dominant text-light (215 hits) */
+  --color-grey-800:        #535353;
+  --color-grey-850:        #221E26;
+  --color-grey-900:        #1C1C1C;
+  --color-grey-950:        #1A1A1A;
+  --color-grey-990:        #111111;
+  --color-grey-ink-dark:   #E8E8E8; /* dominant text-dark (49 hits) */
+  --color-grey-muted-dark: #999999;
 
-  /* Gray scale */
-  --color-gray-50:   #FFFFFF;
-  --color-gray-100:  #E5E7EB;
-  --color-gray-120:  #F0F0F0;
-  --color-gray-150:  #E0E0E0;
-  --color-gray-175:  #E8E8E8;
-  --color-gray-200:  #DCDCDC;
-  --color-gray-250:  #CACACA;
-  --color-gray-300:  #C7C7C7;
-  --color-gray-350:  #C6C6C6;
-  --color-gray-400:  #B9B9B9;
-  --color-gray-450:  #70757A;
-  --color-gray-500:  #999999;
-  --color-gray-600:  #616161;
-  --color-gray-650:  #565656;
-  --color-gray-700:  #535353;
-  --color-gray-800:  #444444;
-  --color-gray-850:  #2C2C2C;
-  --color-gray-875:  #1C1C1C;
-  --color-gray-900:  #1A1A1A;
-  --color-gray-950:  #111111;
-  --color-gray-1000: #000000;
+  /* — danger / success / warning / info / accent — */
+  --color-danger-300:  #FC5A5A;
+  --color-danger-400:  #F95959;
+  --color-danger-500:  #FF3A3A;
+  --color-danger-600:  #D9000D;
+  --color-danger-700:  #ED1C24;
 
-  /* Status colors */
-  --color-red-50:    #FFE5E5;
-  --color-red-400:   #FC5A5A;
-  --color-red-500:   #FF3A3A;
-  --color-cyan-50:   #E5F7FA;
-  --color-cyan-500:  #25B7D3;
-  --color-amber-50:  #FFFBEB;
-  --color-amber-500: #FE9A00;
-  --color-amber-900: #7B3306;
-  --color-green-50:  #E8F5EC;
-  --color-green-400: #24C182;
-  --color-green-500: #16A34A;
-  --color-orange-500:#FF9900;
-  --color-blue-50:   #E4EAF4;
-  --color-blue-100:  #E2EEFD;
-  --color-blue-400:  #2496C1;
-  --color-blue-500:  #2585FD;
-  --color-teal-100:  #E6F3F1;
-  --color-teal-500:  #289B91;
+  --color-success-100: #D7F7D4;
+  --color-success-400: #24C182;
+  --color-success-500: #00BA00;
+  --color-success-600: #009819;
+  --color-success-700: #00A511;
+  --color-success-800: #82C124;
+
+  --color-warning-100: #FAE9B1;
+  --color-warning-400: #EEC431;
+  --color-warning-500: #F59E0B;
+  --color-warning-600: #F27C57;
+  --color-warning-700: #C1B124;
+  --color-warning-800: #FF9900;
+
+  --color-info-400: #25B7D3;
+  --color-info-500: #2496C1;
+  --color-info-600: #3B88F5;
+  --color-info-700: #6262D9;
+
+  --color-accent-magenta:       #9824C1;
+  --color-accent-lavender-band: #E4EAF4;
+  --color-accent-udvash-red:    #ED1C24;
+  --color-accent-unmesh-maroon: #7C2427;
+
+  /* — spacing scale (px) — */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  10px;
+  --space-4:  12px;
+  --space-5:  16px;
+  --space-6:  20px;
+  --space-7:  22px;
+  --space-8:  30px;
+  --space-9:  34px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* — typography — */
+  --font-family-sans: var(--font-inter), var(--font-noto-bengali), system-ui, sans-serif;
+
+  --font-size-xs:      10px;
+  --font-size-sm:      12px;
+  --font-size-base:    14px; /* dominant (194 hits) */
+  --font-size-md:      16px;
+  --font-size-lg:      20px;
+  --font-size-xl:      24px;
+  --font-size-display: 26px;
+
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  --line-height-tight:   12px;
+  --line-height-snug:    20px;
+  --line-height-normal:  22px;
+  --line-height-relaxed: 24px;
+  --line-height-loose:   30px;
+
+  --letter-spacing-tight:  -0.28px;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide:   0.1px;
+
+  /* — sizing tokens (component widths/heights observed in Figma) — */
+  --size-app-width:   376px;
+  --size-card:        328px;
+  --size-card-row:    336px;
+  --size-card-wide:   360px;
+  --size-card-report: 304px;
+  --size-input-row:   320px;
+  --size-btn-md:      130px;
+  --size-btn-lg:      150px;
+  --size-btn-xl:      280px;
+  --size-btn-height:  36px;
+  --size-chip-height: 32px;
+  --size-chip-sm:     20px;
+  --size-header:      50px;
+  --size-footer:      66px;
+  --size-icon-tile:   36px;
+  --size-icon-lg:     28px;
+  --size-icon-md:     24px;
+  --size-icon-sm:     20px;
+  --size-icon-xs:     14px;
+  --size-icon-dot:    12px;
+
+  /* — z-index — */
+  --z-base:     0;
+  --z-raised:   10;
+  --z-dropdown: 20;
+  --z-sticky:   30;
+  --z-drawer:   40;
+  --z-modal:    50;
+  --z-popover:  60;
+  --z-toast:    70;
+  --z-tooltip:  80;
+
+  /* — motion — */
+  --duration-instant: 0ms;
+  --duration-fast:    120ms;
+  --duration-base:    200ms;
+  --duration-slow:    320ms;
+  --duration-slower:  480ms;
+
+  --ease-linear:     linear;
+  --ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ==========================================================================
-   SEMANTIC TOKENS — Light mode (default)
-   ========================================================================== */
+/* ----------------------------------------------------------------------------
+   2. SEMANTIC — LIGHT (default)
+   ---------------------------------------------------------------------------- */
 :root {
-  --sem-surface:        var(--color-gray-50);
-  --sem-surface-subtle: var(--color-purple-100);
-  --sem-brand:          var(--color-purple-600);
-  --sem-brand-accent:   var(--color-purple-400);
-  --sem-brand-subtle:   var(--color-purple-50);
-  --sem-disabled-bg:    var(--color-gray-350);
-  --sem-scrim:          rgba(53, 53, 53, 0.8);
+  --sem-bg-canvas:         var(--color-grey-0);
+  --sem-bg-subtle:         var(--color-grey-50);
+  --sem-bg-surface:        var(--color-grey-0);
+  --sem-bg-brand-band:     var(--color-accent-lavender-band);
+  --sem-bg-brand:          var(--color-brand-500);
+  --sem-bg-brand-hover:    var(--color-brand-600);
+  --sem-bg-brand-selected: var(--color-brand-400);
+  --sem-bg-brand-subtle:   var(--color-brand-50);
+  --sem-bg-disabled:       var(--color-grey-400);
 
-  --sem-ink:            var(--color-gray-700);
-  --sem-muted:          var(--color-gray-600);
-  --sem-placeholder:    var(--color-gray-500);
-  --sem-onbrand:        var(--color-gray-50);
-  --sem-link:           var(--color-purple-600);
-  --sem-disabled-text:  var(--color-gray-200);
+  --sem-text-primary:     var(--color-grey-700);
+  --sem-text-secondary:   var(--color-grey-800);
+  --sem-text-muted:       var(--color-grey-600);
+  --sem-text-placeholder: var(--color-grey-200);
+  --sem-text-onbrand:     var(--color-grey-0);
+  --sem-text-link:        var(--color-info-600);
+  --sem-text-disabled:    var(--color-grey-500);
 
-  --sem-line:           var(--color-gray-400);
-  --sem-line-subtle:    var(--color-gray-100);
-  --sem-line-strong:    var(--color-gray-500);
-  --sem-line-disabled:  var(--color-gray-300);
-  --sem-line-brand:     var(--color-purple-600);
+  --sem-border-default:  var(--color-grey-100);
+  --sem-border-strong:   var(--color-grey-300);
+  --sem-border-input:    var(--color-grey-500);
+  --sem-border-brand:    var(--color-brand-500);
+  --sem-border-disabled: var(--color-grey-400);
 
-  --sem-error:         var(--color-red-500);
-  --sem-error-subtle:  var(--color-red-50);
-  --sem-info:          var(--color-cyan-500);
-  --sem-info-subtle:   var(--color-cyan-50);
-  --sem-warning:       var(--color-amber-900);
-  --sem-warning-subtle:var(--color-amber-50);
-  --sem-success:       var(--color-green-500);
-  --sem-success-subtle:var(--color-green-50);
+  --sem-status-danger:     var(--color-danger-400);
+  --sem-status-danger-bg:  var(--color-danger-300);
+  --sem-status-success:    var(--color-success-500);
+  --sem-status-success-bg: var(--color-success-100);
+  --sem-status-warning:    var(--color-warning-500);
+  --sem-status-warning-bg: var(--color-warning-100);
+  --sem-status-info:       var(--color-info-400);
+
+  --sem-shadow-card:    0 0 5px 0 rgba(0, 0, 0, 0.10);
+  --sem-shadow-header:  0 1px 4px 0 rgba(0, 0, 0, 0.06);
+  --sem-shadow-footer:  0 -1px 4px 0 rgba(0, 0, 0, 0.06);
+  --sem-shadow-chip:    0 0 2.5px 0 rgba(0, 0, 0, 0.10);
 }
 
-/* Dark mode via prefers-color-scheme — scoped so explicit html.light wins */
+/* ----------------------------------------------------------------------------
+   3. SEMANTIC — DARK (auto via prefers-color-scheme, gated to html:not(.light))
+   ---------------------------------------------------------------------------- */
 @media (prefers-color-scheme: dark) {
   html:not(.light) {
-    --sem-surface:        var(--color-gray-900);
-    --sem-surface-subtle: var(--color-gray-850);
-    --sem-disabled-bg:    var(--color-gray-800);
-    --sem-scrim:          rgba(25, 28, 29, 0.6);
+    --sem-bg-canvas:     var(--color-grey-990);
+    --sem-bg-subtle:     var(--color-grey-850);
+    --sem-bg-surface:    var(--color-grey-950);
+    --sem-bg-brand-band: var(--color-brand-500);
+    --sem-bg-disabled:   var(--color-grey-800);
 
-    --sem-ink:            var(--color-gray-175);
-    --sem-muted:          var(--color-gray-500);
-    --sem-placeholder:    var(--color-gray-650);
-    --sem-link:           var(--color-purple-400);
-    --sem-disabled-text:  var(--color-gray-650);
+    --sem-text-primary:     var(--color-grey-ink-dark);
+    --sem-text-secondary:   var(--color-grey-ink-dark);
+    --sem-text-muted:       var(--color-grey-muted-dark);
+    --sem-text-placeholder: var(--color-grey-600);
+    --sem-text-disabled:    var(--color-grey-700);
 
-    --sem-line:           var(--color-gray-875);
-    --sem-line-subtle:    var(--color-gray-800);
-    --sem-line-strong:    var(--color-gray-650);
-    --sem-line-disabled:  var(--color-gray-800);
-    --sem-line-brand:     var(--color-purple-400);
+    --sem-border-default:  var(--color-grey-900);
+    --sem-border-strong:   var(--color-grey-700);
+    --sem-border-input:    var(--color-grey-700);
+    --sem-border-disabled: var(--color-grey-800);
 
-    --sem-warning:        var(--color-amber-500);
+    --sem-status-danger: var(--color-danger-500);
+
+    --sem-shadow-card:   0 0 20px 0 #000000;
+    --sem-shadow-chip:   0 0 2px 0 rgba(255, 255, 255, 0.25);
   }
 }
 
-/* Manual dark mode (class-based override) */
+/* 4. SEMANTIC — DARK (manual via html.dark override) */
 html.dark {
-  --sem-surface:        var(--color-gray-900);
-  --sem-surface-subtle: var(--color-gray-850);
-  --sem-disabled-bg:    var(--color-gray-800);
+  --sem-bg-canvas:     var(--color-grey-990);
+  --sem-bg-subtle:     var(--color-grey-850);
+  --sem-bg-surface:    var(--color-grey-950);
+  --sem-bg-brand-band: var(--color-brand-500);
+  --sem-bg-disabled:   var(--color-grey-800);
 
-  --sem-ink:            var(--color-gray-175);
-  --sem-muted:          var(--color-gray-500);
-  --sem-placeholder:    var(--color-gray-650);
-  --sem-link:           var(--color-purple-400);
-  --sem-disabled-text:  var(--color-gray-650);
+  --sem-text-primary:     var(--color-grey-ink-dark);
+  --sem-text-secondary:   var(--color-grey-ink-dark);
+  --sem-text-muted:       var(--color-grey-muted-dark);
+  --sem-text-placeholder: var(--color-grey-600);
+  --sem-text-disabled:    var(--color-grey-700);
 
-  --sem-line:           var(--color-gray-875);
-  --sem-line-subtle:    var(--color-gray-800);
-  --sem-line-strong:    var(--color-gray-650);
-  --sem-line-disabled:  var(--color-gray-800);
-  --sem-line-brand:     var(--color-purple-400);
+  --sem-border-default:  var(--color-grey-900);
+  --sem-border-strong:   var(--color-grey-700);
+  --sem-border-input:    var(--color-grey-700);
+  --sem-border-disabled: var(--color-grey-800);
 
-  --sem-warning:        var(--color-amber-500);
+  --sem-status-danger: var(--color-danger-500);
+
+  --sem-shadow-card: 0 0 20px 0 #000000;
+  --sem-shadow-chip: 0 0 2px 0 rgba(255, 255, 255, 0.25);
 }
 
-/* ==========================================================================
-   TAILWIND v4 @theme — exposes tokens as utility classes
-   ========================================================================== */
+/* ----------------------------------------------------------------------------
+   5. TAILWIND v4 @theme — expose semantic tokens to utilities
+   ---------------------------------------------------------------------------- */
 @theme {
-  /* Surface — used as bg-surface, bg-brand, bg-error, etc. */
-  --color-surface:        var(--sem-surface);
-  --color-surface-subtle: var(--sem-surface-subtle);
-  --color-brand:          var(--sem-brand);
-  --color-brand-accent:   var(--sem-brand-accent);
-  --color-brand-subtle:   var(--sem-brand-subtle);
-  --color-disabled:       var(--sem-disabled-bg);
-  --color-scrim:          var(--sem-scrim);
+  /* — backgrounds — bg-canvas, bg-brand, bg-brand-band, bg-disabled, ... — */
+  --color-canvas:         var(--sem-bg-canvas);
+  --color-subtle:         var(--sem-bg-subtle);
+  --color-surface:        var(--sem-bg-surface);
+  --color-brand-band:     var(--sem-bg-brand-band);
+  --color-brand:          var(--sem-bg-brand);
+  --color-brand-hover:    var(--sem-bg-brand-hover);
+  --color-brand-selected: var(--sem-bg-brand-selected);
+  --color-brand-subtle:   var(--sem-bg-brand-subtle);
+  --color-disabled:       var(--sem-bg-disabled);
 
-  /* Foreground — used as text-ink, text-muted, etc. */
-  --color-ink:         var(--sem-ink);
-  --color-muted:       var(--sem-muted);
-  --color-placeholder: var(--sem-placeholder);
-  --color-onbrand:     var(--sem-onbrand);
-  --color-link:        var(--sem-link);
+  /* — text — text-primary, text-muted, text-onbrand, text-link, ... — */
+  --color-primary:     var(--sem-text-primary);
+  --color-secondary:   var(--sem-text-secondary);
+  --color-muted:       var(--sem-text-muted);
+  --color-placeholder: var(--sem-text-placeholder);
+  --color-onbrand:     var(--sem-text-onbrand);
+  --color-link:        var(--sem-text-link);
 
-  /* Borders — used as border-line, border-brand, etc. */
-  --color-line:          var(--sem-line);
-  --color-line-subtle:   var(--sem-line-subtle);
-  --color-line-strong:   var(--sem-line-strong);
-  --color-line-disabled: var(--sem-line-disabled);
-  --color-line-brand:    var(--sem-line-brand);
+  /* — borders — border-default, border-brand, ... — */
+  --color-border:          var(--sem-border-default);
+  --color-border-strong:   var(--sem-border-strong);
+  --color-border-input:    var(--sem-border-input);
+  --color-border-brand:    var(--sem-border-brand);
+  --color-border-disabled: var(--sem-border-disabled);
 
-  /* Status */
-  --color-error:          var(--sem-error);
-  --color-error-subtle:   var(--sem-error-subtle);
-  --color-info:           var(--sem-info);
-  --color-info-subtle:    var(--sem-info-subtle);
-  --color-warning:        var(--sem-warning);
-  --color-warning-subtle: var(--sem-warning-subtle);
-  --color-success:        var(--sem-success);
-  --color-success-subtle: var(--sem-success-subtle);
+  /* — status — */
+  --color-danger:     var(--sem-status-danger);
+  --color-danger-bg:  var(--sem-status-danger-bg);
+  --color-success:    var(--sem-status-success);
+  --color-success-bg: var(--sem-status-success-bg);
+  --color-warning:    var(--sem-status-warning);
+  --color-warning-bg: var(--sem-status-warning-bg);
+  --color-info:       var(--sem-status-info);
 
-  /* Border radius */
+  /* — radius — */
   --radius-none: 0;
   --radius-xs:   4px;
   --radius-sm:   5px;
   --radius-md:   8px;
   --radius-lg:   10px;
-  --radius-xl:   16px;
+  --radius-xl:   18px;
   --radius-2xl:  20px;
-  --radius-3xl:  24px;
+  --radius-pill: 99px;
   --radius-full: 9999px;
 
-  /* Font family */
-  --font-sans:    var(--font-inter), var(--font-hind-siliguri), system-ui, -apple-system, sans-serif;
-  --font-bangla:  var(--font-hind-siliguri), var(--font-inter), system-ui, sans-serif;
+  /* — typography — */
+  --font-sans: var(--font-family-sans);
 
-  /* Font sizes (V2-observed scale) */
-  --text-xs: 11px;
-  --text-sm: 12px;
-  --text-md: 14px;
-  --text-lg: 16px;
-  --text-xl: 20px;
+  --text-xs:      10px;
+  --text-sm:      12px;
+  --text-base:    14px;
+  --text-md:      16px;
+  --text-lg:      20px;
+  --text-xl:      24px;
+  --text-display: 26px;
 
-  /* Breakpoints */
-  --breakpoint-sm: 375px;
+  /* — breakpoints — */
+  --breakpoint-sm: 376px;
   --breakpoint-md: 768px;
-  --breakpoint-lg: 1440px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
 
-  /* Shadows */
-  --shadow-xs:         0 0 2.5px rgba(0, 0, 0, 0.10);
-  --shadow-sm:         0 1px 4px rgba(0, 0, 0, 0.06);
-  --shadow-sm-inverse: 0 -1px 4px rgba(0, 0, 0, 0.06);
-  --shadow-md:         0 0 5px rgba(0, 0, 0, 0.10);
-  --shadow-lg:         0 25px 25px rgba(0, 0, 0, 0.25);
-  --shadow-dark:       0 0 20px rgba(0, 0, 0, 1.00);
+  /* — shadows — shadow-card, shadow-header, shadow-footer, ... — */
+  --shadow-card:         var(--sem-shadow-card);
+  --shadow-header:       var(--sem-shadow-header);
+  --shadow-footer:       var(--sem-shadow-footer);
+  --shadow-profile-glow: 0 0 4px 0 rgba(255, 255, 255, 0.25);
+  --shadow-chip:         var(--sem-shadow-chip);
 }
 
-/* ==========================================================================
+/* ----------------------------------------------------------------------------
    GLOBAL BASE
-   ========================================================================== */
-html, body {
-  background-color: var(--sem-surface);
-  color: var(--sem-ink);
-  font-family: var(--font-inter), "Hind Siliguri", system-ui, sans-serif;
+   ---------------------------------------------------------------------------- */
+html,
+body {
+  background-color: var(--sem-bg-canvas);
+  color: var(--sem-text-primary);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

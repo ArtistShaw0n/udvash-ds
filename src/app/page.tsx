@@ -1,954 +1,508 @@
 "use client";
 
-import { useState } from "react";
-import {
-  Text,
-  Button,
-  Input,
-  Avatar,
-  Badge,
-  Tag,
-  Checkbox,
-  Switch,
-  Radio,
-  Spinner,
-  Divider,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  SearchBar,
-  FormField,
-  Alert,
-  Toast,
-  Tooltip,
-  ThemeToggle,
-  Header,
-  FooterMenu,
-  Modal,
-  Sheet,
-  Tabs,
-  Accordion,
-  Drawer,
-  Logo,
-  Stack,
-  Grid,
-  StatusDot,
-  IconChip,
-  BackLink,
-  ProgressBar,
-  Popover,
-  Dropdown,
-  SegmentedControl,
-  Breadcrumb,
-  Pagination,
-  EmptyState,
-  Icon,
-  Skeleton,
-  Chip,
-  Stat,
-  Stepper,
-  LiveClassCard,
-  LiveExamCard,
-  PastClassCard,
-  MasterClassCard,
-  CourseContentCard,
-  PerformanceCard,
-  PracticeExamCard,
-  ProgramListCard,
-  SolveSheetCard,
-  ProfileCard,
-  HomeGridCard,
-  SubjectWiseSummaryCard,
-  ServiceBlockedCard,
-  AnalysisBlockCard,
-  AnalysisSolutionCard,
-  QnACard,
-  AddCourseCard,
-  CommunityRowCard,
-  DownloadItemCard,
-  PasswordInput,
-  PhoneInput,
-  OTPInput,
-  ImageUpload,
-  Slider,
-  ScoreLetter,
-  ScoreGauge,
-  StarRating,
-  MCQRow,
-  TotalRow,
-  PositionLabel,
-  MeritRankings,
-  ConfirmDialog,
-  PhotoPicker,
-  FilterPanel,
-  VideoControls,
-  AddRollCard,
-  type FooterTab,
-} from "@/components";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
-const footerTabs: FooterTab[] = [
-  { id: "home", label: "Home", icon: "LayoutGrid" },
-  { id: "downloads", label: "Downloads", icon: "Download" },
-  { id: "qa", label: "Q&A", icon: "MessageCircleQuestionMark" },
-  { id: "community", label: "Community", icon: "Users" },
+/* ============================================================================
+   Phase 1 — Design System preview
+   Pure token showcase, no components. Every value is a CSS variable from
+   globals.css, which in turn maps to tokens/tokens.json.
+   ============================================================================ */
+
+const STORAGE_KEY = "udvash-theme";
+const CHANGE_EVENT = "udvash-theme-change";
+type Theme = "light" | "dark";
+
+function getTheme(): Theme {
+  const t = localStorage.getItem(STORAGE_KEY) as Theme | null;
+  if (t === "light" || t === "dark") return t;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+function applyTheme(t: Theme) {
+  const html = document.documentElement;
+  html.classList.toggle("dark", t === "dark");
+  html.classList.toggle("light", t === "light");
+}
+function subscribe(cb: () => void) {
+  window.addEventListener("storage", cb);
+  window.addEventListener(CHANGE_EVENT, cb);
+  return () => {
+    window.removeEventListener("storage", cb);
+    window.removeEventListener(CHANGE_EVENT, cb);
+  };
+}
+
+function ThemeToggle() {
+  const theme = useSyncExternalStore<Theme>(subscribe, getTheme, () => "light");
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+  function toggle() {
+    const next: Theme = theme === "dark" ? "light" : "dark";
+    localStorage.setItem(STORAGE_KEY, next);
+    applyTheme(next);
+    window.dispatchEvent(new Event(CHANGE_EVENT));
+  }
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+      suppressHydrationWarning
+      className="inline-flex size-9 items-center justify-center rounded-sm border border-default bg-surface text-primary transition-colors hover:bg-subtle"
+    >
+      <span suppressHydrationWarning className="text-md">
+        {theme === "dark" ? "☀" : "☾"}
+      </span>
+    </button>
+  );
+}
+
+/* ----------------------------------------------------------------------------
+   Data: every token grouped for the showcase
+   ---------------------------------------------------------------------------- */
+
+const brandPalette = [
+  { name: "brand/50",  value: "#F5EDFF" },
+  { name: "brand/300", value: "#8A5BA4" },
+  { name: "brand/400", value: "#684B8A" },
+  { name: "brand/500", value: "#55347B", note: "Brand primary · 20 hits" },
+  { name: "brand/600", value: "#6E3F91" },
 ];
 
-const accordionItems = [
-  { id: "1", title: "What is Udvash-Unmesh?", content: "A coaching platform for HSC students in Bangladesh." },
-  { id: "2", title: "How do live classes work?", content: "Live classes stream at scheduled times." },
-  { id: "3", title: "Can I download videos?", content: "Yes — past classes are available in Downloads." },
+const greyPalette = [
+  { name: "grey/0",   value: "#FFFFFF" },
+  { name: "grey/50",  value: "#F6F6F6" },
+  { name: "grey/100", value: "#E5E7EB", note: "Divider · 26 hits" },
+  { name: "grey/200", value: "#DCDCDC" },
+  { name: "grey/300", value: "#C7C7C7" },
+  { name: "grey/400", value: "#C6C6C6" },
+  { name: "grey/500", value: "#B9B9B9" },
+  { name: "grey/600", value: "#70757A" },
+  { name: "grey/700", value: "#616161", note: "Text primary light · 215 hits" },
+  { name: "grey/800", value: "#535353" },
+  { name: "grey/850", value: "#221E26" },
+  { name: "grey/900", value: "#1C1C1C" },
+  { name: "grey/950", value: "#1A1A1A" },
+  { name: "grey/990", value: "#111111" },
+  { name: "grey/ink-dark", value: "#E8E8E8", note: "Text primary dark · 49 hits" },
 ];
 
-export default function Home() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [sheetOpen, setSheetOpen] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [footerActive, setFooterActive] = useState("home");
-  const [tabActive, setTabActive] = useState("live");
-  const [segValue, setSegValue] = useState("live");
-  const [page, setPage] = useState(3);
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [photoOpen, setPhotoOpen] = useState(false);
-  const [videoPlaying, setVideoPlaying] = useState(false);
-  const [videoTime, setVideoTime] = useState(38 * 60 + 12);
+const statusPalettes: Array<{ title: string; rows: { name: string; value: string }[] }> = [
+  {
+    title: "Danger",
+    rows: [
+      { name: "danger/300", value: "#FC5A5A" },
+      { name: "danger/400", value: "#F95959" },
+      { name: "danger/500", value: "#FF3A3A" },
+      { name: "danger/600", value: "#D9000D" },
+      { name: "danger/700", value: "#ED1C24" },
+    ],
+  },
+  {
+    title: "Success",
+    rows: [
+      { name: "success/100", value: "#D7F7D4" },
+      { name: "success/400", value: "#24C182" },
+      { name: "success/500", value: "#00BA00" },
+      { name: "success/600", value: "#009819" },
+      { name: "success/700", value: "#00A511" },
+      { name: "success/800", value: "#82C124" },
+    ],
+  },
+  {
+    title: "Warning",
+    rows: [
+      { name: "warning/100", value: "#FAE9B1" },
+      { name: "warning/400", value: "#EEC431" },
+      { name: "warning/500", value: "#F59E0B" },
+      { name: "warning/600", value: "#F27C57" },
+      { name: "warning/700", value: "#C1B124" },
+      { name: "warning/800", value: "#FF9900" },
+    ],
+  },
+  {
+    title: "Info",
+    rows: [
+      { name: "info/400", value: "#25B7D3" },
+      { name: "info/500", value: "#2496C1" },
+      { name: "info/600", value: "#3B88F5" },
+      { name: "info/700", value: "#6262D9" },
+    ],
+  },
+];
+
+const accentPalette = [
+  { name: "accent/magenta",       value: "#9824C1" },
+  { name: "accent/lavender-band", value: "#E4EAF4", note: "Live class header band" },
+  { name: "accent/udvash-red",    value: "#ED1C24" },
+  { name: "accent/unmesh-maroon", value: "#7C2427" },
+];
+
+const semanticLight = [
+  { name: "bg/canvas",         var: "var(--sem-bg-canvas)" },
+  { name: "bg/subtle",         var: "var(--sem-bg-subtle)" },
+  { name: "bg/surface",        var: "var(--sem-bg-surface)" },
+  { name: "bg/brand-band",     var: "var(--sem-bg-brand-band)" },
+  { name: "bg/brand",          var: "var(--sem-bg-brand)" },
+  { name: "bg/brand-subtle",   var: "var(--sem-bg-brand-subtle)" },
+  { name: "bg/disabled",       var: "var(--sem-bg-disabled)" },
+  { name: "border/default",    var: "var(--sem-border-default)" },
+  { name: "border/strong",     var: "var(--sem-border-strong)" },
+  { name: "border/brand",      var: "var(--sem-border-brand)" },
+];
+
+const fontSizes = [
+  { name: "xs",      px: 10 },
+  { name: "sm",      px: 12 },
+  { name: "base",    px: 14, note: "Body default · 194 hits" },
+  { name: "md",      px: 16 },
+  { name: "lg",      px: 20 },
+  { name: "xl",      px: 24 },
+  { name: "display", px: 26 },
+];
+
+const fontWeights = [
+  { name: "regular",  weight: 400, note: "161 hits" },
+  { name: "medium",   weight: 500, note: "70 hits" },
+  { name: "semibold", weight: 600, note: "34 hits" },
+  { name: "bold",     weight: 700, note: "26 hits" },
+];
+
+const radii = [
+  { name: "xs",  px: 4 },
+  { name: "sm",  px: 5,  note: "Dominant · 116 hits" },
+  { name: "md",  px: 8 },
+  { name: "lg",  px: 10, note: "Card corner · 49 hits" },
+  { name: "xl",  px: 18 },
+  { name: "2xl", px: 20 },
+  { name: "pill", px: 99 },
+  { name: "full", px: 9999, render: 28 },
+];
+
+const spaces = [
+  { name: "1",  px: 4 },
+  { name: "2",  px: 8 },
+  { name: "3",  px: 10 },
+  { name: "4",  px: 12 },
+  { name: "5",  px: 16 },
+  { name: "6",  px: 20 },
+  { name: "7",  px: 22 },
+  { name: "8",  px: 30 },
+  { name: "9",  px: 34 },
+  { name: "10", px: 40 },
+  { name: "12", px: 48 },
+  { name: "16", px: 64 },
+];
+
+const shadows = [
+  { name: "card",         css: "0 0 5px 0 rgba(0,0,0,0.10)",      note: "Default card · 69 hits" },
+  { name: "header",       css: "0 1px 4px 0 rgba(0,0,0,0.06)" },
+  { name: "footer",       css: "0 -1px 4px 0 rgba(0,0,0,0.06)" },
+  { name: "chip",         css: "0 0 2.5px 0 rgba(0,0,0,0.10)" },
+  { name: "card-dark",    css: "0 0 20px 0 #000000" },
+  { name: "profile-glow", css: "0 0 4px 0 rgba(255,255,255,0.25)" },
+];
+
+const breakpoints = [
+  { name: "sm", px: 376, note: "Mobile · Figma source viewport" },
+  { name: "md", px: 768, note: "Tablet" },
+  { name: "lg", px: 1024, note: "Desktop small" },
+  { name: "xl", px: 1440, note: "Desktop large" },
+];
+
+const sizes = [
+  { name: "app-width",   px: 376, note: "App shell · 37 hits" },
+  { name: "card",        px: 328, note: "Standard card" },
+  { name: "card-row",    px: 336 },
+  { name: "card-wide",   px: 360 },
+  { name: "card-report", px: 304 },
+  { name: "input-row",   px: 320 },
+  { name: "btn-md",      px: 130 },
+  { name: "btn-lg",      px: 150 },
+  { name: "btn-xl",      px: 280 },
+  { name: "btn-height",  px: 36 },
+  { name: "header",      px: 50 },
+  { name: "footer",      px: 66 },
+];
+
+/* ----------------------------------------------------------------------------
+   Page
+   ---------------------------------------------------------------------------- */
+
+export default function Page() {
+  const [copied, setCopied] = useState<string | null>(null);
+  function copy(value: string) {
+    navigator.clipboard?.writeText(value);
+    setCopied(value);
+    setTimeout(() => setCopied((c) => (c === value ? null : c)), 1200);
+  }
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
-      <div className="fixed right-4 top-4 z-40">
+    <main className="mx-auto max-w-5xl px-6 py-12">
+      <div className="fixed right-4 top-4 z-50">
         <ThemeToggle />
       </div>
+
       <header className="mb-12">
-        <Text size="xs" weight="medium" color="muted" className="uppercase tracking-widest">
-          Udvash–Unmesh
-        </Text>
-        <Text as="h1" size="3xl" weight="semibold" className="mt-2">
-          Design System — V2
-        </Text>
-        <Text color="muted" className="mt-3">
-          79 components live — 30 atoms + 22 molecules + 7 organisms + 20 cards.
-          README target reached. Toggle the theme via the moon/sun button (top-right)
-          to verify light/dark tokens.
-        </Text>
+        <p className="text-xs font-medium uppercase tracking-widest text-muted">
+          Udvash–Unmesh · Phase 1
+        </p>
+        <h1 className="mt-2 text-display font-semibold leading-loose">
+          Design System
+        </h1>
+        <p className="mt-3 max-w-2xl text-md text-muted leading-relaxed">
+          Token catalogue extracted from the Figma file V2 page (15 representative
+          artboards, frequency-aggregated). All values below are CSS variables in{" "}
+          <code className="rounded-xs bg-subtle px-1 py-0.5 text-sm">src/app/globals.css</code>
+          {" "}and stored as a Tokens Studio JSON in{" "}
+          <code className="rounded-xs bg-subtle px-1 py-0.5 text-sm">tokens/tokens.json</code>.
+          Click any swatch to copy its hex.
+        </p>
       </header>
 
-      <Section title="Final batch — Phase 6c (ConfirmDialog / PhotoPicker / FilterPanel / AddRollCard / VideoControls)">
-        <div className="space-y-6">
-          <div className="flex flex-wrap items-center gap-3">
-            <Button onClick={() => setConfirmOpen(true)}>Open ConfirmDialog</Button>
-            <Button variant="secondary" onClick={() => setPhotoOpen(true)}>Open PhotoPicker</Button>
-            <FilterPanel
-              groups={[
-                {
-                  id: "subject",
-                  label: "Subject",
-                  options: [
-                    { value: "physics", label: "Physics" },
-                    { value: "chemistry", label: "Chemistry" },
-                    { value: "math", label: "Math" },
-                    { value: "biology", label: "Biology" },
-                  ],
-                },
-                {
-                  id: "type",
-                  label: "Type",
-                  options: [
-                    { value: "live", label: "Live class" },
-                    { value: "past", label: "Past class" },
-                    { value: "exam", label: "Exam" },
-                  ],
-                },
-              ]}
-              defaultValue={{ subject: ["physics"], type: ["live"] }}
-            />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <AddRollCard onSubmit={() => {}} />
-            <div className="rounded-md bg-gray-900 p-3">
-              <VideoControls
-                playing={videoPlaying}
-                currentTime={videoTime}
-                duration={4680}
-                volume={0.7}
-                onPlayPause={() => setVideoPlaying((p) => !p)}
-                onSeek={setVideoTime}
-                onToggleMute={() => {}}
-                onPlaybackRateChange={() => {}}
-                onToggleFullscreen={() => {}}
-              />
-            </div>
-          </div>
-        </div>
-        <ConfirmDialog
-          open={confirmOpen}
-          onClose={() => setConfirmOpen(false)}
-          onConfirm={() => setConfirmOpen(false)}
-          tone="destructive"
-          title="Delete saved notes?"
-          description="This will permanently remove the saved notes from your device."
-          confirmLabel="Delete"
-        />
-        <PhotoPicker
-          open={photoOpen}
-          onClose={() => setPhotoOpen(false)}
-          onPick={() => setPhotoOpen(false)}
-          allowRemove
-        />
+      {/* COLORS — primitive ramps */}
+      <Section title="Colors — Primitives">
+        <SubSection title="Brand">
+          <SwatchGrid swatches={brandPalette} onCopy={copy} copied={copied} />
+        </SubSection>
+        <SubSection title="Grey">
+          <SwatchGrid swatches={greyPalette} onCopy={copy} copied={copied} />
+        </SubSection>
+        {statusPalettes.map((s) => (
+          <SubSection title={s.title} key={s.title}>
+            <SwatchGrid swatches={s.rows} onCopy={copy} copied={copied} />
+          </SubSection>
+        ))}
+        <SubSection title="Accent">
+          <SwatchGrid swatches={accentPalette} onCopy={copy} copied={copied} />
+        </SubSection>
       </Section>
 
-      <Section title="Result Indicators — Phase 6b (ScoreLetter / ScoreGauge / StarRating / MCQRow / TotalRow / PositionLabel / MeritRankings)">
-        <div className="space-y-6">
-          <div>
-            <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
-              ScoreLetter — letter grade chip
-            </Text>
-            <div className="flex flex-wrap items-center gap-2">
-              {(["A+", "A", "A-", "B", "C", "D", "F"] as const).map((g) => (
-                <ScoreLetter key={g} grade={g} />
-              ))}
-            </div>
-          </div>
-          <div>
-            <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
-              ScoreGauge — circular score ring
-            </Text>
-            <div className="flex flex-wrap items-center gap-4">
-              <ScoreGauge value={92} label="Physics" />
-              <ScoreGauge value={68} label="Chemistry" />
-              <ScoreGauge value={48} label="Math" />
-              <ScoreGauge value={22} label="Biology" />
-            </div>
-          </div>
-          <div>
-            <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
-              StarRating
-            </Text>
-            <div className="flex items-center gap-6">
-              <StarRating value={4} readOnly />
-              <StarRating defaultValue={3} />
-            </div>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
-                MCQRow + TotalRow — answer sheet
-              </Text>
-              <div className="space-y-1">
-                {Array.from({ length: 5 }).map((_, i) => {
-                  const v = i % 3 === 0 ? "correct" : i % 3 === 1 ? "wrong" : "skipped";
-                  return (
-                    <MCQRow
-                      key={i}
-                      questionNo={i + 1}
-                      yourAnswer={v === "skipped" ? undefined : "B"}
-                      correctAnswer="C"
-                      verdict={v as "correct" | "wrong" | "skipped"}
-                    />
-                  );
-                })}
-                <div className="my-2 h-px bg-line-subtle" />
-                <TotalRow label="Correct" value={38} emphasis="success" />
-                <TotalRow label="Wrong" value={5} emphasis="error" />
-                <TotalRow label="Total" value="85/100" emphasis="brand" />
-              </div>
-            </div>
-            <div>
-              <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
-                PositionLabel + MeritRankings
-              </Text>
-              <div className="mb-3 flex flex-col items-start gap-1">
-                <PositionLabel position={1} total={240} />
-                <PositionLabel position={2} total={240} />
-                <PositionLabel position={3} total={240} />
-                <PositionLabel position={12} total={240} />
-              </div>
-              <MeritRankings
-                rows={[
-                  { position: 1, name: "Tasnia Akter", score: 96 },
-                  { position: 2, name: "Sazid Ahmed", score: 94 },
-                  { position: 3, name: "Miraz Hossain", score: 91 },
-                  { position: 4, name: "Riya Sultana", score: 88 },
-                  { position: 12, name: "Asif Mahmood Ripon", score: 76, isCurrentUser: true },
-                ]}
+      {/* COLORS — semantic (auto-themed) */}
+      <Section title="Colors — Semantic (active theme)">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          {semanticLight.map((s) => (
+            <div
+              key={s.name}
+              className="rounded-sm border border-default bg-surface p-3 shadow-chip"
+            >
+              <div
+                className="mb-2 h-10 rounded-xs border border-default"
+                style={{ background: s.var }}
               />
+              <div className="text-xs font-medium text-primary">{s.name}</div>
+              <div className="text-xs font-mono text-muted">{s.var}</div>
             </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section title="Form Inputs — Phase 6a (PasswordInput / PhoneInput / OTPInput / ImageUpload / Slider)">
-        <div className="space-y-6">
-          <div className="max-w-sm space-y-3">
-            <Text size="xs" color="muted" className="uppercase tracking-widest">
-              PasswordInput
-            </Text>
-            <PasswordInput placeholder="Enter your password" defaultValue="secret123" />
-          </div>
-          <div className="max-w-sm space-y-3">
-            <Text size="xs" color="muted" className="uppercase tracking-widest">
-              PhoneInput
-            </Text>
-            <PhoneInput defaultValue="1713787805" />
-          </div>
-          <div>
-            <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
-              OTPInput (4 + 6 digit)
-            </Text>
-            <div className="flex flex-wrap items-center gap-6">
-              <OTPInput length={4} defaultValue="1234" />
-              <OTPInput length={6} />
-            </div>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
-                ImageUpload
-              </Text>
-              <ImageUpload label="Upload student photo" maxSizeBytes={5 * 1024 * 1024} />
-            </div>
-            <div className="space-y-4">
-              <Text size="xs" color="muted" className="uppercase tracking-widest">
-                Slider
-              </Text>
-              <Slider defaultValue={45} showValue label="Brightness" formatValue={(n) => `${n}%`} />
-              <Slider defaultValue={1.25} min={0.5} max={2} step={0.25} showValue label="Playback speed" formatValue={(v) => `${v.toFixed(2)}x`} />
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section title="Master Cards — Phase 5 (Analysis / QnA / AddCourse / Community / Download)">
-        <div className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <AnalysisBlockCard
-              heading="Exam Analysis"
-              subject="Physics"
-              totalScore={72}
-              maxScore={100}
-              stats={[
-                { label: "Correct", value: 36, tone: "success" },
-                { label: "Wrong", value: 8, tone: "error" },
-                { label: "Skipped", value: 6 },
-                { label: "Accuracy", value: "81%", tone: "brand" },
-              ]}
-              insight="You're spending too long on Chapter 3. Try the 90-second practice drill."
-            />
-            <QnACard
-              subject="Physics"
-              question="Why does the period of a pendulum not depend on its mass? I'm confused about the derivation."
-              author={{ name: "Tasnia Akter" }}
-              postedAt="2 hours ago"
-              answersCount={4}
-              upvotes={7}
-              hasAcceptedAnswer
-              onOpen={() => {}}
-              onUpvote={() => {}}
-            />
-          </div>
-          <div className="grid gap-3">
-            <AnalysisSolutionCard
-              questionNo={1}
-              question="A 2 kg block slides on a frictionless surface at 5 m/s. What is its kinetic energy?"
-              yourAnswer="25 J"
-              correctAnswer="25 J"
-              verdict="correct"
-              marksAwarded={2}
-              marksAvailable={2}
-              onExplain={() => {}}
-            />
-            <AnalysisSolutionCard
-              questionNo={2}
-              question="Find the resultant of three vectors A=3i, B=4j, C=5k."
-              yourAnswer="7"
-              correctAnswer="√50 ≈ 7.07"
-              verdict="wrong"
-              marksAwarded={0}
-              marksAvailable={3}
-              onExplain={() => {}}
-            />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="flex flex-col gap-2">
-              <AddCourseCard
-                variant="with-price"
-                title="Physics — full chapter pack"
-                meta="20 chapters · 12h video"
-                priceTaka={2400}
-                selected
-                onToggle={() => {}}
-              />
-              <AddCourseCard
-                variant="with-price"
-                title="Chemistry add-on"
-                meta="weekly Q&A"
-                priceTaka={1200}
-                onToggle={() => {}}
-              />
-              <AddCourseCard variant="total" title="Total amount" priceTaka={3600} />
-            </div>
-            <div className="flex flex-col gap-2">
-              <CommunityRowCard
-                groupName="উদ্ভাস ইঞ্জিনিয়ারিং ব্যাচ '২৫"
-                lastSender="Miraz"
-                lastMessage="নতুন পদার্থবিজ্ঞান পেপার আপলোড করা হয়েছে"
-                time="10:05"
-                unreadCount={100}
-                onClick={() => {}}
-              />
-              <CommunityRowCard
-                groupName="Physics Study Group"
-                lastSender="Sazid"
-                lastMessage="see you tomorrow at 6"
-                time="Yesterday"
-                onClick={() => {}}
-              />
-              <DownloadItemCard
-                title="Physics — Chapter 4 — Quadratic equations"
-                status="downloading"
-                progress={65}
-                fileSizeMB={145.2}
-                onAction={() => {}}
-              />
-              <DownloadItemCard
-                title="Chemistry — Organic naming"
-                status="completed"
-                meta="May 21"
-                fileSizeMB={88.4}
-                onAction={() => {}}
-              />
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section title="Master Cards — Phase 4 (Profile / HomeGrid / SubjectWise / ServiceBlocked)">
-        <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-2">
-            <HomeGridCard icon="GraduationCap" title="Live Class" meta="1 Live, 2 Upcoming" tone="brand" onClick={() => {}} />
-            <HomeGridCard icon="PencilLine" title="Live Exam" meta="3 Upcoming" tone="warning" onClick={() => {}} />
-            <HomeGridCard icon="Video" title="Past Class" meta="124 saved" tone="info" onClick={() => {}} />
-            <HomeGridCard icon="Newspaper" title="Announcements" notification tone="error" onClick={() => {}} />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <ProfileCard
-              name="Asif Mahmood Ripon"
-              registrationNo={1819361}
-              personalInfo={[
-                { label: "Nick Name", value: "Asif" },
-                { label: "Gender", value: "Male" },
-                { label: "Religion", value: "Islam" },
-                { label: "Group", value: "Science" },
-              ]}
-              contactInfo={[
-                { label: "Mobile", value: "8801713787805" },
-                { label: "Email", value: "asif@example.com" },
-              ]}
-              onEdit={() => {}}
-            />
-            <div className="space-y-4">
-              <SubjectWiseSummaryCard
-                subjects={[
-                  { subject: "Physics", attempted: 50, total: 50, correct: 44 },
-                  { subject: "Chemistry", attempted: 50, total: 50, correct: 33 },
-                  { subject: "Math", attempted: 50, total: 50, correct: 27 },
-                  { subject: "Biology", attempted: 50, total: 50, correct: 18 },
-                ]}
-              />
-              <ServiceBlockedCard
-                reason="payment"
-                primaryAction={{ label: "Renew now", onClick: () => {} }}
-                secondaryAction={{ label: "Contact support", onClick: () => {} }}
-              />
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section title="Master Cards — Phase 3 (CourseContent / Performance / PracticeExam / ProgramList / SolveSheet)">
-        <div className="space-y-4">
-          {/* CourseContent list */}
-          <div className="flex flex-col gap-2">
-            <CourseContentCard index={1} title="Motion in one dimension" meta="12 lessons" status="completed" />
-            <CourseContentCard index={2} title="Vectors and scalars" meta="8 lessons" status="in-progress" progress={45} />
-            <CourseContentCard index={3} title="Newton's first law" meta="6 lessons" status="available" onClick={() => {}} />
-            <CourseContentCard index={4} title="Work, energy & power" meta="Locked — finish Ch. 3" status="locked" />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <PerformanceCard
-              title="Mock Test #4 — Physics"
-              score={85}
-              maxScore={100}
-              rank={{ value: 12, total: 240 }}
-              stats={[
-                { label: "Correct", value: 38, tone: "success" },
-                { label: "Wrong", value: 7, tone: "error" },
-                { label: "Skipped", value: 5 },
-              ]}
-              trend="up"
-            />
-            <PracticeExamCard
-              subject="Biology"
-              title="Practice MCQ — Cell Division"
-              totalQuestions={40}
-              attemptedQuestions={15}
-              durationMin={30}
-              passingMarks={25}
-            />
-            <ProgramListCard
-              programName="HSC 2026 Final Preparation"
-              level="HSC 2026"
-              branch="Udvash"
-              durationMonths={6}
-              subjects={["Physics", "Chemistry", "Math", "Biology", "Bangla", "English"]}
-              priceTaka={14500}
-              startsAt="Jun 1"
-              onDetails={() => {}}
-            />
-            <SolveSheetCard
-              subject="Physics"
-              title="HSC Mock Exam #3 — full solve sheet with explanations"
-              totalQuestions={75}
-              pages={24}
-              fileSizeKB={1820}
-              uploadedAt="May 22, 2026"
-            />
-          </div>
-        </div>
-      </Section>
-
-      <Section title="Master Cards — Phase 2 (LiveClass / LiveExam / PastClass / MasterClass)">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <LiveClassCard
-            subject="Physics"
-            chapter="Chapter 7 — Newton's Laws"
-            title="Force, Mass & Acceleration — full revision"
-            teacher={{ name: "Sazid Ahmed" }}
-            scheduledAt="Today, 6:00 PM"
-            durationMin={90}
-            status="live"
-          />
-          <LiveExamCard
-            subject="Chemistry"
-            title="HSC Mock Exam — Organic Chemistry"
-            startsAt="Today, 8:00 PM"
-            durationMin={60}
-            totalMarks={50}
-            questions={25}
-            status="upcoming"
-            onCancel={() => {}}
-          />
-          <PastClassCard
-            subject="Math"
-            chapter="Chapter 4 — Quadratic Equations"
-            title="Discriminant + nature of roots — full worked examples"
-            teacher={{ name: "Miraz Hossain" }}
-            date="May 21, 2026"
-            durationMin={78}
-          />
-          <MasterClassCard
-            title="Crack HSC Physics — Mechanics in one shot"
-            description="3-hour live workshop covering 80% of HSC Mechanics questions."
-            tutor={{
-              name: "Dr. Sazid Ahmed",
-              credential: "BUET alum · 12+ years HSC coaching",
-            }}
-            scheduledAt="Sat, May 30 · 7 PM"
-            durationMin={180}
-            seatsLeft={4}
-          />
-        </div>
-      </Section>
-
-      <Section title="Atoms — Skeleton / Chip / Stat / Stepper (Phase 1)">
-        <div className="space-y-6">
-          <div>
-            <Text size="xs" color="muted" className="mb-2 uppercase tracking-widest">
-              Skeleton — loading placeholders
-            </Text>
-            <div className="flex items-start gap-4">
-              <Skeleton variant="circle" width={48} height={48} />
-              <div className="flex-1 max-w-md space-y-2">
-                <Skeleton width="60%" height={14} />
-                <Skeleton lines={3} />
-              </div>
-              <Skeleton variant="rect" width={120} height={80} />
-            </div>
-          </div>
-          <div>
-            <Text size="xs" color="muted" className="mb-2 uppercase tracking-widest">
-              Chip — selectable pills (Filter / Tab / Language)
-            </Text>
-            <div className="flex flex-wrap gap-2">
-              <Chip variant="filter" selected>Mathematics</Chip>
-              <Chip variant="filter">Physics</Chip>
-              <Chip variant="filter">Chemistry</Chip>
-              <Chip variant="tab">Live</Chip>
-              <Chip variant="tab" selected>Past</Chip>
-              <Chip variant="language" iconRight="ChevronDown">EN</Chip>
-              <Chip iconLeft="Funnel">Filters</Chip>
-            </div>
-          </div>
-          <div>
-            <Text size="xs" color="muted" className="mb-2 uppercase tracking-widest">
-              Stat — labeled metrics
-            </Text>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              <Stat icon="CircleCheck" label="Correct" value={9} tone="success" />
-              <Stat icon="CircleX" label="Wrong" value={3} tone="error" />
-              <Stat icon="Clock" label="Duration" value="45 min" tone="brand" />
-              <Stat icon="Trophy" label="Rank" value="#12" tone="warning" hint="of 240" />
-            </div>
-          </div>
-          <div>
-            <Text size="xs" color="muted" className="mb-2 uppercase tracking-widest">
-              Stepper — numeric +/- input
-            </Text>
-            <div className="flex items-center gap-4">
-              <Stepper defaultValue={1} size="sm" />
-              <Stepper defaultValue={2} size="md" />
-              <Stepper defaultValue={3} size="lg" />
-              <Stepper defaultValue={5} disabled />
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <Section title="Brand — Logo">
-        <Stack direction="row" gap={6} align="center">
-          <Logo size="sm" />
-          <Logo size="md" />
-          <Logo size="lg" />
-          <Logo size="xl" showBeta />
-        </Stack>
-      </Section>
-
-      <Section title="Atoms — Layout (Stack / Container / Grid)">
-        <Text size="xs" color="muted" className="mb-2">Stack row, gap=3, justify=between</Text>
-        <Stack direction="row" justify="between" className="mb-6 rounded-md bg-surface-subtle p-3">
-          <Badge variant="brand">A</Badge>
-          <Badge variant="brand">B</Badge>
-          <Badge variant="brand">C</Badge>
-        </Stack>
-        <Text size="xs" color="muted" className="mb-2">Grid cols=4, responsive</Text>
-        <Grid cols={4} responsive gap={3}>
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-            <Card key={n} padding="sm" variant="outlined">
-              <Text size="sm" align="center">Cell {n}</Text>
-            </Card>
           ))}
-        </Grid>
-      </Section>
-
-      <Section title="Atoms — StatusDot / IconChip / BackLink / ProgressBar">
-        <Stack direction="row" gap={4} align="center" wrap>
-          <StatusDot variant="live" pulse />
-          <StatusDot variant="success" />
-          <StatusDot variant="warning" />
-          <StatusDot variant="error" />
-          <Divider orientation="vertical" className="h-6" />
-          <IconChip name="Play" tone="brand" />
-          <IconChip name="CircleCheck" tone="success" />
-          <IconChip name="CircleX" tone="error" />
-          <IconChip name="TriangleAlert" tone="warning" />
-          <IconChip name="Settings" tone="neutral" />
-          <Divider orientation="vertical" className="h-6" />
-          <BackLink />
-        </Stack>
-        <div className="mt-6 max-w-md space-y-3">
-          <ProgressBar value={30} label="Math chapter progress" showLabel />
-          <ProgressBar value={70} variant="success" label="Physics" showLabel />
-          <ProgressBar value={45} variant="warning" label="Chemistry" showLabel />
-          <ProgressBar value={20} variant="error" label="Biology" showLabel />
         </div>
       </Section>
 
-      <Section title="Molecules — Popover / Dropdown / SegmentedControl">
-        <Stack direction="row" gap={3} wrap align="start">
-          <Popover
-            trigger={(triggerProps) => (
-              <Button variant="secondary" {...triggerProps}>
-                Open Popover
-              </Button>
-            )}
-          >
-            <Stack gap={1} className="p-2 min-w-[200px]">
-              <Text weight="medium" size="sm">Popover menu</Text>
-              <Text size="xs" color="muted">Click outside or Esc to close</Text>
-            </Stack>
-          </Popover>
-          <div className="w-48">
-            <Dropdown
-              options={[
-                { value: "math", label: "Mathematics" },
-                { value: "physics", label: "Physics" },
-                { value: "chemistry", label: "Chemistry" },
-                { value: "biology", label: "Biology", disabled: true },
-              ]}
-              placeholder="Choose subject"
-            />
+      {/* TYPOGRAPHY */}
+      <Section title="Typography">
+        <SubSection title="Family">
+          <p className="text-md text-primary">
+            Inter — Latin script (318 hits across V2)
+          </p>
+          <p className="text-md text-primary">
+            Noto Sans Bengali — Bangla script: <span className="font-semibold">উদ্ভাস-উন্মেষ</span>
+          </p>
+        </SubSection>
+        <SubSection title="Size scale">
+          <div className="space-y-2">
+            {fontSizes.map((f) => (
+              <div key={f.name} className="flex items-baseline gap-4">
+                <span className="w-24 text-xs font-mono text-muted">{f.name}</span>
+                <span className="w-12 text-xs font-mono text-muted">{f.px}px</span>
+                <span style={{ fontSize: `${f.px}px` }} className="text-primary">
+                  The quick brown fox
+                </span>
+                {f.note && <span className="text-xs text-muted">· {f.note}</span>}
+              </div>
+            ))}
           </div>
-          <SegmentedControl
-            options={[
-              { value: "live", label: "Live" },
-              { value: "past", label: "Past" },
-              { value: "upcoming", label: "Upcoming" },
-            ]}
-            value={segValue}
-            onChange={setSegValue}
-          />
-        </Stack>
-      </Section>
-
-      <Section title="Molecules — Breadcrumb / Pagination">
-        <Breadcrumb
-          items={[
-            { label: "Home", href: "#" },
-            { label: "Course Content", href: "#" },
-            { label: "Physics" },
-          ]}
-          className="mb-6"
-        />
-        <Pagination page={page} pageCount={10} onChange={setPage} />
-      </Section>
-
-      <Section title="Molecules — EmptyState">
-        <Grid cols={2} responsive gap={3}>
-          <Card variant="outlined" padding="none">
-            <EmptyState
-              icon="Inbox"
-              title="No items yet"
-              description="When you have content, it'll appear here."
-            />
-          </Card>
-          <Card variant="outlined" padding="none">
-            <EmptyState
-              icon="WifiOff"
-              title="No Internet Connection"
-              description="Check your network or view offline videos."
-              action={<Button iconLeft={<Icon name="Download" size="sm" />}>View Offline</Button>}
-            />
-          </Card>
-        </Grid>
-      </Section>
-
-      <Section title="Organisms — Drawer">
-        <Button onClick={() => setDrawerOpen(true)}>Open Right Drawer</Button>
-        <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} title="Settings">
-          <Stack gap={3}>
-            <Text size="sm" color="muted">A side panel that slides in from the right.</Text>
-            <Switch label="Dark mode" />
-            <Switch label="Notifications" defaultChecked />
-          </Stack>
-        </Drawer>
-      </Section>
-
-      <Section title="Responsive — resize the browser">
-        <Text size="sm" color="muted" className="mb-4">
-          Button/Input/Text default to size=&quot;auto&quot; — they auto-scale by viewport.
-          Mobile (&lt;768px) renders sm, tablet (768+) renders md, desktop (1440+)
-          renders lg. Try resizing this window or use Chrome DevTools to switch
-          between mobile/tablet/desktop preset widths.
-        </Text>
-        <div className="rounded-md border border-line-subtle bg-surface-subtle p-4">
-          <Text size="xs" color="muted" className="mb-2 uppercase tracking-widest">
-            Auto-scaling Button + Input
-          </Text>
-          <div className="flex flex-wrap items-center gap-3">
-            <Button>Auto Button</Button>
-            <Button variant="secondary">Auto Secondary</Button>
-            <Input className="max-w-xs" placeholder="Auto Input" />
+        </SubSection>
+        <SubSection title="Weight scale">
+          <div className="space-y-2">
+            {fontWeights.map((w) => (
+              <div key={w.name} className="flex items-baseline gap-4">
+                <span className="w-24 text-xs font-mono text-muted">{w.name}</span>
+                <span className="w-12 text-xs font-mono text-muted">{w.weight}</span>
+                <span style={{ fontWeight: w.weight }} className="text-md text-primary">
+                  The quick brown fox jumps
+                </span>
+                {w.note && <span className="text-xs text-muted">· {w.note}</span>}
+              </div>
+            ))}
           </div>
-          <Text size="xs" color="muted" className="mt-4 mb-2 uppercase tracking-widest">
-            Responsive heading (size=&quot;3xl&quot; responsive)
-          </Text>
-          <Text size="3xl" weight="semibold" responsive>
-            Heading scales with viewport
-          </Text>
-          <Text size="xs" color="muted" className="mt-4 mb-2 uppercase tracking-widest">
-            Fixed sizes (size=&quot;md&quot;, size=&quot;lg&quot;) — same on all viewports
-          </Text>
-          <div className="flex flex-wrap items-center gap-3">
-            <Button size="md">Fixed md</Button>
-            <Button size="lg">Fixed lg</Button>
-          </div>
+        </SubSection>
+      </Section>
+
+      {/* RADIUS */}
+      <Section title="Radius">
+        <div className="flex flex-wrap gap-6">
+          {radii.map((r) => {
+            const size = r.render ?? Math.max(48, Math.min(80, r.px));
+            return (
+              <div key={r.name} className="flex flex-col items-center gap-2">
+                <div
+                  className="border border-brand bg-brand-subtle"
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: `${Math.min(r.px, size)}px`,
+                  }}
+                />
+                <div className="text-xs font-mono text-primary">{r.name}</div>
+                <div className="text-xs text-muted">{r.px}px</div>
+                {r.note && <div className="text-xs text-muted">{r.note}</div>}
+              </div>
+            );
+          })}
         </div>
       </Section>
 
-      <Section title="Atoms — Text">
+      {/* SPACING */}
+      <Section title="Spacing scale">
         <div className="space-y-2">
-          <Text size="3xl" weight="semibold">Heading 3xl</Text>
-          <Text size="xl" weight="medium">Heading xl</Text>
-          <Text size="lg">Body lg — 16px</Text>
-          <Text size="md">Body md — 14px (default)</Text>
-          <Text bangla size="lg">উদ্ভাস-উন্মেষ — Bangla via Hind Siliguri</Text>
-        </div>
-      </Section>
-
-      <Section title="Atoms — Button / Input">
-        <div className="flex flex-wrap gap-3">
-          <Button variant="primary">Primary</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="ghost">Ghost</Button>
-          <Button variant="destructive">Destructive</Button>
-          <Button disabled>Disabled</Button>
-          <Button loading>Loading</Button>
-        </div>
-        <div className="mt-3 max-w-sm space-y-3">
-          <Input placeholder="Enter Your Registration Number" />
-          <Input invalid defaultValue="invalid value" />
-        </div>
-      </Section>
-
-      <Section title="Atoms — Avatar / Badge / Tag">
-        <div className="flex flex-wrap items-center gap-3">
-          <Avatar name="Shawon Ahmed" />
-          <Avatar name="Shawon Ahmed" size="lg" />
-          <Avatar src="https://i.pravatar.cc/100" alt="image avatar" size="lg" />
-          <Badge variant="brand">Brand</Badge>
-          <Badge variant="error">3</Badge>
-          <Tag variant="brand">HSC 2026</Tag>
-          <Tag variant="info">Physics</Tag>
-          <Tag variant="brand" onRemove={() => {}}>Removable</Tag>
-        </div>
-      </Section>
-
-      <Section title="Atoms — Checkbox / Switch / Radio">
-        <div className="grid grid-cols-3 gap-6">
-          <div className="space-y-2">
-            <Checkbox label="Unchecked" />
-            <Checkbox label="Checked" defaultChecked />
-            <Checkbox label="Indeterminate" indeterminate />
-          </div>
-          <div className="space-y-2">
-            <Switch label="Off" />
-            <Switch label="On" defaultChecked />
-          </div>
-          <div className="space-y-2">
-            <Radio name="demo" value="a" label="Option A" defaultChecked />
-            <Radio name="demo" value="b" label="Option B" />
-          </div>
-        </div>
-      </Section>
-
-      <Section title="Atoms — Spinner / Divider">
-        <div className="flex items-center gap-6 text-brand">
-          <Spinner size="sm" /> <Spinner size="md" /> <Spinner size="lg" />
-        </div>
-        <div className="mt-6 max-w-sm">
-          <Text size="sm">Above</Text>
-          <Divider className="my-3" />
-          <Text size="sm">Below</Text>
-        </div>
-      </Section>
-
-      <Section title="Molecules — Card / SearchBar / FormField">
-        <Card className="max-w-md">
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <Avatar name="Shawon Ahmed" size="sm" />
-              <Text weight="medium">Shawon Ahmed</Text>
+          {spaces.map((s) => (
+            <div key={s.name} className="flex items-center gap-3">
+              <span className="w-10 text-xs font-mono text-muted">{s.name}</span>
+              <span className="w-12 text-xs font-mono text-muted">{s.px}px</span>
+              <div
+                className="h-3 bg-brand"
+                style={{ width: `${s.px}px` }}
+              />
             </div>
-            <Badge variant="success">Active</Badge>
-          </CardHeader>
-          <CardBody>
-            <Text size="sm" color="muted">Card with header, body, footer slots.</Text>
-          </CardBody>
-          <CardFooter>
-            <Button variant="ghost" size="sm">Cancel</Button>
-            <Button size="sm">Confirm</Button>
-          </CardFooter>
-        </Card>
-        <div className="mt-3 max-w-sm space-y-3">
-          <SearchBar placeholder="Search subjects" />
-          <FormField label="Registration Number" required>
-            <Input placeholder="Enter Your Registration Number" />
-          </FormField>
-          <FormField label="Password" error="Must be at least 8 characters">
-            <Input type="password" defaultValue="abc" />
-          </FormField>
+          ))}
         </div>
       </Section>
 
-      <Section title="Molecules — Alert / Toast / Tooltip">
-        <div className="space-y-3 max-w-md">
-          <Alert variant="info" title="Heads up">Your next live class starts at 6 PM.</Alert>
-          <Alert variant="error" title="Login failed">Invalid registration number.</Alert>
-          <Toast variant="success" title="Saved">Profile updated.</Toast>
-        </div>
-        <div className="mt-3">
-          <Tooltip content="Save your answer"><Button size="sm">Hover me</Button></Tooltip>
-        </div>
-      </Section>
-
-      <Section title="Organisms — Header / FooterMenu (mobile width 376px)">
-        <div className="mx-auto w-[376px] overflow-hidden rounded-md border border-line-subtle">
-          <Header
-            logo={<Text bangla weight="semibold">উদ্ভাস-উন্মেষ</Text>}
-            actions={[{ icon: "Bell", label: "Notifications", badge: 3 }]}
-            avatar={{ name: "Shawon Ahmed" }}
-          />
-          <div className="p-4">
-            <Text size="sm" color="muted">↑ Header (376×50, white, shadow-sm)</Text>
-            <Text size="sm" color="muted" className="mt-8">↓ FooterMenu (376×66)</Text>
-          </div>
-          <FooterMenu tabs={footerTabs} activeId={footerActive} onChange={setFooterActive} />
-        </div>
-      </Section>
-
-      <Section title="Organisms — Tabs / Accordion">
-        <Tabs
-          items={[
-            { id: "live", label: "Live" },
-            { id: "past", label: "Past" },
-            { id: "upcoming", label: "Upcoming" },
-          ]}
-          activeId={tabActive}
-          onChange={setTabActive}
-          className="mb-4"
-        />
-        <Accordion items={accordionItems} defaultOpen={["1"]} />
-      </Section>
-
-      <Section title="Organisms — Modal / Sheet">
-        <div className="flex gap-3">
-          <Button onClick={() => setModalOpen(true)}>Open Modal</Button>
-          <Button variant="secondary" onClick={() => setSheetOpen(true)}>Open Bottom Sheet</Button>
-        </div>
-        <Modal
-          open={modalOpen}
-          onClose={() => setModalOpen(false)}
-          title="Confirm logout"
-          description="You will be returned to the login screen."
-        >
-          <div className="mt-4 flex justify-end gap-2">
-            <Button variant="ghost" onClick={() => setModalOpen(false)}>Cancel</Button>
-            <Button variant="destructive" onClick={() => setModalOpen(false)}>Logout</Button>
-          </div>
-        </Modal>
-        <Sheet open={sheetOpen} onClose={() => setSheetOpen(false)} title="Filter">
-          <div className="space-y-2">
-            <Text size="sm" color="muted">Mathematics, Physics, Chemistry, Biology</Text>
-            <Checkbox label="Mathematics" />
-            <Checkbox label="Physics" defaultChecked />
-            <Checkbox label="Chemistry" />
-            <div className="flex justify-end gap-2 pt-3">
-              <Button variant="ghost" size="sm" onClick={() => setSheetOpen(false)}>Clear</Button>
-              <Button size="sm" onClick={() => setSheetOpen(false)}>Apply</Button>
+      {/* SHADOWS */}
+      <Section title="Shadows">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3">
+          {shadows.map((s) => (
+            <div key={s.name} className="flex flex-col gap-2">
+              <div
+                className="h-20 rounded-md bg-surface"
+                style={{ boxShadow: s.css }}
+              />
+              <div className="text-xs font-mono text-primary">{s.name}</div>
+              <div className="text-xs font-mono text-muted">{s.css}</div>
+              {s.note && <div className="text-xs text-muted">{s.note}</div>}
             </div>
-          </div>
-        </Sheet>
+          ))}
+        </div>
       </Section>
+
+      {/* BREAKPOINTS */}
+      <Section title="Breakpoints">
+        <div className="space-y-2">
+          {breakpoints.map((b) => (
+            <div key={b.name} className="flex items-center gap-3">
+              <span className="w-10 text-xs font-mono text-muted">{b.name}</span>
+              <span className="w-16 text-xs font-mono text-muted">{b.px}px</span>
+              <span className="text-xs text-muted">{b.note}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* SIZES */}
+      <Section title="Component sizing reference">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-3">
+          {sizes.map((s) => (
+            <div key={s.name} className="flex items-baseline gap-2">
+              <span className="font-mono text-muted">{s.name}</span>
+              <span className="font-mono text-primary">{s.px}px</span>
+              {s.note && <span className="text-xs text-muted">· {s.note}</span>}
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Z-INDEX / MOTION */}
+      <Section title="Z-index & motion">
+        <SubSection title="z-index">
+          <div className="grid grid-cols-3 gap-x-6 gap-y-1 text-sm sm:grid-cols-5">
+            {["base 0", "raised 10", "dropdown 20", "sticky 30", "drawer 40", "modal 50", "popover 60", "toast 70", "tooltip 80"].map((z) => (
+              <span key={z} className="font-mono text-muted">{z}</span>
+            ))}
+          </div>
+        </SubSection>
+        <SubSection title="duration">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm sm:grid-cols-5">
+            {["instant 0ms", "fast 120ms", "base 200ms", "slow 320ms", "slower 480ms"].map((d) => (
+              <span key={d} className="font-mono text-muted">{d}</span>
+            ))}
+          </div>
+        </SubSection>
+      </Section>
+
+      <footer className="mt-12 border-t border-default pt-6 text-xs text-muted">
+        <p>
+          Phase 2 = component library (built on top of these tokens). Phase 3 = desktop
+          website. Phase 4 = responsive (tablet + mobile). The previous component set
+          is preserved on branch <code className="rounded-xs bg-subtle px-1 py-0.5 font-mono text-sm">backup/v1-design-system</code>.
+        </p>
+      </footer>
     </main>
   );
 }
 
+/* ----------------------------------------------------------------------------
+   Helpers
+   ---------------------------------------------------------------------------- */
+
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="mb-12">
-      <Text size="xs" weight="medium" color="muted" className="mb-4 uppercase tracking-widest">
-        {title}
-      </Text>
-      {children}
+      <h2 className="mb-5 text-lg font-semibold text-primary">{title}</h2>
+      <div className="space-y-6">{children}</div>
     </section>
+  );
+}
+
+function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <h3 className="mb-3 text-xs font-medium uppercase tracking-widest text-muted">
+        {title}
+      </h3>
+      {children}
+    </div>
+  );
+}
+
+function SwatchGrid({
+  swatches,
+  onCopy,
+  copied,
+}: {
+  swatches: Array<{ name: string; value: string; note?: string }>;
+  onCopy: (v: string) => void;
+  copied: string | null;
+}) {
+  return (
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      {swatches.map((s) => (
+        <button
+          key={s.name}
+          type="button"
+          onClick={() => onCopy(s.value)}
+          className="group flex flex-col gap-2 rounded-sm border border-default bg-surface p-3 text-left shadow-chip transition-shadow hover:shadow-card focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+        >
+          <div
+            className="h-12 rounded-xs border border-default"
+            style={{ background: s.value }}
+          />
+          <div className="text-xs font-medium font-mono text-primary">{s.name}</div>
+          <div className="flex items-baseline justify-between gap-1">
+            <span className="text-xs font-mono text-muted">{s.value}</span>
+            {copied === s.value && <span className="text-xs text-success">copied</span>}
+          </div>
+          {s.note && <div className="text-xs text-muted leading-snug">{s.note}</div>}
+        </button>
+      ))}
+    </div>
   );
 }
