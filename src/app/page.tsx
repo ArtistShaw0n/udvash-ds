@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { Button, Input, Text, Icon } from "@/components";
 
 /* ============================================================================
    Phase 1 — Design System preview
@@ -245,7 +246,7 @@ export default function Page() {
 
       <header className="mb-12">
         <p className="text-xs font-medium uppercase tracking-widest text-muted">
-          Udvash–Unmesh · Phase 1
+          Udvash–Unmesh · Phase 1 + 2a
         </p>
         <h1 className="mt-2 text-display font-semibold leading-loose">
           Design System
@@ -259,6 +260,57 @@ export default function Page() {
           Click any swatch to copy its hex.
         </p>
       </header>
+
+      {/* PHASE 2a — Foundation atoms */}
+      <Section title="Phase 2a · Foundation atoms (Button / Input / Text / Icon)">
+        <SubSection title="Button — Figma node 1:4433">
+          <div className="flex flex-wrap items-center gap-3">
+            <Button>Browse</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="destructive">Delete</Button>
+            <Button loading>Loading</Button>
+            <Button disabled>Disabled</Button>
+          </div>
+          <div className="mt-3 flex items-center gap-3">
+            <Button size="sm">sm</Button>
+            <Button size="md">md · Figma</Button>
+            <Button size="lg">lg</Button>
+            <Button iconLeft={<Icon name="Plus" size="xs" />}>Add</Button>
+            <Button iconRight={<Icon name="ArrowRight" size="xs" />}>Continue</Button>
+          </div>
+        </SubSection>
+        <SubSection title="Input — Figma node 1:4360">
+          <div className="grid max-w-sm gap-2">
+            <Input placeholder="Enter Admission Roll" />
+            <Input defaultValue="1819361" />
+            <Input invalid defaultValue="bad-roll" />
+            <Input disabled defaultValue="Locked" />
+            <Input iconLeft={<Icon name="Search" size="sm" />} placeholder="Search subjects" />
+          </div>
+        </SubSection>
+        <SubSection title="Text">
+          <div className="space-y-1">
+            <Text size="display" weight="semibold">Display 26</Text>
+            <Text size="xl" weight="semibold">Heading XL 24</Text>
+            <Text size="lg" weight="semibold">Heading LG 20</Text>
+            <Text size="md">Body MD 16</Text>
+            <Text size="base">Body BASE 14 · Figma default</Text>
+            <Text size="sm" color="muted">Caption SM 12</Text>
+            <Text size="xs" color="muted">Micro XS 10</Text>
+            <Text size="lg" weight="semibold">উদ্ভাস–উন্মেষ — Bangla heading</Text>
+          </div>
+        </SubSection>
+        <SubSection title="Icon">
+          <div className="flex items-end gap-4 text-primary">
+            <Icon name="Bell" size="xs" />
+            <Icon name="Bell" size="sm" />
+            <Icon name="Bell" size="md" />
+            <Icon name="Bell" size="lg" />
+            <Icon name="Bell" size="xl" />
+          </div>
+        </SubSection>
+      </Section>
 
       {/* COLORS — primitive ramps */}
       <Section title="Colors — Primitives">

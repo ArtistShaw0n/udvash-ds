@@ -1,4 +1,4 @@
-// Component library lives here. Phase 1 (current) is design-system tokens only —
-// components ship in Phase 2. The previous component set is preserved on the
-// `backup/v1-design-system` branch.
-export {};
+// Component library — Phase 2 (in progress).
+// Tokens shipped in Phase 1 (see tokens/tokens.json + src/app/globals.css).
+// Previous (v1) component set preserved on branch `backup/v1-design-system`.
+export * from "./atoms";
