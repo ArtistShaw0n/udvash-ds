@@ -1,7 +1,19 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { Button, Input, Text, Icon } from "@/components";
+import {
+  Button,
+  Input,
+  Text,
+  Icon,
+  Stack,
+  Container,
+  Grid,
+  Divider,
+  Tag,
+  Badge,
+  Avatar,
+} from "@/components";
 
 /* ============================================================================
    Phase 1 — Design System preview
@@ -246,7 +258,7 @@ export default function Page() {
 
       <header className="mb-12">
         <p className="text-xs font-medium uppercase tracking-widest text-muted">
-          Udvash–Unmesh · Phase 1 + 2a
+          Udvash–Unmesh · Phase 1 + 2a + 2b
         </p>
         <h1 className="mt-2 text-display font-semibold leading-loose">
           Design System
@@ -260,6 +272,105 @@ export default function Page() {
           Click any swatch to copy its hex.
         </p>
       </header>
+
+      {/* PHASE 2b — Layout + Tag + Badge + Avatar */}
+      <Section title="Phase 2b · Layout / Tag / Badge / Avatar">
+        <SubSection title="Stack — flex helper">
+          <Stack direction="row" gap={3} className="rounded-sm bg-subtle p-3">
+            <span className="rounded-sm bg-brand px-3 py-1 text-onbrand">A</span>
+            <span className="rounded-sm bg-brand px-3 py-1 text-onbrand">B</span>
+            <span className="rounded-sm bg-brand px-3 py-1 text-onbrand">C</span>
+          </Stack>
+          <Stack gap={2} className="mt-3 rounded-sm bg-subtle p-3">
+            <span className="rounded-sm bg-brand-subtle px-3 py-1 text-brand">Top</span>
+            <span className="rounded-sm bg-brand-subtle px-3 py-1 text-brand">Mid</span>
+            <span className="rounded-sm bg-brand-subtle px-3 py-1 text-brand">Bottom</span>
+          </Stack>
+        </SubSection>
+
+        <SubSection title="Grid — responsive">
+          <Grid cols={4} gap={3} responsive>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+              <div key={n} className="rounded-sm bg-brand-subtle px-3 py-4 text-center text-sm font-medium text-brand">
+                Cell {n}
+              </div>
+            ))}
+          </Grid>
+        </SubSection>
+
+        <SubSection title="Container — app-width 376px (Figma viewport)">
+          <Container size="app" className="rounded-sm bg-brand-subtle p-3 text-center text-brand">
+            376px max-width container
+          </Container>
+        </SubSection>
+
+        <SubSection title="Divider">
+          <div className="space-y-3">
+            <p className="text-sm">Above default</p>
+            <Divider />
+            <p className="text-sm">Above strong</p>
+            <Divider strong />
+            <p className="text-sm">Below</p>
+            <div className="flex h-6 items-center gap-3 text-sm">
+              <span>Left</span>
+              <Divider orientation="vertical" />
+              <span>Middle</span>
+              <Divider orientation="vertical" />
+              <span>Right</span>
+            </div>
+          </div>
+        </SubSection>
+
+        <SubSection title="Tag">
+          <div className="flex flex-wrap gap-2">
+            <Tag variant="neutral">Neutral</Tag>
+            <Tag variant="brand">Brand</Tag>
+            <Tag variant="info">Physics</Tag>
+            <Tag variant="success">Completed</Tag>
+            <Tag variant="warning">In progress</Tag>
+            <Tag variant="danger">Overdue</Tag>
+          </div>
+        </SubSection>
+
+        <SubSection title="Badge">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Badge>3</Badge>
+              <Badge>{12}</Badge>
+              <Badge>{99}</Badge>
+              <Badge>{120}</Badge>
+              <Badge variant="brand">{5}</Badge>
+              <Badge variant="success">{1}</Badge>
+            </div>
+            <Divider orientation="vertical" className="h-6" />
+            <div className="flex items-center gap-2">
+              <Badge dot variant="danger" />
+              <Badge dot variant="success" />
+              <Badge dot variant="warning" />
+              <Badge dot variant="brand" />
+            </div>
+            <Divider orientation="vertical" className="h-6" />
+            <div className="relative inline-flex items-center justify-center rounded-sm bg-subtle p-2">
+              <Icon name="Bell" size="sm" />
+              <span className="absolute -right-0.5 -top-0.5">
+                <Badge>{7}</Badge>
+              </span>
+            </div>
+          </div>
+        </SubSection>
+
+        <SubSection title="Avatar">
+          <div className="flex items-end gap-3">
+            <Avatar name="Asif Mahmood" size="xs" />
+            <Avatar name="Asif Mahmood" size="sm" />
+            <Avatar name="Asif Mahmood" size="md" />
+            <Avatar name="Asif Mahmood" size="lg" />
+            <Avatar name="Asif Mahmood" size="xl" />
+            <Avatar src="https://i.pravatar.cc/200" alt="A" size="lg" />
+            <Avatar name="Asif Mahmood" shape="rounded" size="md" />
+          </div>
+        </SubSection>
+      </Section>
 
       {/* PHASE 2a — Foundation atoms */}
       <Section title="Phase 2a · Foundation atoms (Button / Input / Text / Icon)">
