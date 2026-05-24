@@ -61,6 +61,12 @@ import {
   HomeGridCard,
   SubjectWiseSummaryCard,
   ServiceBlockedCard,
+  AnalysisBlockCard,
+  AnalysisSolutionCard,
+  QnACard,
+  AddCourseCard,
+  CommunityRowCard,
+  DownloadItemCard,
   type FooterTab,
 } from "@/components";
 
@@ -99,10 +105,114 @@ export default function Home() {
           Design System — V2
         </Text>
         <Text color="muted" className="mt-3">
-          56 components live — 23 atoms + 13 molecules + 7 organisms + 13 master cards.
+          62 components live — 23 atoms + 13 molecules + 7 organisms + 19 master cards.
           Toggle the theme via the moon/sun button (top-right) to verify light/dark tokens.
         </Text>
       </header>
+
+      <Section title="Master Cards — Phase 5 (Analysis / QnA / AddCourse / Community / Download)">
+        <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <AnalysisBlockCard
+              heading="Exam Analysis"
+              subject="Physics"
+              totalScore={72}
+              maxScore={100}
+              stats={[
+                { label: "Correct", value: 36, tone: "success" },
+                { label: "Wrong", value: 8, tone: "error" },
+                { label: "Skipped", value: 6 },
+                { label: "Accuracy", value: "81%", tone: "brand" },
+              ]}
+              insight="You're spending too long on Chapter 3. Try the 90-second practice drill."
+            />
+            <QnACard
+              subject="Physics"
+              question="Why does the period of a pendulum not depend on its mass? I'm confused about the derivation."
+              author={{ name: "Tasnia Akter" }}
+              postedAt="2 hours ago"
+              answersCount={4}
+              upvotes={7}
+              hasAcceptedAnswer
+              onOpen={() => {}}
+              onUpvote={() => {}}
+            />
+          </div>
+          <div className="grid gap-3">
+            <AnalysisSolutionCard
+              questionNo={1}
+              question="A 2 kg block slides on a frictionless surface at 5 m/s. What is its kinetic energy?"
+              yourAnswer="25 J"
+              correctAnswer="25 J"
+              verdict="correct"
+              marksAwarded={2}
+              marksAvailable={2}
+              onExplain={() => {}}
+            />
+            <AnalysisSolutionCard
+              questionNo={2}
+              question="Find the resultant of three vectors A=3i, B=4j, C=5k."
+              yourAnswer="7"
+              correctAnswer="√50 ≈ 7.07"
+              verdict="wrong"
+              marksAwarded={0}
+              marksAvailable={3}
+              onExplain={() => {}}
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              <AddCourseCard
+                variant="with-price"
+                title="Physics — full chapter pack"
+                meta="20 chapters · 12h video"
+                priceTaka={2400}
+                selected
+                onToggle={() => {}}
+              />
+              <AddCourseCard
+                variant="with-price"
+                title="Chemistry add-on"
+                meta="weekly Q&A"
+                priceTaka={1200}
+                onToggle={() => {}}
+              />
+              <AddCourseCard variant="total" title="Total amount" priceTaka={3600} />
+            </div>
+            <div className="flex flex-col gap-2">
+              <CommunityRowCard
+                groupName="উদ্ভাস ইঞ্জিনিয়ারিং ব্যাচ '২৫"
+                lastSender="Miraz"
+                lastMessage="নতুন পদার্থবিজ্ঞান পেপার আপলোড করা হয়েছে"
+                time="10:05"
+                unreadCount={100}
+                onClick={() => {}}
+              />
+              <CommunityRowCard
+                groupName="Physics Study Group"
+                lastSender="Sazid"
+                lastMessage="see you tomorrow at 6"
+                time="Yesterday"
+                onClick={() => {}}
+              />
+              <DownloadItemCard
+                title="Physics — Chapter 4 — Quadratic equations"
+                status="downloading"
+                progress={65}
+                fileSizeMB={145.2}
+                onAction={() => {}}
+              />
+              <DownloadItemCard
+                title="Chemistry — Organic naming"
+                status="completed"
+                meta="May 21"
+                fileSizeMB={88.4}
+                onAction={() => {}}
+              />
+            </div>
+          </div>
+        </div>
+      </Section>
 
       <Section title="Master Cards — Phase 4 (Profile / HomeGrid / SubjectWise / ServiceBlocked)">
         <div className="space-y-4">
