@@ -78,3 +78,21 @@ export type { StepperProps, StepperSize } from "./Stepper";
 
 export { Slider } from "./Slider";
 export type { SliderProps } from "./Slider";
+
+export { ScoreLetter } from "./ScoreLetter";
+export type { ScoreLetterProps, ScoreGrade, ScoreLetterSize } from "./ScoreLetter";
+
+export { ScoreGauge } from "./ScoreGauge";
+export type { ScoreGaugeProps, ScoreGaugeSize } from "./ScoreGauge";
+
+export { StarRating } from "./StarRating";
+export type { StarRatingProps, StarRatingSize } from "./StarRating";
+
+export { MCQRow } from "./MCQRow";
+export type { MCQRowProps, MCQVerdict } from "./MCQRow";
+
+export { TotalRow } from "./TotalRow";
+export type { TotalRowProps } from "./TotalRow";
+
+export { PositionLabel } from "./PositionLabel";
+export type { PositionLabelProps } from "./PositionLabel";

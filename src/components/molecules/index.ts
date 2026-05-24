@@ -53,3 +53,6 @@ export type { OTPInputProps } from "./OTPInput";
 
 export { ImageUpload } from "./ImageUpload";
 export type { ImageUploadProps } from "./ImageUpload";
+
+export { MeritRankings } from "./MeritRankings";
+export type { MeritRankingsProps, MeritRow } from "./MeritRankings";

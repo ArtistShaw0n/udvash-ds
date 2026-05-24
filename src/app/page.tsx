@@ -72,6 +72,13 @@ import {
   OTPInput,
   ImageUpload,
   Slider,
+  ScoreLetter,
+  ScoreGauge,
+  StarRating,
+  MCQRow,
+  TotalRow,
+  PositionLabel,
+  MeritRankings,
   type FooterTab,
 } from "@/components";
 
@@ -110,10 +117,90 @@ export default function Home() {
           Design System — V2
         </Text>
         <Text color="muted" className="mt-3">
-          67 components live — 24 atoms + 17 molecules + 7 organisms + 19 master cards.
+          74 components live — 30 atoms + 18 molecules + 7 organisms + 19 master cards.
           Toggle the theme via the moon/sun button (top-right) to verify light/dark tokens.
         </Text>
       </header>
+
+      <Section title="Result Indicators — Phase 6b (ScoreLetter / ScoreGauge / StarRating / MCQRow / TotalRow / PositionLabel / MeritRankings)">
+        <div className="space-y-6">
+          <div>
+            <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
+              ScoreLetter — letter grade chip
+            </Text>
+            <div className="flex flex-wrap items-center gap-2">
+              {(["A+", "A", "A-", "B", "C", "D", "F"] as const).map((g) => (
+                <ScoreLetter key={g} grade={g} />
+              ))}
+            </div>
+          </div>
+          <div>
+            <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
+              ScoreGauge — circular score ring
+            </Text>
+            <div className="flex flex-wrap items-center gap-4">
+              <ScoreGauge value={92} label="Physics" />
+              <ScoreGauge value={68} label="Chemistry" />
+              <ScoreGauge value={48} label="Math" />
+              <ScoreGauge value={22} label="Biology" />
+            </div>
+          </div>
+          <div>
+            <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
+              StarRating
+            </Text>
+            <div className="flex items-center gap-6">
+              <StarRating value={4} readOnly />
+              <StarRating defaultValue={3} />
+            </div>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div>
+              <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
+                MCQRow + TotalRow — answer sheet
+              </Text>
+              <div className="space-y-1">
+                {Array.from({ length: 5 }).map((_, i) => {
+                  const v = i % 3 === 0 ? "correct" : i % 3 === 1 ? "wrong" : "skipped";
+                  return (
+                    <MCQRow
+                      key={i}
+                      questionNo={i + 1}
+                      yourAnswer={v === "skipped" ? undefined : "B"}
+                      correctAnswer="C"
+                      verdict={v as "correct" | "wrong" | "skipped"}
+                    />
+                  );
+                })}
+                <div className="my-2 h-px bg-line-subtle" />
+                <TotalRow label="Correct" value={38} emphasis="success" />
+                <TotalRow label="Wrong" value={5} emphasis="error" />
+                <TotalRow label="Total" value="85/100" emphasis="brand" />
+              </div>
+            </div>
+            <div>
+              <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
+                PositionLabel + MeritRankings
+              </Text>
+              <div className="mb-3 flex flex-col items-start gap-1">
+                <PositionLabel position={1} total={240} />
+                <PositionLabel position={2} total={240} />
+                <PositionLabel position={3} total={240} />
+                <PositionLabel position={12} total={240} />
+              </div>
+              <MeritRankings
+                rows={[
+                  { position: 1, name: "Tasnia Akter", score: 96 },
+                  { position: 2, name: "Sazid Ahmed", score: 94 },
+                  { position: 3, name: "Miraz Hossain", score: 91 },
+                  { position: 4, name: "Riya Sultana", score: 88 },
+                  { position: 12, name: "Asif Mahmood Ripon", score: 76, isCurrentUser: true },
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+      </Section>
 
       <Section title="Form Inputs — Phase 6a (PasswordInput / PhoneInput / OTPInput / ImageUpload / Slider)">
         <div className="space-y-6">
