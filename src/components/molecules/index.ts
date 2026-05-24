@@ -41,3 +41,15 @@ export type { PaginationProps } from "./Pagination";
 
 export { EmptyState } from "./EmptyState";
 export type { EmptyStateProps } from "./EmptyState";
+
+export { PasswordInput } from "./PasswordInput";
+export type { PasswordInputProps } from "./PasswordInput";
+
+export { PhoneInput } from "./PhoneInput";
+export type { PhoneInputProps, CountryCode } from "./PhoneInput";
+
+export { OTPInput } from "./OTPInput";
+export type { OTPInputProps } from "./OTPInput";
+
+export { ImageUpload } from "./ImageUpload";
+export type { ImageUploadProps } from "./ImageUpload";

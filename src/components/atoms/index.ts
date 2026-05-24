@@ -75,3 +75,6 @@ export type { StatProps, StatTone, StatSize } from "./Stat";
 
 export { Stepper } from "./Stepper";
 export type { StepperProps, StepperSize } from "./Stepper";
+
+export { Slider } from "./Slider";
+export type { SliderProps } from "./Slider";

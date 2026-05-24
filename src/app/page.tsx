@@ -67,6 +67,11 @@ import {
   AddCourseCard,
   CommunityRowCard,
   DownloadItemCard,
+  PasswordInput,
+  PhoneInput,
+  OTPInput,
+  ImageUpload,
+  Slider,
   type FooterTab,
 } from "@/components";
 
@@ -105,10 +110,51 @@ export default function Home() {
           Design System — V2
         </Text>
         <Text color="muted" className="mt-3">
-          62 components live — 23 atoms + 13 molecules + 7 organisms + 19 master cards.
+          67 components live — 24 atoms + 17 molecules + 7 organisms + 19 master cards.
           Toggle the theme via the moon/sun button (top-right) to verify light/dark tokens.
         </Text>
       </header>
+
+      <Section title="Form Inputs — Phase 6a (PasswordInput / PhoneInput / OTPInput / ImageUpload / Slider)">
+        <div className="space-y-6">
+          <div className="max-w-sm space-y-3">
+            <Text size="xs" color="muted" className="uppercase tracking-widest">
+              PasswordInput
+            </Text>
+            <PasswordInput placeholder="Enter your password" defaultValue="secret123" />
+          </div>
+          <div className="max-w-sm space-y-3">
+            <Text size="xs" color="muted" className="uppercase tracking-widest">
+              PhoneInput
+            </Text>
+            <PhoneInput defaultValue="1713787805" />
+          </div>
+          <div>
+            <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
+              OTPInput (4 + 6 digit)
+            </Text>
+            <div className="flex flex-wrap items-center gap-6">
+              <OTPInput length={4} defaultValue="1234" />
+              <OTPInput length={6} />
+            </div>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div>
+              <Text size="xs" color="muted" className="mb-3 uppercase tracking-widest">
+                ImageUpload
+              </Text>
+              <ImageUpload label="Upload student photo" maxSizeBytes={5 * 1024 * 1024} />
+            </div>
+            <div className="space-y-4">
+              <Text size="xs" color="muted" className="uppercase tracking-widest">
+                Slider
+              </Text>
+              <Slider defaultValue={45} showValue label="Brightness" formatValue={(n) => `${n}%`} />
+              <Slider defaultValue={1.25} min={0.5} max={2} step={0.25} showValue label="Playback speed" formatValue={(v) => `${v.toFixed(2)}x`} />
+            </div>
+          </div>
+        </div>
+      </Section>
 
       <Section title="Master Cards — Phase 5 (Analysis / QnA / AddCourse / Community / Download)">
         <div className="space-y-4">
