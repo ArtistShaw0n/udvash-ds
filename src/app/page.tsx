@@ -34,6 +34,13 @@ import {
   FooterMenu,
   Tabs,
   SegmentedControl,
+  Popover,
+  Dropdown,
+  Breadcrumb,
+  Pagination,
+  EmptyState,
+  Accordion,
+  Drawer,
   type FooterTab,
 } from "@/components";
 
@@ -279,6 +286,8 @@ export default function Page() {
   const [footerActive, setFooterActive] = useState("home");
   const [tabActive, setTabActive] = useState("live");
   const [segActive, setSegActive] = useState("live");
+  const [page, setPage] = useState(3);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   function copy(value: string) {
     navigator.clipboard?.writeText(value);
     setCopied(value);
@@ -293,7 +302,7 @@ export default function Page() {
 
       <header className="mb-12">
         <p className="text-xs font-medium uppercase tracking-widest text-muted">
-          Udvash–Unmesh · Phase 1 + 2a–2d-3
+          Udvash–Unmesh · Phase 1 + 2a–2d (complete)
         </p>
         <h1 className="mt-2 text-display font-semibold leading-loose">
           Design System
@@ -307,6 +316,89 @@ export default function Page() {
           Click any swatch to copy its hex.
         </p>
       </header>
+
+      {/* PHASE 2d-4 — Misc molecules + organisms */}
+      <Section title="Phase 2d-4 · Popover / Dropdown / Breadcrumb / Pagination / EmptyState / Accordion / Drawer">
+        <SubSection title="Popover">
+          <Popover
+            trigger={(triggerProps) => (
+              <Button variant="secondary" {...triggerProps}>Open popover</Button>
+            )}
+          >
+            <div className="p-2 text-sm">
+              <p className="font-medium">Popover content</p>
+              <p className="text-xs text-muted">Click outside or Esc to close.</p>
+            </div>
+          </Popover>
+        </SubSection>
+        <SubSection title="Dropdown — Figma node 1:4352">
+          <div className="space-y-3">
+            <Dropdown
+              options={[
+                { value: "math", label: "Mathematics" },
+                { value: "physics", label: "Physics" },
+                { value: "chemistry", label: "Chemistry" },
+                { value: "biology", label: "Biology" },
+                { value: "english", label: "English", disabled: true },
+              ]}
+              placeholder="Select a subject"
+            />
+          </div>
+        </SubSection>
+        <SubSection title="Breadcrumb">
+          <Breadcrumb
+            items={[
+              { label: "Home", href: "#" },
+              { label: "Courses", href: "#" },
+              { label: "Physics" },
+            ]}
+          />
+        </SubSection>
+        <SubSection title="Pagination">
+          <Pagination page={page} pageCount={10} onChange={setPage} />
+        </SubSection>
+        <SubSection title="EmptyState">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-md border border-border bg-surface">
+              <EmptyState
+                icon="Inbox"
+                title="No items yet"
+                description="When you have content, it'll appear here."
+              />
+            </div>
+            <div className="rounded-md border border-border bg-surface">
+              <EmptyState
+                icon="WifiOff"
+                title="No internet connection"
+                description="Check your network or view offline content."
+                action={<Button size="sm">View offline</Button>}
+              />
+            </div>
+          </div>
+        </SubSection>
+        <SubSection title="Accordion">
+          <div className="max-w-md">
+            <Accordion
+              items={[
+                { id: "1", title: "What is Udvash-Unmesh?", content: "A coaching platform for HSC students in Bangladesh." },
+                { id: "2", title: "How do live classes work?", content: "Live classes stream at scheduled times — join from the Home dashboard." },
+                { id: "3", title: "Can I download videos?", content: "Yes — past classes are available in Downloads." },
+              ]}
+              defaultOpen={["1"]}
+            />
+          </div>
+        </SubSection>
+        <SubSection title="Drawer (right side)">
+          <Button onClick={() => setDrawerOpen(true)}>Open right drawer</Button>
+          <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} title="Settings">
+            <div className="space-y-3">
+              <Switch label="Notifications" defaultChecked />
+              <Switch label="Auto-download" />
+              <Switch label="Dark mode" />
+            </div>
+          </Drawer>
+        </SubSection>
+      </Section>
 
       {/* PHASE 2d-3 — Navigation */}
       <Section title="Phase 2d-3 · Header / FooterMenu / Tabs / SegmentedControl">

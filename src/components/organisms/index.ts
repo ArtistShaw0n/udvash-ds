@@ -13,3 +13,9 @@ export type {
   SegmentedControlOption,
   SegmentedControlSize,
 } from "./SegmentedControl";
+
+export { Accordion } from "./Accordion";
+export type { AccordionProps, AccordionItemData } from "./Accordion";
+
+export { Drawer } from "./Drawer";
+export type { DrawerProps, DrawerSide, DrawerSize } from "./Drawer";
