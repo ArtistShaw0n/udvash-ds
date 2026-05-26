@@ -41,6 +41,26 @@ import {
   EmptyState,
   Accordion,
   Drawer,
+  LiveClassCard,
+  LiveExamCard,
+  PastClassCard,
+  MasterClassCard,
+  CourseContentCard,
+  PerformanceCard,
+  PracticeExamCard,
+  ProgramListCard,
+  SolveSheetCard,
+  ProfileCard,
+  HomeGridCard,
+  SubjectWiseSummaryCard,
+  ServiceBlockedCard,
+  AddRollCard,
+  AnalysisBlockCard,
+  AnalysisSolutionCard,
+  QnACard,
+  AddCourseCard,
+  CommunityRowCard,
+  DownloadItemCard,
   type FooterTab,
 } from "@/components";
 
@@ -302,7 +322,7 @@ export default function Page() {
 
       <header className="mb-12">
         <p className="text-xs font-medium uppercase tracking-widest text-muted">
-          Udvash–Unmesh · Phase 1 + 2a–2d (complete)
+          Udvash–Unmesh · Phase 1 + 2 (complete)
         </p>
         <h1 className="mt-2 text-display font-semibold leading-loose">
           Design System
@@ -316,6 +336,229 @@ export default function Page() {
           Click any swatch to copy its hex.
         </p>
       </header>
+
+      {/* PHASE 2e — Domain cards (all 20) */}
+      <Section title="Phase 2e · Domain cards (V2 Figma-referenced — 20 cards)">
+        <SubSection title="Class cards — 2e-1">
+          <div className="flex flex-wrap gap-4">
+            <LiveClassCard
+              subject="Physics"
+              title="Force, Mass & Acceleration — full revision"
+              chapter="Chapter 7 — Newton's Laws"
+              teacher={{ name: "Sazid Ahmed" }}
+              scheduledAt="Today, 6 PM"
+              durationMin={90}
+              status="live"
+            />
+            <LiveExamCard
+              subject="Chemistry"
+              title="HSC Mock Exam — Organic Chemistry"
+              startsAt="Today, 8 PM"
+              durationMin={60}
+              totalMarks={50}
+              questions={25}
+              onCancel={() => {}}
+            />
+            <PastClassCard
+              subject="Math"
+              chapter="Ch. 4 — Quadratic Equations"
+              title="Discriminant & nature of roots — worked examples"
+              teacher={{ name: "Miraz Hossain" }}
+              date="May 21, 2026"
+              durationMin={78}
+            />
+            <MasterClassCard
+              title="Crack HSC Physics — Mechanics in one shot"
+              description="3-hour live workshop covering 80% of HSC Mechanics questions."
+              tutor={{ name: "Dr. Sazid Ahmed", credential: "BUET alum · 12+ years HSC coaching" }}
+              scheduledAt="Sat, May 30 · 7 PM"
+              durationMin={180}
+              seatsLeft={4}
+            />
+          </div>
+        </SubSection>
+
+        <SubSection title="Course / Performance cards — 2e-2">
+          <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col gap-2">
+              <CourseContentCard index={1} title="Motion in one dimension" meta="12 lessons" status="completed" />
+              <CourseContentCard index={2} title="Vectors & scalars" meta="8 lessons" status="in-progress" progress={45} />
+              <CourseContentCard index={3} title="Newton's first law" meta="6 lessons" onClick={() => {}} />
+              <CourseContentCard index={4} title="Work, energy & power" meta="Locked — finish Ch. 3" status="locked" />
+            </div>
+            <PerformanceCard
+              title="Mock Test #4 — Physics"
+              score={85}
+              maxScore={100}
+              rank={{ value: 12, total: 240 }}
+              trend="up"
+              stats={[
+                { label: "Correct", value: 38, tone: "success" },
+                { label: "Wrong", value: 7, tone: "danger" },
+                { label: "Skipped", value: 5 },
+              ]}
+              onCta={() => {}}
+            />
+            <PracticeExamCard
+              subject="Biology"
+              title="Practice MCQ — Cell Division"
+              totalQuestions={40}
+              attemptedQuestions={15}
+              durationMin={30}
+              passingMarks={25}
+            />
+            <ProgramListCard
+              programName="HSC 2026 Final Preparation"
+              level="HSC 2026"
+              branch="Udvash"
+              durationMonths={6}
+              subjects={["Physics", "Chemistry", "Math", "Biology", "Bangla", "English"]}
+              priceTaka={14500}
+              startsAt="Jun 1"
+              onDetails={() => {}}
+            />
+            <SolveSheetCard
+              subject="Physics"
+              title="HSC Mock #3 — full solve sheet with explanations"
+              totalQuestions={75}
+              pages={24}
+              fileSizeKB={1820}
+              uploadedAt="May 22, 2026"
+            />
+          </div>
+        </SubSection>
+
+        <SubSection title="Profile / Home / Misc — 2e-3">
+          <div className="flex flex-wrap items-start gap-4">
+            <ProfileCard
+              name="Asif Mahmood Ripon"
+              registrationNo={1819361}
+              personalInfo={[
+                { label: "Nick", value: "Asif" },
+                { label: "Gender", value: "Male" },
+                { label: "Religion", value: "Islam" },
+                { label: "Group", value: "Science" },
+              ]}
+              contactInfo={[
+                { label: "Mobile", value: "8801713787805" },
+                { label: "Email", value: "asif@example.com" },
+              ]}
+              onEdit={() => {}}
+              onLogout={() => {}}
+            />
+            <div className="flex flex-col gap-2">
+              <div className="grid w-[368px] grid-cols-2 gap-2">
+                <HomeGridCard icon="GraduationCap" title="Live Class" meta="1 Live, 2 Upcoming" tone="danger" />
+                <HomeGridCard icon="PencilLine" title="Live Exam" meta="3 Upcoming" tone="warning" />
+                <HomeGridCard icon="Video" title="Past Class" meta="124 saved" tone="info" />
+                <HomeGridCard icon="Newspaper" title="Announcements" notification tone="brand" />
+              </div>
+              <SubjectWiseSummaryCard
+                subjects={[
+                  { subject: "Physics", attempted: 50, total: 50, correct: 44 },
+                  { subject: "Chemistry", attempted: 50, total: 50, correct: 33 },
+                  { subject: "Math", attempted: 50, total: 50, correct: 27 },
+                  { subject: "Biology", attempted: 50, total: 50, correct: 18 },
+                ]}
+              />
+              <ServiceBlockedCard
+                reason="payment"
+                primaryAction={{ label: "Renew now", onClick: () => {} }}
+                secondaryAction={{ label: "Contact support", onClick: () => {} }}
+              />
+              <AddRollCard onSubmit={() => {}} />
+            </div>
+          </div>
+        </SubSection>
+
+        <SubSection title="Content / List / Analysis — 2e-4">
+          <div className="flex flex-wrap items-start gap-4">
+            <AnalysisBlockCard
+              heading="Exam Analysis"
+              subject="Physics"
+              totalScore={72}
+              maxScore={100}
+              position={{ value: 5 }}
+              stats={[
+                { label: "Correct", value: 12, icon: "CircleCheck", tone: "success" },
+                { label: "Skipped", value: 1, icon: "CircleDashed", tone: "info" },
+                { label: "Incorrect", value: 3, icon: "CircleX", tone: "danger" },
+                { label: "Neg. Mark", value: 0.75, icon: "CircleAlert", tone: "warning" },
+              ]}
+              insight="Strong on Mechanics; review Thermodynamics next."
+            />
+            <div className="flex flex-col gap-3">
+              <AnalysisSolutionCard
+                questionNo={1}
+                question="A 2 kg block slides on a frictionless surface at 5 m/s. What is its kinetic energy?"
+                options={[
+                  { key: "A", label: "10 J" },
+                  { key: "B", label: "25 J" },
+                  { key: "C", label: "50 J" },
+                  { key: "D", label: "100 J" },
+                ]}
+                correctKey="B"
+                chosenKey="B"
+                distribution={{ A: 0.12, B: 0.74, C: 0.10, D: 0.04 }}
+                marksAwarded={2}
+                marksAvailable={2}
+                onExplain={() => {}}
+              />
+              <AnalysisSolutionCard
+                questionNo={2}
+                question="Find the resultant of three vectors A=3i, B=4j, C=5k."
+                options={[
+                  { key: "A", label: "7" },
+                  { key: "B", label: "12" },
+                  { key: "C", label: "√50 ≈ 7.07" },
+                  { key: "D", label: "5√2" },
+                ]}
+                correctKey="C"
+                chosenKey="A"
+                marksAwarded={0}
+                marksAvailable={3}
+                onExplain={() => {}}
+              />
+            </div>
+            <QnACard
+              subject="Physics"
+              question="Why does the period of a pendulum not depend on its mass? I'm confused about the derivation."
+              author={{ name: "Tasnia Akter" }}
+              postedAt="2 hours ago"
+              answersCount={4}
+              upvotes={7}
+              hasAcceptedAnswer
+              onOpen={() => {}}
+              onUpvote={() => {}}
+            />
+            <div className="flex flex-col gap-2">
+              <AddCourseCard variant="with-price" title="Physics — full chapter pack" meta="20 chapters · 12h" priceTaka={2400} selected onToggle={() => {}} />
+              <AddCourseCard variant="with-price" title="Chemistry add-on" meta="weekly Q&A" priceTaka={1200} onToggle={() => {}} />
+              <AddCourseCard variant="total" title="Total amount" priceTaka={3600} />
+            </div>
+            <div className="flex flex-col gap-2">
+              <CommunityRowCard
+                groupName="উদ্ভাস ইঞ্জিনিয়ারিং ব্যাচ '২৫"
+                lastSender="Miraz"
+                lastMessage="নতুন পদার্থবিজ্ঞান পেপার আপলোড করা হয়েছে"
+                time="10:05"
+                unreadCount={12}
+                onClick={() => {}}
+              />
+              <CommunityRowCard
+                groupName="Physics Study Group"
+                lastSender="Sazid"
+                lastMessage="see you tomorrow at 6"
+                time="Yesterday"
+                onClick={() => {}}
+              />
+              <DownloadItemCard title="Physics — Ch. 4 Quadratic equations" status="downloading" progress={65} fileSizeMB={145.2} onAction={() => {}} />
+              <DownloadItemCard title="Chemistry — Organic naming" status="completed" meta="May 21" fileSizeMB={88.4} onAction={() => {}} />
+              <DownloadItemCard title="Math — Vectors" status="failed" meta="Network error" onAction={() => {}} />
+            </div>
+          </div>
+        </SubSection>
+      </Section>
 
       {/* PHASE 2d-4 — Misc molecules + organisms */}
       <Section title="Phase 2d-4 · Popover / Dropdown / Breadcrumb / Pagination / EmptyState / Accordion / Drawer">
