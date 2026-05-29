@@ -42,6 +42,8 @@ export function LiveClassCard({
           <span className="font-['Inter',sans-serif] text-[14px] text-[#616161]">{type}</span>
           {live && (
             <span className="inline-flex items-center gap-[4px] rounded-[10px] px-[10px] py-[4px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/components/icons/live-dot.svg" alt="" aria-hidden="true" className="size-[12px]" />
               <span className="font-['Inter',sans-serif] text-[12px] font-medium text-[#ff0000]">Live Now</span>
             </span>
           )}

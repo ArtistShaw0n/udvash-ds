@@ -39,8 +39,10 @@ export function Dropdown({
           {required && <span className="text-[red]"> *</span>}
         </span>
       )}
-      <div className="flex h-[40px] w-[320px] items-center rounded-[5px] border border-[#b9b9b9] bg-white px-[10px] font-['Inter',sans-serif] text-[14px] text-[#616161]">
+      <div className="flex h-[40px] w-[320px] items-center justify-between rounded-[5px] border border-[#b9b9b9] bg-white px-[10px] font-['Inter',sans-serif] text-[14px] text-[#616161]">
         <span className="truncate">{selected?.label ?? placeholder}</span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/components/icons/dropdown-chevron.svg" alt="" aria-hidden="true" className="ml-[8px] h-[6px] w-[12px] shrink-0" />
       </div>
     </div>
   );

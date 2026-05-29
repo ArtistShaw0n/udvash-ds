@@ -17,13 +17,15 @@ export function FilterPill({ children, className }: FilterPillProps) {
   return (
     <div
       className={cn(
-        "inline-flex h-[32px] w-[103px] items-center rounded-[99px] bg-white px-[10px] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.1)]",
+        "inline-flex h-[32px] w-[103px] items-center justify-between rounded-[99px] bg-white px-[10px] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.1)]",
         className,
       )}
     >
       <span className="truncate font-['Inter',sans-serif] text-[14px] leading-[20px] tracking-[0.1px] text-[#616161]">
         {children}
       </span>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/components/icons/filter-chevron.svg" alt="" aria-hidden="true" className="ml-[8px] h-[4px] w-[8px] shrink-0" />
     </div>
   );
 }
