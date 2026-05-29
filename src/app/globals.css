@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Class-based dark variant so raw `dark:[#hex]` utilities follow the
+   `.dark` class on <html> (driven by the header theme-toggle), not the OS. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ============================================================================
    DESIGN TOKENS — Udvash-Unmesh app (Phase 1)
    ----------------------------------------------------------------------------
