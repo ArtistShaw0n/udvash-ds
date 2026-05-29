@@ -162,7 +162,6 @@ export default function Page() {
             statusNote="You haven't taken the exam yet"
           />
           <PastClassCard
-            type="Chemistry"
             title="Engineering Daily MCQ Practice Exam"
             chapter="মৌলের পর্যায়বৃত্ত ধর্ম (পর্যায়বৃত্ত ধর্ম পর্যন্ত)"
             dateTime="20 Sep, 2025 07:30 PM to 11:00 PM"
