@@ -8,6 +8,7 @@ import {
   Dropdown,
   ProgressBar,
   Tag,
+  Logo,
   Card,
   Modal,
   Header,
@@ -124,8 +125,12 @@ export default function Page() {
         </Card>
       </Section>
 
-      <Section title="Header — node 1:12014 (logo + icons = Figma assets, skipped)">
-        <Header />
+      <Section title="Logo — Figma node 1:11908 (public/components/logo/logo.svg)">
+        <Logo height={30} />
+      </Section>
+
+      <Section title="Header — node 1:12014 (right-side icons = Figma assets, skipped)">
+        <Header logo={<Logo height={28} />} />
       </Section>
 
       <Section title="FooterMenu — node 1:4435 (icons = Figma assets, skipped)">

@@ -15,3 +15,6 @@ export type { ProgressBarProps } from "./ProgressBar";
 
 export { Tag } from "./Tag";
 export type { TagProps } from "./Tag";
+
+export { Logo } from "./Logo";
+export type { LogoProps } from "./Logo";
