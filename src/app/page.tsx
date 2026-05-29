@@ -9,6 +9,7 @@ import {
   ProgressBar,
   Tag,
   FilterPill,
+  SearchBar,
   Logo,
   Modal,
   Header,
@@ -117,6 +118,10 @@ export default function Page() {
           <FilterPill>All Course</FilterPill>
           <FilterPill>All Subject</FilterPill>
         </div>
+      </Section>
+
+      <Section title="SearchBar — node 1:35401">
+        <SearchBar />
       </Section>
 
       <Section title="Logo — Figma node 1:11908 (public/components/logo/logo.svg)">

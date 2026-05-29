@@ -21,3 +21,6 @@ export type { LogoProps } from "./Logo";
 
 export { FilterPill } from "./FilterPill";
 export type { FilterPillProps } from "./FilterPill";
+
+export { SearchBar } from "./SearchBar";
+export type { SearchBarProps } from "./SearchBar";
