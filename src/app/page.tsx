@@ -43,10 +43,14 @@ import {
    skipped here and will be added in Phase 2. */
 
 const footerTabs: FooterTab[] = [
+  // Home (active) glyph is a 4-part Figma composite — not a single clean SVG, deferred.
   { id: "home", label: "Home" },
-  { id: "downloads", label: "Downloads" },
-  { id: "qa", label: "Q&A" },
-  { id: "community", label: "Community" },
+  // eslint-disable-next-line @next/next/no-img-element
+  { id: "downloads", label: "Downloads", icon: <img src="/components/icons/footer-downloads.svg" alt="" className="size-[24px]" /> },
+  // eslint-disable-next-line @next/next/no-img-element
+  { id: "qa", label: "Q&A", icon: <img src="/components/icons/footer-qa.svg" alt="" className="size-[24px]" /> },
+  // eslint-disable-next-line @next/next/no-img-element
+  { id: "community", label: "Community", icon: <img src="/components/icons/footer-community.svg" alt="" className="size-[24px]" /> },
 ];
 
 export default function Page() {
