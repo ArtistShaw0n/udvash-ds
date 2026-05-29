@@ -37,22 +37,17 @@ export function DownloadItemCard({
     >
       <div className="mb-[12px] flex justify-end">
         <div className="inline-flex overflow-hidden rounded-[18px] bg-white">
-          {languages.map((lang, i) => {
-            const active = i === activeLanguage;
-            return (
-              <button
-                key={lang}
-                type="button"
-                onClick={() => onLanguageChange?.(i as 0 | 1)}
-                className={cn(
-                  "px-[14px] py-[4px] font-['Inter',sans-serif] text-[12px]",
-                  active ? "bg-[#4fa621] text-white" : "text-[#999999]",
-                )}
-              >
-                {lang}
-              </button>
-            );
-          })}
+          {languages.map((lang, i) => (
+            <button
+              key={lang}
+              type="button"
+              aria-pressed={i === activeLanguage}
+              onClick={() => onLanguageChange?.(i as 0 | 1)}
+              className="px-[14px] py-[4px] font-['Inter',sans-serif] text-[12px]"
+            >
+              {lang}
+            </button>
+          ))}
         </div>
       </div>
       <p className="font-['Inter',sans-serif] text-[16px] font-semibold text-[#616161]">{title}</p>

@@ -25,7 +25,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       className={cn(
         "inline-flex h-[36px] items-center justify-center gap-[8px] rounded-[5px] bg-[#55347b] px-[20px]",
         "font-['Inter',sans-serif] text-[14px] leading-[12px] text-white",
-        "disabled:opacity-50",
         fullWidth && "w-full",
         className,
       )}

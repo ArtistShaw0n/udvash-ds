@@ -112,7 +112,7 @@ export default function Page() {
         <div className="flex items-center gap-3">
           <Tag>বাং</Tag>
           <Tag>EN</Tag>
-          <Tag color="#55347b">Live</Tag>
+          <Tag>Live</Tag>
         </div>
       </Section>
 

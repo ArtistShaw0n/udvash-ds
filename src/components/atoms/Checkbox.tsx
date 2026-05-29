@@ -20,12 +20,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   ref,
 ) {
   return (
-    <label className="inline-flex cursor-pointer items-center gap-[8px]">
+    <label className="inline-flex items-center gap-[8px]">
       <input
         ref={ref}
         type="checkbox"
         className={cn(
-          "size-[24px] cursor-pointer appearance-none rounded-[4px] border-2 border-[#b9b9b9] bg-white",
+          "size-[24px] appearance-none rounded-[4px] border-2 border-[#b9b9b9] bg-white",
           "checked:border-[#1976d2] checked:bg-[#1976d2]",
           className,
         )}

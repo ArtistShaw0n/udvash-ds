@@ -1,24 +1,21 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
 /*
- * 1:1 from Figma V2 — node 1:4352 ("Dropdown")
+ * 1:1 from Figma V2 — node 1:4352 ("Dropdown", closed state)
  * Raw values, no semantic tokens:
  *   trigger:  bg #ffffff, border 1px #b9b9b9, h-[40px], rounded-[5px], w-[320px]
  *   text:     Inter 14px #616161 ("Select a option")
- *   chevron:  down, #616161
  *   label:    Inter 14px #616161, required asterisk red
+ * Figma shows only the closed trigger — the open option list is not in the
+ * file, so it is skipped (to be added in a later phase). The chevron glyph is
+ * a Figma SVG asset, also skipped in Phase 1.
  */
 
 export type DropdownOption = { value: string; label: React.ReactNode };
 
 export type DropdownProps = {
-  options: DropdownOption[];
+  options?: DropdownOption[];
   value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
   placeholder?: React.ReactNode;
   label?: React.ReactNode;
   required?: boolean;
@@ -27,35 +24,13 @@ export type DropdownProps = {
 
 export function Dropdown({
   options,
-  value: controlled,
-  defaultValue,
-  onChange,
+  value,
   placeholder = "Select a option",
   label,
   required,
   className,
 }: DropdownProps) {
-  const [uncontrolled, setUncontrolled] = useState(defaultValue);
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const value = controlled ?? uncontrolled;
-  const selected = options.find((o) => o.value === value);
-
-  useEffect(() => {
-    if (!open) return;
-    function onDoc(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, [open]);
-
-  function pick(v: string) {
-    if (controlled === undefined) setUncontrolled(v);
-    onChange?.(v);
-    setOpen(false);
-  }
-
+  const selected = options?.find((o) => o.value === value);
   return (
     <div className={cn("flex w-[320px] flex-col gap-[8px]", className)}>
       {label && (
@@ -64,41 +39,8 @@ export function Dropdown({
           {required && <span className="text-[red]"> *</span>}
         </span>
       )}
-      <div ref={ref} className="relative w-[320px]">
-        <button
-          type="button"
-          onClick={() => setOpen((o) => !o)}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-          className="flex h-[40px] w-[320px] items-center rounded-[5px] border border-[#b9b9b9] bg-white px-[10px] font-['Inter',sans-serif] text-[14px] text-[#616161] outline-none focus:border-[#55347b]"
-        >
-          {/* chevron glyph is a Figma SVG asset — skipped in Phase 1 */}
-          <span className="truncate">{selected?.label ?? placeholder}</span>
-        </button>
-        {open && (
-          <ul
-            role="listbox"
-            className="absolute left-0 top-[44px] z-10 max-h-[240px] w-[320px] overflow-auto rounded-[5px] border border-[#b9b9b9] bg-white py-[4px] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.1)]"
-          >
-            {options.map((opt) => (
-              <li key={opt.value}>
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={opt.value === value}
-                  onClick={() => pick(opt.value)}
-                  className={cn(
-                    "flex w-full items-center px-[10px] py-[8px] text-left font-['Inter',sans-serif] text-[14px] text-[#616161]",
-                    "hover:bg-[#f5edff]",
-                    opt.value === value && "bg-[#f5edff]",
-                  )}
-                >
-                  {opt.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className="flex h-[40px] w-[320px] items-center rounded-[5px] border border-[#b9b9b9] bg-white px-[10px] font-['Inter',sans-serif] text-[14px] text-[#616161]">
+        <span className="truncate">{selected?.label ?? placeholder}</span>
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         className={cn(
           "h-[40px] w-[320px] rounded-[5px] border border-[#b9b9b9] bg-white px-[10px]",
           "font-['Inter',sans-serif] text-[14px] text-[#616161] placeholder:text-[#dcdcdc]",
-          "outline-none focus:border-[#55347b]",
+          "outline-none",
           className,
         )}
         {...props}

@@ -22,7 +22,7 @@ export function AddCourseCard({ title, checked, onToggle, className }: AddCourse
   return (
     <label
       className={cn(
-        "flex w-[360px] cursor-pointer items-center gap-[8px] rounded-[5px] bg-white px-[8px] py-[10px] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.1)]",
+        "flex w-[360px] items-center gap-[8px] rounded-[5px] bg-white px-[8px] py-[10px] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.1)]",
         className,
       )}
     >
