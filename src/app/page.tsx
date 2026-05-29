@@ -1,11 +1,36 @@
 "use client";
 
-import { Button, Input, Checkbox, Dropdown, ProgressBar, Spinner, Tag } from "@/components";
+import { useState } from "react";
+import { House, Download, MessageCircleQuestionMark, Users, Bell } from "lucide-react";
+import {
+  Button,
+  Input,
+  Checkbox,
+  Dropdown,
+  ProgressBar,
+  Spinner,
+  Tag,
+  Card,
+  Modal,
+  Header,
+  FooterMenu,
+  type FooterTab,
+} from "@/components";
 
 /* Raw-value component library showcase — 1:1 from Figma V2.
    Grows batch by batch as components are rebuilt. */
 
+const footerTabs: FooterTab[] = [
+  { id: "home", label: "Home", icon: <House size={20} /> },
+  { id: "downloads", label: "Downloads", icon: <Download size={20} /> },
+  { id: "qa", label: "Q&A", icon: <MessageCircleQuestionMark size={20} /> },
+  { id: "community", label: "Community", icon: <Users size={20} /> },
+];
+
 export default function Page() {
+  const [footerActive, setFooterActive] = useState("home");
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <main className="mx-auto max-w-5xl px-6 py-12">
       <header className="mb-10">
@@ -15,7 +40,7 @@ export default function Page() {
         <h1 className="mt-2 text-[26px] font-semibold text-[#616161]">
           1:1 from Figma V2 — raw values
         </h1>
-        <p className="mt-2 text-[14px] text-[#999999]">Batch R1 — Foundation atoms (7)</p>
+        <p className="mt-2 text-[14px] text-[#999999]">Batch R1 (atoms) + R2 (structural)</p>
       </header>
 
       <Section title="Button — node 1:4433">
@@ -72,6 +97,43 @@ export default function Page() {
           <Tag>EN</Tag>
           <Tag color="#55347b">Live</Tag>
         </div>
+      </Section>
+
+      <Section title="Card — node 1:9722">
+        <Card className="w-[328px] p-[16px]">
+          <p className="font-['Inter',sans-serif] text-[16px] font-semibold text-[#616161]">Card title</p>
+          <p className="mt-1 font-['Inter',sans-serif] text-[14px] text-[#999999]">
+            bg #ffffff · rounded-[10px] · shadow 0 0 5px rgba(0,0,0,0.1)
+          </p>
+        </Card>
+      </Section>
+
+      <Section title="Header — node 1:12014">
+        <Header
+          logo={<span className="font-['Inter',sans-serif] text-[16px] font-semibold text-[#55347b]">উদ্ভাস–উন্মেষ</span>}
+          right={
+            <>
+              <Bell size={24} color="#616161" />
+              <span className="flex size-[28px] items-center justify-center rounded-full bg-[#55347b] text-[12px] text-white">AR</span>
+            </>
+          }
+        />
+      </Section>
+
+      <Section title="FooterMenu — node 1:4435">
+        <FooterMenu tabs={footerTabs} activeId={footerActive} onChange={setFooterActive} />
+      </Section>
+
+      <Section title="Modal — node 1:32594">
+        <Button onClick={() => setModalOpen(true)}>Open modal</Button>
+        <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="Revision Settings">
+          <p className="font-['Inter',sans-serif] text-[14px] text-[#616161]">
+            Modal body — bg #ffffff · rounded-[20px] · w-[328px] · scrim rgba(25,28,29,0.6) blur 4px.
+          </p>
+          <div className="mt-[16px] flex justify-center">
+            <Button onClick={() => setModalOpen(false)}>Start Revision</Button>
+          </div>
+        </Modal>
       </Section>
     </main>
   );
