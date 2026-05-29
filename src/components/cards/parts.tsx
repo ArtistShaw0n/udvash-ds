@@ -33,19 +33,21 @@ export function LiveChip() {
   );
 }
 
-// Bordered status chip: border 1px + Inter Medium 12px, colour configurable.
-// Figma: "Online"/"Live" use red #ff0000, "Practice" uses green #24c182.
+// Bordered status chip: border 1px + Inter Medium 12px.
+// Figma values only: "Online"/"Live" red #ff0000, "Practice" green #24c182.
 export function OutlineChip({
   children,
   color = "#ff0000",
 }: {
   children: React.ReactNode;
-  color?: string;
+  color?: "#ff0000" | "#24c182";
 }) {
   return (
     <span
-      className="inline-flex h-[20px] items-center rounded-[10px] border px-[10px] font-['Inter',sans-serif] text-[12px] font-medium"
-      style={{ borderColor: color, color }}
+      className={cn(
+        "inline-flex h-[20px] items-center rounded-[10px] border px-[10px] font-['Inter',sans-serif] text-[12px] font-medium",
+        color === "#24c182" ? "border-[#24c182] text-[#24c182]" : "border-[#ff0000] text-[#ff0000]",
+      )}
     >
       {children}
     </span>

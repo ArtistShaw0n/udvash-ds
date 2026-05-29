@@ -3,12 +3,13 @@
 import { cn } from "@/lib/cn";
 
 /*
- * 1:1 from Figma V2 — node 1:11095 ("Card" home tile)
+ * 1:1 from Figma V2 — node 1:11095 ("Card" home tile — "Live Class")
  * Raw values, no semantic tokens:
  *   tile:  w-[176px] h-[60px] bg #ffffff rounded-[10px] shadow 0 0 5px rgba(0,0,0,0.1)
- *   icon:  36px box, bg <accent> at 10% opacity, rounded-[5px]
+ *   icon:  36px box · bg #fc5a5a at 10% (node 1:11100, opacity-10) · rounded-[5px]
  *   title: Inter Medium 14px #616161
- *   sub:   Inter Medium 10px <accent>  (e.g. #fc5a5a)
+ *   meta:  Inter Medium 10px #fc5a5a
+ * (Other home tiles use different accents — separate Figma nodes, deferred.)
  */
 
 export type HomeGridCardProps = {
@@ -16,20 +17,11 @@ export type HomeGridCardProps = {
   icon?: React.ReactNode;
   title: string;
   meta?: string;
-  /** Accent hex used for the icon tint + meta text. Default Figma #fc5a5a. */
-  accent?: string;
   onClick?: () => void;
   className?: string;
 };
 
-export function HomeGridCard({
-  icon,
-  title,
-  meta,
-  accent = "#fc5a5a",
-  onClick,
-  className,
-}: HomeGridCardProps) {
+export function HomeGridCard({ icon, title, meta, onClick, className }: HomeGridCardProps) {
   const Tag = onClick ? "button" : "div";
   return (
     <Tag
@@ -41,8 +33,7 @@ export function HomeGridCard({
       )}
     >
       <span
-        className="flex size-[36px] shrink-0 items-center justify-center rounded-[5px]"
-        style={{ backgroundColor: `${accent}1a`, color: accent }}
+        className="flex size-[36px] shrink-0 items-center justify-center rounded-[5px] bg-[#fc5a5a1a] text-[#fc5a5a]"
         aria-hidden="true"
       >
         {icon}
@@ -52,7 +43,7 @@ export function HomeGridCard({
           {title}
         </span>
         {meta && (
-          <span className="block truncate font-['Inter',sans-serif] text-[10px] font-medium" style={{ color: accent }}>
+          <span className="block truncate font-['Inter',sans-serif] text-[10px] font-medium text-[#fc5a5a]">
             {meta}
           </span>
         )}

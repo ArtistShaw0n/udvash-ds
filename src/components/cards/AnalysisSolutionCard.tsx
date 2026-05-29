@@ -16,7 +16,6 @@ export type SolutionDist = { key: string; percent: string };
 export type AnalysisSolutionCardProps = {
   questionNo: number;
   verdict?: string;
-  verdictColor?: string;
   question: string;
   optionLines?: string[];
   choices: SolutionChoice[];
@@ -28,7 +27,6 @@ export type AnalysisSolutionCardProps = {
 export function AnalysisSolutionCard({
   questionNo,
   verdict = "Correct",
-  verdictColor = "#00ba00",
   question,
   optionLines = [],
   choices,
@@ -45,7 +43,7 @@ export function AnalysisSolutionCard({
           <span className="rounded-[5px] bg-[#f6f6f6] px-[6px] py-[2px] font-['Inter',sans-serif] text-[12px] text-[#616161]">
             Question {questionNo}
           </span>
-          <span className="font-['Inter',sans-serif] text-[12px]" style={{ color: verdictColor }}>{verdict}</span>
+          <span className="font-['Inter',sans-serif] text-[12px] text-[#00ba00]">{verdict}</span>
         </div>
 
         <p className="font-['Inter',sans-serif] text-[14px] text-[#616161]">{question}</p>
@@ -60,7 +58,7 @@ export function AnalysisSolutionCard({
             const wrong = c.state === "wrong";
             return (
               <div key={c.key} className="flex items-center gap-[8px] border-t border-[#e5e7eb] pt-[10px]">
-                <span className="font-['Inter',sans-serif] text-[14px]" style={{ color: wrong ? "#e8e8e8" : "#616161" }}>{c.key}</span>
+                <span className={`font-['Inter',sans-serif] text-[14px] ${wrong ? "text-[#e8e8e8]" : "text-[#616161]"}`}>{c.key}</span>
                 <span className="font-['Inter',sans-serif] text-[14px] text-[#616161]">{c.text}</span>
               </div>
             );

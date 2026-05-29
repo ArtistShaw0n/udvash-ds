@@ -68,8 +68,6 @@ export default function Page() {
         <div className="flex flex-wrap items-center gap-4">
           <Button>Browse</Button>
           <Button>Next</Button>
-          <Button disabled>Disabled</Button>
-          <div className="w-[280px]"><Button fullWidth>Full width</Button></div>
         </div>
       </Section>
 
@@ -101,10 +99,8 @@ export default function Page() {
       </Section>
 
       <Section title="ProgressBar — node 1:32648">
-        <div className="w-[264px] space-y-3">
-          <ProgressBar value={5} />
-          <ProgressBar value={45} />
-          <ProgressBar value={80} />
+        <div className="w-[264px]">
+          <ProgressBar />
         </div>
       </Section>
 
@@ -139,9 +135,9 @@ export default function Page() {
 
       <Section title="Modal — node 1:32594">
         <Button onClick={() => setModalOpen(true)}>Open modal</Button>
-        <Modal open={modalOpen} onClose={() => setModalOpen(false)} title="Revision Settings">
+        <Modal open={modalOpen} title="Revision Settings">
           <p className="font-['Inter',sans-serif] text-[14px] text-[#616161]">
-            Modal body — bg #ffffff · rounded-[20px] · w-[328px] · scrim rgba(25,28,29,0.6) blur 4px. (Esc / click outside to close.)
+            Modal body — bg #ffffff · rounded-[20px] · w-[328px] · scrim rgba(25,28,29,0.6) blur 4px.
           </p>
           <div className="mt-[16px] flex justify-center">
             <Button onClick={() => setModalOpen(false)}>Start Revision</Button>
@@ -206,10 +202,7 @@ export default function Page() {
       <Section title="Profile / Home / Misc — nodes 1:9714 / 1:11095 / 1:6664 / 1:4642 / 1:12549">
         <div className="flex flex-wrap items-start gap-6">
           <div className="grid w-[368px] grid-cols-2 gap-3">
-            <HomeGridCard title="Live Class" meta="1 Live, 2 Upcoming" accent="#fc5a5a" onClick={() => {}} />
-            <HomeGridCard title="Live Exam" meta="3 Upcoming" accent="#24c182" onClick={() => {}} />
-            <HomeGridCard title="Past Class" meta="124 saved" accent="#2496c1" onClick={() => {}} />
-            <HomeGridCard title="Announcements" meta="2 New" accent="#8a5ba4" onClick={() => {}} />
+            <HomeGridCard title="Live Class" meta="1 Live, 2 Upcoming" onClick={() => {}} />
           </div>
           <ProfileCard
             name="Asif Mahmood Ripon"
@@ -243,10 +236,10 @@ export default function Page() {
       <Section title="Content / Analysis — nodes 1:5045 / 1:4811 / 1:27678 / 1:16812 / 1:22623 / 1:17305">
         <div className="flex flex-wrap items-start gap-6">
           <div className="grid grid-cols-2 gap-[10px]">
-            <AnalysisBlockCard label="Correct" value="12" accent="#00ba00" />
-            <AnalysisBlockCard label="Skipped" value="1" accent="#25b7d3" />
-            <AnalysisBlockCard label="Incorrect" value="3" accent="#f95959" />
-            <AnalysisBlockCard label="Neg. Mark" value="0.75" accent="#f59e0b" />
+            <AnalysisBlockCard label="Correct" value="12" type="correct" />
+            <AnalysisBlockCard label="Skipped" value="1" type="skipped" />
+            <AnalysisBlockCard label="Incorrect" value="3" type="incorrect" />
+            <AnalysisBlockCard label="Neg. Mark" value="0.75" type="negMark" />
           </div>
           <AnalysisSolutionCard
             questionNo={1}
