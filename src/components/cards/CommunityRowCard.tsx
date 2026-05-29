@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 /*
  * 1:1 from Figma V2 — node 1:22623 (Community list row)
  * Raw values, no semantic tokens:
- *   avatar: 50px circle (#55347b), initials Inter Regular 20px #ffffff
+ *   avatar: 50px circle — fill + initials are a Figma SVG asset (node 1:22635), skipped in Phase 1
  *   name:   Inter/Noto SemiBold 14px #616161 leading-[22px]
  *   last:   Inter Regular 12px rgba(97,97,97,0.8) leading-[20px], truncated
  *   badge:  bg #00a511 · rounded-[18px] · Inter Medium 12px #ffffff
