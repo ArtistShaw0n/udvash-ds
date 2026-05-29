@@ -43,8 +43,23 @@ import {
    skipped here and will be added in Phase 2. */
 
 const footerTabs: FooterTab[] = [
-  // Home (active) glyph is a 4-part Figma composite — not a single clean SVG, deferred.
-  { id: "home", label: "Home" },
+  {
+    id: "home",
+    label: "Home",
+    // Home glyph = 4-part Figma composite (white), positioned within the 36px icon box.
+    icon: (
+      <span className="relative block size-full">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/components/icons/footer-home-1.svg" alt="" className="absolute left-[51.4%] top-[47.1%] h-[33.4%] w-[29.2%]" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/components/icons/footer-home-2.svg" alt="" className="absolute left-[51.4%] top-[19.5%] h-[24.9%] w-[29.2%]" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/components/icons/footer-home-3.svg" alt="" className="absolute left-[19.4%] top-[19.5%] h-[33.4%] w-[29.2%]" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/components/icons/footer-home-4.svg" alt="" className="absolute left-[19.4%] top-[55.6%] h-[24.9%] w-[29.2%]" />
+      </span>
+    ),
+  },
   // eslint-disable-next-line @next/next/no-img-element
   { id: "downloads", label: "Downloads", icon: <img src="/components/icons/footer-downloads.svg" alt="" className="size-[24px]" /> },
   // eslint-disable-next-line @next/next/no-img-element
@@ -137,7 +152,7 @@ export default function Page() {
         <Header logo={<Logo height={28} />} right={<img src="/components/icons/header-notification.svg" alt="" className="size-[28px]" />} />
       </Section>
 
-      <Section title="FooterMenu — node 1:4435 (icons = Figma assets, skipped)">
+      <Section title="FooterMenu — node 1:4435">
         <FooterMenu tabs={footerTabs} activeId={footerActive} onChange={setFooterActive} />
       </Section>
 
@@ -202,7 +217,7 @@ export default function Page() {
             statusNote="Exam not started yet"
           />
           <PerformanceCard title="Employee Training Program 2021 (Online)" heroSrc="/components/images/performance-hero.png" />
-          <ProgramListCard title="Engineering Admission Program (Online) 2025" />
+          <ProgramListCard title="Engineering Admission Program (Online) 2025" heroSrc="/components/images/programlist-hero.png" />
         </div>
       </Section>
 
@@ -274,6 +289,7 @@ export default function Page() {
             <AddCourseCard title="UDVASH Varsity Math Course 2025 [Offline]" onToggle={() => {}} />
             <AddCourseCard title="UDVASH Varsity Physics Course 2025 [Online]" checked onToggle={() => {}} />
             <CommunityRowCard
+              initials="AB"
               groupName="উদ্ভাস ইঞ্জিনিয়ারিং ব্যাচ'২৫ (Boys)"
               lastMessage="Miraz (Muhammad Miraz) : তুখোড় ব্..."
               time="10:05 AM"

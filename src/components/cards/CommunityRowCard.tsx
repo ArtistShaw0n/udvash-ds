@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 /*
  * 1:1 from Figma V2 — node 1:22623 (Community list row)
  * Raw values, no semantic tokens:
- *   avatar: 50px circle — fill + initials are a Figma SVG asset (node 1:22635), skipped in Phase 1
+ *   avatar: 50px #25b7d3 circle (node 1:22635) + initials Inter Regular 20px #ffffff → community-avatar.svg
  *   name:   Inter/Noto SemiBold 14px #616161 leading-[22px]
  *   last:   Inter Regular 12px rgba(97,97,97,0.8) leading-[20px], truncated
  *   badge:  bg #00a511 · rounded-[18px] · Inter Medium 12px #ffffff
@@ -14,6 +14,7 @@ import { cn } from "@/lib/cn";
  */
 
 export type CommunityRowCardProps = {
+  initials?: string;
   groupName: string;
   lastMessage: string;
   time: string;
@@ -23,6 +24,7 @@ export type CommunityRowCardProps = {
 };
 
 export function CommunityRowCard({
+  initials,
   groupName,
   lastMessage,
   time,
@@ -40,7 +42,11 @@ export function CommunityRowCard({
         className,
       )}
     >
-      {/* avatar (Oval) is a Figma asset — skipped in Phase 1 */}
+      <span className="relative inline-flex size-[50px] shrink-0 items-center justify-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/components/icons/community-avatar.svg" alt="" aria-hidden="true" className="absolute inset-0 size-full" />
+        <span className="relative font-['Inter',sans-serif] text-[20px] text-white">{initials}</span>
+      </span>
       <span className="min-w-0 flex-1">
         <span className="block truncate font-['Inter',sans-serif] text-[14px] font-semibold leading-[22px] text-[#616161]">
           {groupName}
