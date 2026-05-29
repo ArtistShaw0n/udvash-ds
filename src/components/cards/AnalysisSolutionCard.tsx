@@ -4,10 +4,10 @@
  *   card:    bg #ffffff · rounded-[5px] · shadow 0 0 4px rgba(255,255,255,0.25) · w-[360px]
  *   chip:    "Question N" bg #f6f6f6 rounded-[5px] px-[6px] py-[2px] · 12px #616161
  *   verdict: "Correct" 12px #00ba00, right
- *   q text:  Inter/Noto Regular 14px #616161
- *   choices: 20px radio + letter + text · correct green #00ba00 · wrong #e8e8e8
- *   solution band: bg #d7f7d4 · border #009819 · rounded-b-[5px] · "Solution:" 14 semibold
- *   distribution: bg #616161 · A/B/C/D percents · white 14px
+ *   choices: 20px radio circle + letter + text · answer circle + check (Figma SVGs)
+ *            answer/wrong letter #e8e8e8 · normal letter #616161
+ *   solution band: bg #d7f7d4 · border #009819 · rounded-b-[5px]
+ *   distribution: bg #616161 · 20px circle + letter + percent · white 14px
  */
 
 export type SolutionChoice = { key: string; text: string; state?: "correct" | "wrong" | "normal" };
@@ -52,14 +52,27 @@ export function AnalysisSolutionCard({
         ))}
 
         <div className="mt-[10px] flex flex-col gap-[10px]">
-          {/* radio glyphs are Figma SVG assets — skipped in Phase 1; choice state
-              is still conveyed by the letter colour (wrong = #e8e8e8) per Figma */}
           {choices.map((c) => {
-            const wrong = c.state === "wrong";
+            const highlight = c.state === "correct" || c.state === "wrong";
+            const circle = highlight
+              ? "/components/icons/solution-circle-answer.svg"
+              : "/components/icons/solution-circle.svg";
             return (
               <div key={c.key} className="flex items-center gap-[8px] border-t border-[#e5e7eb] pt-[10px]">
-                <span className={`font-['Inter',sans-serif] text-[14px] ${wrong ? "text-[#e8e8e8]" : "text-[#616161]"}`}>{c.key}</span>
+                <span className="relative inline-flex size-[20px] shrink-0 items-center justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={circle} alt="" aria-hidden="true" className="absolute inset-0 size-full" />
+                  <span
+                    className={`relative font-['Inter',sans-serif] text-[14px] ${highlight ? "text-[#e8e8e8]" : "text-[#616161]"}`}
+                  >
+                    {c.key}
+                  </span>
+                </span>
                 <span className="font-['Inter',sans-serif] text-[14px] text-[#616161]">{c.text}</span>
+                {c.state === "correct" && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src="/components/icons/solution-check.svg" alt="" aria-hidden="true" className="h-[14px] w-[15px] shrink-0" />
+                )}
               </div>
             );
           })}
@@ -77,7 +90,11 @@ export function AnalysisSolutionCard({
         <div className="flex bg-[#616161]">
           {distribution.map((d) => (
             <div key={d.key} className="flex flex-1 items-center justify-center gap-[8px] py-[8px]">
-              <span className="font-['Inter',sans-serif] text-[14px] text-white">{d.key}</span>
+              <span className="relative inline-flex size-[20px] items-center justify-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/components/icons/distribution-circle.svg" alt="" aria-hidden="true" className="absolute inset-0 size-full" />
+                <span className="relative font-['Inter',sans-serif] text-[14px] text-white">{d.key}</span>
+              </span>
               <span className="font-['Inter',sans-serif] text-[14px] text-white">{d.percent}</span>
             </div>
           ))}
