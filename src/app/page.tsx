@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { House, Download, MessageCircleQuestionMark, Users, Bell } from "lucide-react";
+import { House, Download, MessageCircleQuestionMark, Users, Bell, GraduationCap, PencilLine, Video, Newspaper } from "lucide-react";
 import {
   Button,
   Input,
@@ -23,6 +23,11 @@ import {
   PracticeExamCard,
   PerformanceCard,
   ProgramListCard,
+  HomeGridCard,
+  ServiceBlockedCard,
+  ProfileCard,
+  AddRollCard,
+  SubjectWiseSummaryCard,
   type FooterTab,
 } from "@/components";
 
@@ -49,8 +54,45 @@ export default function Page() {
         <h1 className="mt-2 text-[26px] font-semibold text-[#616161]">
           1:1 from Figma V2 — raw values
         </h1>
-        <p className="mt-2 text-[14px] text-[#999999]">Batch R1 (atoms) + R2 (structural) + R3 (class) + R4 (course/perf)</p>
+        <p className="mt-2 text-[14px] text-[#999999]">Batch R1 + R2 + R3 + R4 + R5 (profile/home/misc)</p>
       </header>
+
+      <Section title="Profile / Home / Misc — R5 (nodes 1:9714 / 1:11095 / 1:6664 / 1:4642 / 1:12549)">
+        <div className="flex flex-wrap items-start gap-6">
+          <div className="grid w-[368px] grid-cols-2 gap-3">
+            <HomeGridCard icon={<GraduationCap size={20} />} title="Live Class" meta="1 Live, 2 Upcoming" accent="#fc5a5a" onClick={() => {}} />
+            <HomeGridCard icon={<PencilLine size={20} />} title="Live Exam" meta="3 Upcoming" accent="#24c182" onClick={() => {}} />
+            <HomeGridCard icon={<Video size={20} />} title="Past Class" meta="124 saved" accent="#2496c1" onClick={() => {}} />
+            <HomeGridCard icon={<Newspaper size={20} />} title="Announcements" meta="2 New" accent="#8a5ba4" onClick={() => {}} />
+          </div>
+          <ProfileCard
+            name="Asif Mahmood Ripon"
+            registrationNo={1819361}
+            personalInfo={[
+              { label: "Nick Name", value: "Asif" },
+              { label: "Gender", value: "Male" },
+              { label: "Religion", value: "Islam" },
+              { label: "Group" },
+              { label: "Date of Birth" },
+              { label: "Father's Name" },
+              { label: "Mother's Name" },
+            ]}
+            contactInfo={[
+              { label: "Personal Mobile", value: "8801713787805" },
+              { label: "Father's Mobile" },
+              { label: "Mother's Mobile" },
+              { label: "Email" },
+            ]}
+          />
+          <SubjectWiseSummaryCard title="1. MAP Practice Exam OMR Scan" date="Mar 1, 2025" onCta={() => {}} />
+          <AddRollCard onCta={() => {}} />
+          <ServiceBlockedCard>
+            <p className="mb-0 leading-[22px]">প্রিয় Mahfuz,</p>
+            <p className="mb-0 leading-[22px]">দুঃখিত! তথ্য সঠিক না হওয়ায় তোমার আবেদনটি Reject করা হয়েছে।</p>
+            <p className="leading-[22px]">প্রয়োজনে - 09666775566</p>
+          </ServiceBlockedCard>
+        </div>
+      </Section>
 
       <Section title="Course / Performance cards — R4 (nodes 1:8406 / 1:7466 / 1:7599 / 1:6586 / 1:7406)">
         <div className="flex flex-wrap gap-6">
