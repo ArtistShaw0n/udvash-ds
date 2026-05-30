@@ -40,11 +40,16 @@ export function ProfileMenuPopup({ rollNo }: { rollNo?: string }) {
   const bubble = rollNo ? "popup-bubble-addroll" : "popup-bubble";
   return (
     <div className="absolute left-[103px] top-[43px] w-[267px]" style={{ height: 548 + shift }}>
-      {/* bubble background */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`/components/icons/${bubble}.svg`} alt="" aria-hidden="true" className="absolute inset-0 size-full dark:hidden" />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={`/components/icons/${bubble}-dark.svg`} alt="" aria-hidden="true" className="absolute inset-0 hidden size-full dark:block" />
+      {/* bubble background — the SVG carries a built-in shadow margin (4px light / 20px dark),
+          so the img bleeds out by that amount to keep the bubble shape exactly 267×(548|569). */}
+      <span className="absolute inset-[-4px] block dark:hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`/components/icons/${bubble}.svg`} alt="" aria-hidden="true" className="block size-full max-w-none" />
+      </span>
+      <span className="absolute inset-[-20px] hidden dark:block">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`/components/icons/${bubble}-dark.svg`} alt="" aria-hidden="true" className="block size-full max-w-none" />
+      </span>
 
       {/* avatar */}
       <span className="absolute left-1/2 top-[40px] block size-[59px] -translate-x-1/2">
@@ -86,8 +91,12 @@ export function ProfileMenuPopup({ rollNo }: { rollNo?: string }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/components/icons/popup-mode.svg" alt="" aria-hidden="true" className="size-[28px]" />
       </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/components/icons/popup-mode-dark.svg" alt="" aria-hidden="true" className="absolute left-[185px] hidden h-[34px] w-[66px] dark:block" style={{ top: 259 + shift }} />
+      <div className="absolute left-[185px] hidden h-[34px] w-[66px] dark:block" style={{ top: 259 + shift }}>
+        <span className="absolute inset-[-5px] block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/components/icons/popup-mode-dark.svg" alt="" aria-hidden="true" className="block size-full max-w-none" />
+        </span>
+      </div>
 
       {/* divider 2 */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
