@@ -14,6 +14,7 @@ export type PastExamCardProps = {
   title: string;
   title2Lines?: boolean;
   status: string;
+  statusColor?: string;
   dateTimeValue: string;
   duration: string;
   courseLines: [string, string];
@@ -40,6 +41,7 @@ export function PastExamCard({
   title,
   title2Lines,
   status,
+  statusColor = "red",
   dateTimeValue,
   duration,
   courseLines,
@@ -60,7 +62,7 @@ export function PastExamCard({
       <div className="absolute inset-x-0 top-0 rounded-tl-[10px] rounded-tr-[10px] bg-[#e4eaf4] dark:bg-[#2c2c2c]" style={{ height: band }} />
 
       <p className="absolute left-[20px] top-[36px] w-[288px] font-['Inter',sans-serif] text-[16px] font-semibold leading-[22px] text-[#616161] dark:text-[#e8e8e8]">{title}</p>
-      <span className="absolute right-[6px] top-[6px] flex h-[20px] items-center rounded-[10px] border border-[red] px-[10px] font-['Inter',sans-serif] text-[12px] font-medium leading-[12px] text-[red]">{status}</span>
+      <span className="absolute right-[6px] top-[6px] flex h-[20px] items-center rounded-[10px] border px-[10px] font-['Inter',sans-serif] text-[12px] font-medium leading-[12px]" style={{ borderColor: statusColor, color: statusColor }}>{status}</span>
 
       <p className={cn("absolute left-[20px]", txt)} style={{ top: band + 20 }}>Date &amp; Time</p>
       <p className={cn("absolute left-[20px] w-[288px] font-semibold leading-[20px]", txt)} style={{ top: band + 43 }}>{dateTimeValue}</p>
