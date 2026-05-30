@@ -191,10 +191,13 @@ export default function Page() {
             takeEnabled
           />
           <PastClassCard
-            title="Engineering Daily MCQ Practice Exam"
-            chapter="মৌলের পর্যায়বৃত্ত ধর্ম (পর্যায়বৃত্ত ধর্ম পর্যন্ত)"
-            dateTime="20 Sep, 2025 07:30 PM to 11:00 PM"
+            title="Engineering Daily MCQ Practice Exam Engineering Daily MCQ Practi..."
+            title2Lines
+            status="Online"
+            chapter="মৌলের পর্যায়বৃত্ত ধর্ম (পর্যায়বৃত্ত ধর্ম পর্যন্ত) [d-ব্লক মৌল এবং জটিল যৌগের সংকরায়ন]"
+            dateTimeValue="20 Sep, 2025 07:30 PM to 11:00 PM"
             courseLines={["Engineering Full Course 2025 [Online]", "Engineering Admission Program (Online) 2025"]}
+            buttons={["Video", "Notes"]}
           />
           <MasterClassCard
             type="Phy-1"
