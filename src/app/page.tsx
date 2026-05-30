@@ -217,7 +217,10 @@ export default function Page() {
           <CourseContentCard title="অধ্যায়-১ : ভৌতজগৎ ও পরিমাপ" onClick={() => {}} />
           <SolveSheetCard
             title="VAP Daily MCQ and Written Live Exam Bio-03 Part-01 and 02"
+            title2Lines
+            status="Live"
             courseLines={["Varsity 'KA' Online Exam Service", "Varsity 'KA' Admission Program 2025"]}
+            buttonLabel="View Solve Sheet"
           />
           <PracticeExamCard
             title="Engineering Daily MCQ Practice Exam"
