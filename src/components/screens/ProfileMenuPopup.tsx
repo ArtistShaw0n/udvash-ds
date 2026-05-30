@@ -70,9 +70,9 @@ export function ProfileMenuPopup({ rollNo }: { rollNo?: string }) {
 
       {/* divider 1 */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/components/icons/popup-divider.svg" alt="" aria-hidden="true" className="absolute left-[16px] w-[235px] dark:hidden" style={{ top: 175 + shift }} />
+      <img src="/components/icons/popup-divider.svg" alt="" aria-hidden="true" className="absolute left-[16px] h-px w-[235px] dark:hidden" style={{ top: 175 + shift }} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/components/icons/popup-divider-dark.svg" alt="" aria-hidden="true" className="absolute left-[16px] hidden w-[235px] dark:block" style={{ top: 175 + shift }} />
+      <img src="/components/icons/popup-divider-dark.svg" alt="" aria-hidden="true" className="absolute left-[16px] hidden h-px w-[235px] dark:block" style={{ top: 175 + shift }} />
 
       {/* Font Size */}
       <span className="absolute left-[16px] font-['Inter',sans-serif] text-[14px] capitalize text-[#616161] dark:text-[#e8e8e8]" style={{ top: 211 + shift }}>Font Size</span>
@@ -91,9 +91,9 @@ export function ProfileMenuPopup({ rollNo }: { rollNo?: string }) {
 
       {/* divider 2 */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/components/icons/popup-divider.svg" alt="" aria-hidden="true" className="absolute left-[16px] w-[235px] dark:hidden" style={{ top: 313 + shift }} />
+      <img src="/components/icons/popup-divider.svg" alt="" aria-hidden="true" className="absolute left-[16px] h-px w-[235px] dark:hidden" style={{ top: 313 + shift }} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/components/icons/popup-divider-dark.svg" alt="" aria-hidden="true" className="absolute left-[16px] hidden w-[235px] dark:block" style={{ top: 313 + shift }} />
+      <img src="/components/icons/popup-divider-dark.svg" alt="" aria-hidden="true" className="absolute left-[16px] hidden h-px w-[235px] dark:block" style={{ top: 313 + shift }} />
 
       {/* menu */}
       <MenuRow icon="popup-viewprofile" tint="#6e3f91" label="View Profile" top={333 + shift} />
